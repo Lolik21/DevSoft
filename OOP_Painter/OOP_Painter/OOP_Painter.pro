@@ -13,8 +13,10 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        oop_painter.cpp
+        oop_painter.cpp \
+    qpaintpattr.cpp
 
-HEADERS  += oop_painter.h
+HEADERS  += oop_painter.h \
+    qpaintpattr.h
 
 FORMS    += oop_painter.ui

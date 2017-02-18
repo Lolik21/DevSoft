@@ -2,6 +2,8 @@
 #define OOP_PAINTER_H
 
 #include <QMainWindow>
+#include <QGraphicsView>
+#include <QGraphicsScene>
 
 namespace Ui {
 class OOP_painter;

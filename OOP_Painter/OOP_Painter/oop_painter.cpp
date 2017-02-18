@@ -7,7 +7,7 @@ OOP_painter::OOP_painter(QWidget *parent) :
 {
     ui->setupUi(this);
     QGraphicsScene *CanvasScene;
-    ui->graphicsView->setScene(CanvasScene);
+
 
 }
 

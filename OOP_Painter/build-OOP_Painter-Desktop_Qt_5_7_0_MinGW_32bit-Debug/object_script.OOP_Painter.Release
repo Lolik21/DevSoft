@@ -1,0 +1,13 @@
+INPUT(
+./release\main.o
+./release\oop_painter.o
+./release\qpaintpattr.o
+./release\itemslist.o
+./release\myrectangle.o
+./release\myline.o
+./release\myellipse.o
+./release\myellipse.o
+./release\myline.o
+./release\myrectangle.o
+./release\moc_oop_painter.o
+);

@@ -14,9 +14,22 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         oop_painter.cpp \
-    qpaintpattr.cpp
+    qpaintpattr.cpp \
+    itemslist.cpp \
+    myrectangle.cpp \
+    myline.cpp \
+    myellipse.cpp \
+    myscene.cpp \
+    mycurveline.cpp
 
 HEADERS  += oop_painter.h \
-    qpaintpattr.h
+    qpaintpattr.h \
+    itemslist.h \
+    myrectangle.h \
+    myline.h \
+    myellipse.h \
+    myscene.h \
+    mycurveline.h
+
 
 FORMS    += oop_painter.ui

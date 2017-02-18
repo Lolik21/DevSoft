@@ -5,6 +5,12 @@
 #include <QGraphicsView>
 #include <QGraphicsScene>
 
+
+#include <myellipse.h>
+#include <myline.h>
+#include <myrectangle.h>
+#include <qpaintpattr.h>
+
 namespace Ui {
 class OOP_painter;
 }
@@ -19,6 +25,8 @@ public:
 
 private:
     Ui::OOP_painter *ui;
+    QPaintPattr *Painter;
+
 };
 
 #endif // OOP_PAINTER_H

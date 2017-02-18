@@ -1,9 +1,9 @@
 #ifndef QPAINTPATTR_H
 #define QPAINTPATTR_H
 
-#include <QBrush>;
-#include <QPen>;
-#include <QAbstractGraphicsShapeItem>;
+#include <QBrush>
+#include <QPen>
+#include <QGraphicsItemGroup>
 
 
 class QPaintPattr
@@ -13,12 +13,12 @@ public:
     void SetBrushColor(QBrush BrushColor);
     void SetPenColor(QPen PenColor);
     void SaveToFile(QString FileName);
-    void
+    void AddItem(QGraphicsItem *item);
 
 private:
     QBrush BrushColor;
     QPen PenColor;
-    QList<QAbstractGraphicsShapeItem> ItemsList;
+    QList<QGraphicsItem*> ItemsList;
 
 };
 

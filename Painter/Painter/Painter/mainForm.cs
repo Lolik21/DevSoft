@@ -15,6 +15,11 @@ namespace Painter
         private Bitmap Canvas;
         private Graphics Painter;
         private Pen MainPen;
+
+        private Line MyLine;
+        private Rectangle MyRect;
+        private Ellipse MyEllipse;
+
                     
 
 
@@ -31,6 +36,8 @@ namespace Painter
             Painter = Graphics.FromImage(Canvas);
             MainPen = new Pen(Color.Black);
 
+            MyRect = new Rectangle(200, 200, 300, 300);
+
         }
 
         private void Draw ()
@@ -38,11 +45,13 @@ namespace Painter
 
             MainPen.Width = 10;
 
-            Painter.DrawRectangle(MainPen, 100, 100, 200, 200);
+            Painter.DrawRectangle(MainPen, MyRect.x1, MyRect.y1, MyRect.x2, MyRect.y2);
 
             MainView.Image = Canvas;
             
             
         }
+
+      
     }
 }

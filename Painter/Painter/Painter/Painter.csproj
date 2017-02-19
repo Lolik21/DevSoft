@@ -46,6 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Ellipse.cs" />
+    <Compile Include="Figure.cs" />
     <Compile Include="Line.cs" />
     <Compile Include="mainForm.cs">
       <SubType>Form</SubType>

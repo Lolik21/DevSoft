@@ -12,17 +12,34 @@ namespace Painter
         protected int _x1, _x2, _y1, _y2;
         protected float _fx1, _fx2, _fy1, _fx3;
         protected Pen PenType;
-        protected Brush BrushColor;
+        protected Brush BrushType;
         protected Graphics Painter;
 
         public abstract void Draw();
 
-        public void SetPen
+        public Pen Pen
         {
-            get { return  }
+            get { return PenType }
+            set
+            {
+                if (value != null)
+                {
+                    this.PenType = value;
+                }
+            }
         }
 
-        public Pen 
+        public Brush Brush
+        {
+            get { return this.BrushType; }
+            set
+            {
+                if (value != null)
+                {
+                    this.BrushType = value;
+                }
+            }
+        }
 
 
 

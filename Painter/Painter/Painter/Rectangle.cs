@@ -11,6 +11,10 @@ namespace Painter
         
         protected int _Width, _Height;
 
+        public override void Draw()
+        {
+            Painter.DrawRectangle(PenType,x1, y1, x2, y2);
+        }
 
         public int x1
         {
@@ -51,7 +55,6 @@ namespace Painter
                 CalculateHW();
             }
         }
-
 
         private void CalculateHW()
         {

@@ -27,8 +27,8 @@ namespace Painter
 
         public override void Draw()
         {
-            
-            
+            Painter.FillRectangle(BrushType, x1, y1, _Width, _Height);
+            Painter.DrawRectangle(PenType, x1, y1, _Width, _Height);             
         }
 
         public int x1

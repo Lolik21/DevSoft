@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace Painter
 {
-    class Poligon : CurveLine
+    class FigList
     {
+        private List<Figure> Figures;
+        public void AddToList(Figure Figure)
+        {
+            Figures.Add(Figure);
+        }
     }
 }

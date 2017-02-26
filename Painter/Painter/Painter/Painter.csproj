@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="CurveLine.cs" />
     <Compile Include="Ellipse.cs" />
+    <Compile Include="FigList.cs" />
     <Compile Include="Figure.cs" />
     <Compile Include="Line.cs" />
     <Compile Include="mainForm.cs">

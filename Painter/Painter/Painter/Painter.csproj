@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CurveLine.cs" />
     <Compile Include="Ellipse.cs" />
     <Compile Include="Figure.cs" />
     <Compile Include="Line.cs" />
@@ -55,6 +56,8 @@
     <Compile Include="mainForm.Designer.cs">
       <DependentUpon>mainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="PatternFabric.cs" />
+    <Compile Include="Poligon.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rectangle.cs" />

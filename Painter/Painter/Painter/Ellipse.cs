@@ -6,7 +6,16 @@ using System.Threading.Tasks;
 
 namespace Painter
 {
-    class Ellipse
+    class Ellipse : Rectangle
     {
+        public Ellipse(int x1, int y1, int x2, int y2) : base(x1, y1, x2, y2)
+        {
+
+        }
+
+        public override void Draw()
+        {
+
+        }
     }
 }

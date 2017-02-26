@@ -59,7 +59,6 @@ body{
     font-family: arial;
     line-height:50px;
     display: block;
-
 }
 
 .CallButton{
@@ -86,10 +85,6 @@ body{
     float: left;
 }
 
-.Li-right{
-    float: right;
-}
-
 .Footer{
     background-color: #0d0d0d;
     width: 100%;
@@ -100,6 +95,7 @@ body{
 .slideShow {
     text-align: center;
 }
+
 .Footer-Text{
     color: #ffffff;
     font-size: 18px;
@@ -108,8 +104,9 @@ body{
     height: 100%;
     top: 8px;
 }
+
 .Content{
-    padding-bottom: 20px;
+    padding-bottom: 10px;
 }
 
 .GoogleMap{
@@ -148,4 +145,61 @@ body{
 
 .About{
     font-size: 18px;
+}
+
+.VerticalMenu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-radius: 10px;
+    position: absolute;
+}
+
+.VerticalMenu ul {
+    list-style: none;
+}
+
+.VerticalMenu li{
+    display: flex;
+}
+
+.VerticalMenu a{
+    -moz-transition: all 1s 0.01s ease;
+    -o-transition: all 1s 0.01s ease;
+    -webkit-transition: all 1s 0.01s ease;
+    text-decoration: none;
+    background: #0d0d0d;
+    color:#fff;
+    width: 250px;
+    display: block;
+    border: none;
+    font-family: arial;
+    line-height:60px;
+    text-align: center;
+}
+
+.VerticalMenu a:hover{
+    background-color:#474747;
+}
+
+.service-content{
+    margin-left: 260px;
+    text-align: center;
+    height: 500px;
+}
+
+.Tech-Images img{
+    width: 600px;
+    height: 400px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.Tech-Text{
+    position: absolute;
+    margin-left: 610px;
+}
+
+.Center-Header{
+    text-align: center;
 }

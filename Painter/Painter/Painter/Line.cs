@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Painter
 {
-    class Line
+    class Line : Figure
     {
         protected int x1, y1;
         protected int x2, y2;
@@ -18,7 +18,10 @@ namespace Painter
             this.y1 = y1;
             this.y2 = y2;
         }
-        
 
+        public override void Draw()
+        {
+            Painter.DrawLine(PenType, x1, y1, x2, y2);
+        }
     }
 }

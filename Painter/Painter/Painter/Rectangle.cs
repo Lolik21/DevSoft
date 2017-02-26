@@ -3,17 +3,32 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
 namespace Painter
 {
     class Rectangle : Figure
     {
-        
+        protected int _x1, _x2, _y1, _y2;
+        protected SolidBrush BrushType;
         protected int _Width, _Height;
+
+        public SolidBrush Brush
+        {
+            get { return this.BrushType; }
+            set
+            {
+                if (value != null)
+                {
+                    this.BrushType = value;
+                }
+            }
+        }
 
         public override void Draw()
         {
-            Painter.DrawRectangle(PenType,x1, y1, x2, y2);
+            
+            
         }
 
         public int x1
@@ -58,8 +73,8 @@ namespace Painter
 
         private void CalculateHW()
         {
-            this._Height = this._y1 - this._y2;
-            this._Width = this._x1 - this._x2;
+            this._Height = Math.Abs(this._y1 - this._y2);
+            this._Width = Math.Abs(this._x1 - this._x2);
         }
 
         public Rectangle(int x1, int y1, int x2, int y2)

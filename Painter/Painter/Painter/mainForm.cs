@@ -17,7 +17,7 @@ namespace Painter
         private Fabric CurrFabric = new LineFabric();
         private Pen PenColor = new Pen(Color.Black,3);
         private List<Point> points = new List<Point>();
-        private FigList FigList = new FigList();                    
+        private FigList FigList = FigList.Instanse();                    
 
 
         public mainForm()
@@ -69,6 +69,7 @@ namespace Painter
                 Figure Fig;
                 Fig = CurrFabric.GetFigure(PenColor, points);
                 Fig.Draw();
+                lvFigures.Items.Add(Fig.GetName());
                 FigList.AddToList(Fig);
             }
             else

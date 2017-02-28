@@ -19,15 +19,17 @@ namespace Painter
             this.x = x;
             this.y = y;    
         }
-
         public override void CalcPerimetr()
         {
 
         }
-
         public override void Draw()
         {
             Painter.DrawLine(Pen, x, y);    
+        }
+        public override string GetName()
+        {
+            return "Линия";
         }
     }
 }

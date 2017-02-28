@@ -8,6 +8,16 @@ namespace Painter
 {
     public class FigList
     {
+        static FigList uniqueFigList;
+        public static FigList Instanse()
+        {
+            if (uniqueFigList == null)
+            {
+                uniqueFigList = new FigList();
+            }
+            return uniqueFigList;
+        }
+
         private List<Figure> Figures;
 
         public FigList()

@@ -33,7 +33,7 @@
             this.btnDraw = new System.Windows.Forms.Button();
             this.btnPenColor = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.listView1 = new System.Windows.Forms.ListView();
+            this.lvFigures = new System.Windows.Forms.ListView();
             this.btnLine = new System.Windows.Forms.Button();
             this.btnRectangle = new System.Windows.Forms.Button();
             this.btnEllipse = new System.Windows.Forms.Button();
@@ -44,6 +44,7 @@
             this.lblPointsCount = new System.Windows.Forms.Label();
             this.lblPointsN = new System.Windows.Forms.Label();
             this.btnClearPoints = new System.Windows.Forms.Button();
+            this.ColumHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.MainView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -91,16 +92,22 @@
             this.label1.Text = "Выберите фигуру";
             this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // listView1
+            // lvFigures
             // 
-            this.listView1.Location = new System.Drawing.Point(834, 196);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(232, 402);
-            this.listView1.TabIndex = 15;
-            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.lvFigures.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.ColumHeader});
+            this.lvFigures.GridLines = true;
+            this.lvFigures.Location = new System.Drawing.Point(834, 196);
+            this.lvFigures.Name = "lvFigures";
+            this.lvFigures.Size = new System.Drawing.Size(232, 402);
+            this.lvFigures.TabIndex = 15;
+            this.lvFigures.UseCompatibleStateImageBehavior = false;
+            this.lvFigures.View = System.Windows.Forms.View.Details;
             // 
             // btnLine
             // 
+            this.btnLine.BackgroundImage = global::Painter.Properties.Resources.image;
+            this.btnLine.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnLine.Location = new System.Drawing.Point(834, 34);
             this.btnLine.Name = "btnLine";
             this.btnLine.Size = new System.Drawing.Size(43, 37);
@@ -110,6 +117,8 @@
             // 
             // btnRectangle
             // 
+            this.btnRectangle.BackgroundImage = global::Painter.Properties.Resources.Прямоугольник;
+            this.btnRectangle.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnRectangle.Location = new System.Drawing.Point(883, 34);
             this.btnRectangle.Name = "btnRectangle";
             this.btnRectangle.Size = new System.Drawing.Size(40, 37);
@@ -119,6 +128,8 @@
             // 
             // btnEllipse
             // 
+            this.btnEllipse.BackgroundImage = global::Painter.Properties.Resources.Эллипс;
+            this.btnEllipse.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnEllipse.Location = new System.Drawing.Point(929, 34);
             this.btnEllipse.Name = "btnEllipse";
             this.btnEllipse.Size = new System.Drawing.Size(43, 37);
@@ -128,6 +139,8 @@
             // 
             // btnCurveLine
             // 
+            this.btnCurveLine.BackgroundImage = global::Painter.Properties.Resources.Кривая;
+            this.btnCurveLine.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnCurveLine.Location = new System.Drawing.Point(978, 34);
             this.btnCurveLine.Name = "btnCurveLine";
             this.btnCurveLine.Size = new System.Drawing.Size(44, 37);
@@ -137,6 +150,8 @@
             // 
             // btnPoligon
             // 
+            this.btnPoligon.BackgroundImage = global::Painter.Properties.Resources.Многоугольник;
+            this.btnPoligon.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnPoligon.Location = new System.Drawing.Point(1028, 34);
             this.btnPoligon.Name = "btnPoligon";
             this.btnPoligon.Size = new System.Drawing.Size(38, 37);
@@ -192,6 +207,11 @@
             this.btnClearPoints.UseVisualStyleBackColor = true;
             this.btnClearPoints.Click += new System.EventHandler(this.btnClearPoints_Click);
             // 
+            // ColumHeader
+            // 
+            this.ColumHeader.Text = "Фигуры:";
+            this.ColumHeader.Width = 228;
+            // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -207,7 +227,7 @@
             this.Controls.Add(this.btnEllipse);
             this.Controls.Add(this.btnRectangle);
             this.Controls.Add(this.btnLine);
-            this.Controls.Add(this.listView1);
+            this.Controls.Add(this.lvFigures);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnPenColor);
             this.Controls.Add(this.btnDraw);
@@ -228,7 +248,7 @@
         private System.Windows.Forms.Button btnDraw;
         private System.Windows.Forms.Button btnPenColor;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ListView lvFigures;
         private System.Windows.Forms.Button btnLine;
         private System.Windows.Forms.Button btnRectangle;
         private System.Windows.Forms.Button btnEllipse;
@@ -239,6 +259,7 @@
         private System.Windows.Forms.Label lblPointsCount;
         private System.Windows.Forms.Label lblPointsN;
         private System.Windows.Forms.Button btnClearPoints;
+        private System.Windows.Forms.ColumnHeader ColumHeader;
     }
 }
 

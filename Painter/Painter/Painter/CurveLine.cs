@@ -9,23 +9,25 @@ namespace Painter
 {
     class CurveLine : Figure
     {
-        private Point[] PointsArr;
-        public void SetPoints(Point[] Points)
+        protected Point[] PointsArr;
+        
+        public CurveLine (Pen pen, List<Point> points)
         {
-            for (int i = 0; i< Points.Length; i++)
-            {
-                PointsArr[i] = Points[i];
-            }
+            PointsArr = new Point[points.Count];
+            PointsArr = points.ToArray();
+            this.Pen = pen;           
         }
-
         public override void CalcPerimetr()
         {
             
         }
-
         public override void Draw()
         {
-            
+            Painter.DrawCurve(Pen, PointsArr);
+        }
+        public override string GetName()
+        {
+            return "Кривая линия";
         }
     }
 }

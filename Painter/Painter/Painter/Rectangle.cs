@@ -9,70 +9,29 @@ namespace Painter
 {
     class Rectangle : Figure
     {
-        protected int _x1, _x2, _y1, _y2;
-        protected int _Width, _Height;        
+        protected int x1, y1;
+        protected int Width, Height;        
 
         public override void Draw()
         {
-            Painter.FillRectangle(PenType.Brush, x1, y1, _Width, _Height);
-            Painter.DrawRectangle(PenType, x1, y1, _Width, _Height);             
-        }
-
-        public int x1
-        {
-            get { return this._x1; }
-            set
-            {
-                _x1 = value;
-                CalculateHW();
-            }
-        }
-        public int x2
-        {
-            get { return this._x2; }
-            set
-            {
-                _x2 = value;
-                CalculateHW();
-            }
-        }
-        public int y1
-        {
-            get { return this._y1; }
-            set
-            {
-                _y1 = value;
-                CalculateHW();
-            }
-        }
-        public int y2
-        {
-            get { return this._y2; }
-            set
-            {
-                _y2 = value;
-                CalculateHW();
-            }
-        }
-
-        private void CalculateHW()
-        {
-            this._Height = Math.Abs(this._y1 - this._y2);
-            this._Width = Math.Abs(this._x1 - this._x2);
-        }
-
+            Painter.FillRectangle(Pen.Brush, x1, y1, Width, Height);
+            Painter.DrawRectangle(Pen, x1, y1, Width, Height);             
+        }        
         public override void CalcPerimetr()
         {
 
         }
-
-        public Rectangle(int x1, int y1, int x2, int y2)
+        public override string GetName()
         {
-            this._x1 = x1;
-            this._x2 = x2;
-            this._y1 = y1;
-            this._y2 = y2;
-            CalculateHW();
+            return "Прямоугольник";
+        }
+        public Rectangle(Pen PenType,int x1, int y1, int x2, int y2)
+        {
+            this.x1 = x1;
+            this.y1 = y1;
+            this.Width = x2 - x1;
+            this.Height = y2 - y1;
+            Pen = PenType;
         }
     }
 }

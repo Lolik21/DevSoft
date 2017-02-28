@@ -19,6 +19,7 @@ namespace Painter
 
         public abstract void Draw();
         public abstract void CalcPerimetr();
+        public abstract string GetName();
 
         public Pen Pen
         {

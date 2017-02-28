@@ -27,13 +27,13 @@ namespace Painter
                 }
             }
         }
-        public abstract Fabric GetFigure(Pen Pen, List<Point> points);
+        public abstract Figure GetFigure(Pen Pen, List<Point> points);
         public abstract int CheckPoints(ref List<Point> points);
         
     }
     class RectangleFabric : Fabric
     {
-        public override Fabric GetFigure(Pen Pen, List<Point> points)
+        public override Figure GetFigure(Pen Pen, List<Point> points)
         {
             return null;
         }
@@ -49,9 +49,11 @@ namespace Painter
     }
     class LineFabric : Fabric
     {
-        public override Fabric GetFigure(Pen Pen, List<Point> points)
+        public override Figure GetFigure(Pen Pen, List<Point> points)
         {
-            return null; 
+            Line Line = new Line(Pen, points[0], points[1]);
+            Line.Painter = Painter;
+            return Line;
         }
         public override int CheckPoints(ref List<Point> points)
         {
@@ -64,7 +66,7 @@ namespace Painter
     }
     class EllipseFabric : Fabric
     {
-        public override Fabric GetFigure(Pen Pen, List<Point> points)
+        public override Figure GetFigure(Pen Pen, List<Point> points)
         {
             return null;
         }
@@ -79,7 +81,7 @@ namespace Painter
     }
     class CurveLineFabric : Fabric
     {
-        public override Fabric GetFigure(Pen Pen, List<Point> points)
+        public override Figure GetFigure(Pen Pen, List<Point> points)
         {
             return null;
         }
@@ -94,7 +96,7 @@ namespace Painter
     }
     class PoligonFabric : Fabric
     {
-        public override Fabric GetFigure(Pen Pen, List<Point> points)
+        public override Figure GetFigure(Pen Pen, List<Point> points)
         {
             return null;
         }

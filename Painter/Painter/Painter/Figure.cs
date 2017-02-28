@@ -17,7 +17,7 @@ namespace Painter
         protected Pen PenType;
         protected Graphics _Painter;
 
-        public abstract void Draw(ref FigList Figures);
+        public abstract void Draw();
         public abstract void CalcPerimetr();
 
         public Pen Pen

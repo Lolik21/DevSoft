@@ -3,18 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
 namespace Painter
 {
     class Line : Figure
     {
-        protected int x1, y1;
-        protected int x2, y2;
+        protected Point x;
+        protected Point y;
       
 
-        public Line ()
+        public Line (Pen PenType, Point x, Point y)
         {
-            
+            this.Pen = PenType;
+            this.x = x;
+            this.y = y;    
         }
 
         public override void CalcPerimetr()
@@ -22,9 +25,9 @@ namespace Painter
 
         }
 
-        public override void Draw(ref FigList Figures)
+        public override void Draw()
         {
-            Painter.DrawLine(PenType, x1, y1, x2, y2);
+            Painter.DrawLine(Pen, x, y);    
         }
     }
 }

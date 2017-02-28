@@ -9,6 +9,12 @@ namespace Painter
     public class FigList
     {
         private List<Figure> Figures;
+
+        public FigList()
+        {
+            Figures = new List<Figure>();
+        }
+
         public void AddToList(Figure Figure)
         {
             Figures.Add(Figure);

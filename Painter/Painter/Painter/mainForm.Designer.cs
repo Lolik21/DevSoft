@@ -56,6 +56,7 @@
             this.MainView.Size = new System.Drawing.Size(830, 627);
             this.MainView.TabIndex = 0;
             this.MainView.TabStop = false;
+            this.MainView.MouseClick += new System.Windows.Forms.MouseEventHandler(this.MainView_MouseClick);
             // 
             // btnDraw
             // 
@@ -189,6 +190,7 @@
             this.btnClearPoints.TabIndex = 26;
             this.btnClearPoints.Text = "Очистить список точек";
             this.btnClearPoints.UseVisualStyleBackColor = true;
+            this.btnClearPoints.Click += new System.EventHandler(this.btnClearPoints_Click);
             // 
             // mainForm
             // 

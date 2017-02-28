@@ -10,21 +10,9 @@ namespace Painter
     class Rectangle : Figure
     {
         protected int _x1, _x2, _y1, _y2;
-        protected int _Width, _Height;
+        protected int _Width, _Height;        
 
-        public SolidBrush Brush
-        {
-            get { return this.BrushType; }
-            set
-            {
-                if (value != null)
-                {
-                    this.BrushType = value;
-                }
-            }
-        }
-
-        public override void Draw(ref FigList Figures)
+        public override void Draw()
         {
             Painter.FillRectangle(PenType.Brush, x1, y1, _Width, _Height);
             Painter.DrawRectangle(PenType, x1, y1, _Width, _Height);             

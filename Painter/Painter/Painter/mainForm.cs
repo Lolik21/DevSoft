@@ -14,7 +14,9 @@ namespace Painter
     {
         private Bitmap Canvas;
         private Graphics Painter;
-        private Figure DrawingFig ;            
+        private Fabric CurrFabric;
+        private Pen PenColor;
+        private List<Point> points;                    
 
 
         public mainForm()
@@ -26,66 +28,53 @@ namespace Painter
         private void Init()
         {
             Canvas = new Bitmap(MainView.Width, MainView.Height);
-            Painter = Graphics.FromImage(Canvas);    
+            Painter = Graphics.FromImage(Canvas);
         }
 
-        private void tbPointsCount_MouseLeave(object sender, EventArgs e)
-        {
-            cbChousePoints.Items.Clear();
-            string tmpStr = tbPointsCount.Text;
-            if (tmpStr.Trim(' ') != "")
-            {
-                try
-                {
-                    int PointsCount = Convert.ToInt32(tmpStr);
-                    if (PointsCount <= 10) InitCbPoints(PointsCount);
-                    else
-                    {
-                        MessageBox.Show("Число не долно быть больше 10");
-                        tbPointsCount.Clear();
-                    }                      
-                }
-                catch
-                {
-                    MessageBox.Show("Введите корректное число");
-                    tbPointsCount.Clear();
-                }
-            }                  
-        }
-
-        private void InitCbPoints(int PointsCount)
-        {
-            for (int i = 0; i<PointsCount; i++)
-            {
-                cbChousePoints.Items.Add("Точка " + Convert.ToString(i+1));
-            }
-        }
-
+        
         private void btnLine_Click(object sender, EventArgs e)
         {
+            int i;
+            if ( i = CurrFabric.CheckPoints(ref points) > 0)
+            {
+                
+            }
             
         }
         private void btnRectangle_Click(object sender, EventArgs e)
-        {          
-            DrawingFig = new Rectangle(0, 0, 0, 0);
+        {
+            CurrFabric = new RectangleFabric();
         }
         private void btnEllipse_Click(object sender, EventArgs e)
         {
-            DrawingFig = new Ellipse(0, 0, 0, 0);
+            CurrFabric = new EllipseFabric();
         }
         private void btnCurveLine_Click(object sender, EventArgs e)
         {
-            DrawingFig = new CurveLine();
+            CurrFabric = new CurveLineFabric();
         }
         private void btnPoligon_Click(object sender, EventArgs e)
         {
-            DrawingFig = new Poligon();
+            CurrFabric = new PoligonFabric();
         }
 
         private void btnDraw_Click(object sender, EventArgs e)
         {
             
             MainView.Image = Canvas;
+        }
+
+        private void btnBrushColor_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnPenColor_Click(object sender, EventArgs e)
+        {
+            if (this.ColorPenDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                PenColor.Color = this.ColorPenDialog.Color;
+            }
         }
     }
 }

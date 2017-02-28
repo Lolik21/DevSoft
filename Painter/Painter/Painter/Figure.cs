@@ -7,12 +7,18 @@ using System.Drawing;
 
 namespace Painter
 {
-    public abstract class Figure
+    public interface IPerimetr
+    {
+        void CalcPerimetr();
+    }
+
+    public abstract class Figure : IPerimetr
     {
         protected Pen PenType;
         protected Graphics _Painter;
 
-        public abstract void Draw();
+        public abstract void Draw(ref FigList Figures);
+        public abstract void CalcPerimetr();
 
         public Pen Pen
         {

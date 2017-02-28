@@ -18,6 +18,10 @@ namespace Painter
             }
         }
 
+        public override void CalcPerimetr()
+        {
+            
+        }
 
         public override void Draw()
         {

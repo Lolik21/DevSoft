@@ -10,7 +10,6 @@ namespace Painter
     class Rectangle : Figure
     {
         protected int _x1, _x2, _y1, _y2;
-        protected SolidBrush BrushType;
         protected int _Width, _Height;
 
         public SolidBrush Brush
@@ -25,9 +24,9 @@ namespace Painter
             }
         }
 
-        public override void Draw()
+        public override void Draw(ref FigList Figures)
         {
-            Painter.FillRectangle(BrushType, x1, y1, _Width, _Height);
+            Painter.FillRectangle(PenType.Brush, x1, y1, _Width, _Height);
             Painter.DrawRectangle(PenType, x1, y1, _Width, _Height);             
         }
 
@@ -72,6 +71,11 @@ namespace Painter
         {
             this._Height = Math.Abs(this._y1 - this._y2);
             this._Width = Math.Abs(this._x1 - this._x2);
+        }
+
+        public override void CalcPerimetr()
+        {
+
         }
 
         public Rectangle(int x1, int y1, int x2, int y2)

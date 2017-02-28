@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Painter
 {
-    class FigList
+    public class FigList
     {
         private List<Figure> Figures;
         public void AddToList(Figure Figure)

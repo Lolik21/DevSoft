@@ -13,7 +13,7 @@ namespace Painter
 
         }
 
-        public override void Draw()
+        public override void Draw(ref FigList Figures)
         {
 
         }

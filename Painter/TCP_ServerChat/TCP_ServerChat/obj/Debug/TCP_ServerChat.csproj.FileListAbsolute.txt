@@ -1,0 +1,6 @@
+C:\Users\Ilya\Documents\GitHub\DevSoft\Painter\TCP_ServerChat\TCP_ServerChat\bin\Debug\TCP_ServerChat.exe.config
+C:\Users\Ilya\Documents\GitHub\DevSoft\Painter\TCP_ServerChat\TCP_ServerChat\obj\Debug\TCP_ServerChat.csprojResolveAssemblyReference.cache
+C:\Users\Ilya\Documents\GitHub\DevSoft\Painter\TCP_ServerChat\TCP_ServerChat\bin\Debug\TCP_ServerChat.exe
+C:\Users\Ilya\Documents\GitHub\DevSoft\Painter\TCP_ServerChat\TCP_ServerChat\bin\Debug\TCP_ServerChat.pdb
+C:\Users\Ilya\Documents\GitHub\DevSoft\Painter\TCP_ServerChat\TCP_ServerChat\obj\Debug\TCP_ServerChat.exe
+C:\Users\Ilya\Documents\GitHub\DevSoft\Painter\TCP_ServerChat\TCP_ServerChat\obj\Debug\TCP_ServerChat.pdb

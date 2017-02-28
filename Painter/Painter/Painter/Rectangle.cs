@@ -40,7 +40,6 @@ namespace Painter
                 CalculateHW();
             }
         }
-
         public int x2
         {
             get { return this._x2; }
@@ -50,7 +49,6 @@ namespace Painter
                 CalculateHW();
             }
         }
-
         public int y1
         {
             get { return this._y1; }
@@ -60,7 +58,6 @@ namespace Painter
                 CalculateHW();
             }
         }
-
         public int y2
         {
             get { return this._y2; }

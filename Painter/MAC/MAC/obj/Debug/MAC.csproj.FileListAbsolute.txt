@@ -1,0 +1,6 @@
+C:\Users\Ilya\Documents\GitHub\DevSoft\Painter\MAC\MAC\bin\Debug\MAC.exe.config
+C:\Users\Ilya\Documents\GitHub\DevSoft\Painter\MAC\MAC\bin\Debug\MAC.exe
+C:\Users\Ilya\Documents\GitHub\DevSoft\Painter\MAC\MAC\bin\Debug\MAC.pdb
+C:\Users\Ilya\Documents\GitHub\DevSoft\Painter\MAC\MAC\obj\Debug\MAC.csprojResolveAssemblyReference.cache
+C:\Users\Ilya\Documents\GitHub\DevSoft\Painter\MAC\MAC\obj\Debug\MAC.exe
+C:\Users\Ilya\Documents\GitHub\DevSoft\Painter\MAC\MAC\obj\Debug\MAC.pdb

@@ -56,7 +56,7 @@
             // 
             // MainView
             // 
-            this.MainView.BackColor = System.Drawing.SystemColors.Control;
+            this.MainView.BackColor = System.Drawing.SystemColors.Window;
             this.MainView.Dock = System.Windows.Forms.DockStyle.Left;
             this.MainView.Location = new System.Drawing.Point(0, 0);
             this.MainView.Name = "MainView";

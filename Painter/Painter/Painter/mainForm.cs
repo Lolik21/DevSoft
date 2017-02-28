@@ -14,8 +14,7 @@ namespace Painter
     {
         private Bitmap Canvas;
         private Graphics Painter;
-        private Figure DrawingFig = new Line(0,0,0,0);
-        private PatternFabric Fabric = new PatternFabric();               
+        private Figure DrawingFig ;            
 
 
         public mainForm()
@@ -27,9 +26,7 @@ namespace Painter
         private void Init()
         {
             Canvas = new Bitmap(MainView.Width, MainView.Height);
-            Painter = Graphics.FromImage(Canvas);
-            Fabric = new PatternFabric();
-            Fabric.FigGraphics = Painter;         
+            Painter = Graphics.FromImage(Canvas);    
         }
 
         private void tbPointsCount_MouseLeave(object sender, EventArgs e)
@@ -66,7 +63,7 @@ namespace Painter
 
         private void btnLine_Click(object sender, EventArgs e)
         {
-            DrawingFig = new Line(0, 0, 0, 0);
+            
         }
         private void btnRectangle_Click(object sender, EventArgs e)
         {          
@@ -87,11 +84,7 @@ namespace Painter
 
         private void btnDraw_Click(object sender, EventArgs e)
         {
-            Fabric.x1 = Convert.ToInt32(tbX1.Text);
-            Fabric.x2 = Convert.ToInt32(tbX2.Text);
-            Fabric.y1 = Convert.ToInt32(tbY1.Text);
-            Fabric.y2 = Convert.ToInt32(tbY2.Text);
-            Fabric.DrawFigure(DrawingFig);
+            
             MainView.Image = Canvas;
         }
     }

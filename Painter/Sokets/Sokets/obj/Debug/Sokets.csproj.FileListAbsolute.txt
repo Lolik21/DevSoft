@@ -1,0 +1,6 @@
+C:\Users\Ilya\Documents\GitHub\DevSoft\Painter\Sokets\Sokets\bin\Debug\Sokets.exe.config
+C:\Users\Ilya\Documents\GitHub\DevSoft\Painter\Sokets\Sokets\bin\Debug\Sokets.exe
+C:\Users\Ilya\Documents\GitHub\DevSoft\Painter\Sokets\Sokets\bin\Debug\Sokets.pdb
+C:\Users\Ilya\Documents\GitHub\DevSoft\Painter\Sokets\Sokets\obj\Debug\Sokets.csprojResolveAssemblyReference.cache
+C:\Users\Ilya\Documents\GitHub\DevSoft\Painter\Sokets\Sokets\obj\Debug\Sokets.exe
+C:\Users\Ilya\Documents\GitHub\DevSoft\Painter\Sokets\Sokets\obj\Debug\Sokets.pdb

@@ -17,7 +17,8 @@ namespace Painter
         private Fabric CurrFabric = new LineFabric();
         private Pen PenColor = new Pen(Color.Black,3);
         private List<Point> points = new List<Point>();
-        private FigList FigList = FigList.Instanse();                    
+        private FigList FigList = FigList.Instanse();
+        private Figure SelectedFig = null;                    
 
 
         public mainForm()
@@ -101,6 +102,11 @@ namespace Painter
             p.Y = e.Y;
             points.Add(p);
             lblPointsN.Text = points.Count.ToString();
+        }
+
+        private void lvFigures_ItemChecked(object sender, ItemCheckedEventArgs e)
+        {
+            MessageBox.Show("HJeads");
         }
     }
 }

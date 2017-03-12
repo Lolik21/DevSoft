@@ -11,8 +11,16 @@ namespace Painter
     {
         void CalcPerimetr();
     }
+    public interface IEditable
+    {
+      //  bool IS_Seasiable();
+      //  void Mark();
+      //  void Move(int dx, int dy);
+        void ChangeColor(Color Color);      
+    }
 
-    public abstract class Figure : IPerimetr
+
+    public abstract class Figure : IPerimetr, IEditable
     {
         protected Pen PenType;
         protected Graphics _Painter;
@@ -21,6 +29,12 @@ namespace Painter
         public abstract void CalcPerimetr();
         public abstract string GetName();
 
+
+        public void ChangeColor(Color Color)
+        {
+            Pen.Color = Color;
+            Draw();
+        }
         public Pen Pen
         {
             get { return PenType; }
@@ -31,8 +45,7 @@ namespace Painter
                     this.PenType = value;
                 }
             }
-        }
-        
+        }        
         public Graphics Painter
         {
             get { return _Painter; }

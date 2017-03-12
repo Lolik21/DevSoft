@@ -34,6 +34,7 @@
             this.btnPenColor = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.lvFigures = new System.Windows.Forms.ListView();
+            this.ColumHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnLine = new System.Windows.Forms.Button();
             this.btnRectangle = new System.Windows.Forms.Button();
             this.btnEllipse = new System.Windows.Forms.Button();
@@ -44,7 +45,6 @@
             this.lblPointsCount = new System.Windows.Forms.Label();
             this.lblPointsN = new System.Windows.Forms.Label();
             this.btnClearPoints = new System.Windows.Forms.Button();
-            this.ColumHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.MainView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -103,6 +103,12 @@
             this.lvFigures.TabIndex = 15;
             this.lvFigures.UseCompatibleStateImageBehavior = false;
             this.lvFigures.View = System.Windows.Forms.View.Details;
+            this.lvFigures.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.lvFigures_ItemChecked);
+            // 
+            // ColumHeader
+            // 
+            this.ColumHeader.Text = "Фигуры:";
+            this.ColumHeader.Width = 228;
             // 
             // btnLine
             // 
@@ -206,11 +212,6 @@
             this.btnClearPoints.Text = "Очистить список точек";
             this.btnClearPoints.UseVisualStyleBackColor = true;
             this.btnClearPoints.Click += new System.EventHandler(this.btnClearPoints_Click);
-            // 
-            // ColumHeader
-            // 
-            this.ColumHeader.Text = "Фигуры:";
-            this.ColumHeader.Width = 228;
             // 
             // mainForm
             // 

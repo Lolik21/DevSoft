@@ -45,6 +45,7 @@
             this.lblPointsCount = new System.Windows.Forms.Label();
             this.lblPointsN = new System.Windows.Forms.Label();
             this.btnClearPoints = new System.Windows.Forms.Button();
+            this.btnChangeFig = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.MainView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -58,6 +59,9 @@
             this.MainView.TabIndex = 0;
             this.MainView.TabStop = false;
             this.MainView.MouseClick += new System.Windows.Forms.MouseEventHandler(this.MainView_MouseClick);
+            this.MainView.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MainView_MouseDown);
+            this.MainView.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MainView_MouseMove);
+            this.MainView.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainView_MouseUp);
             // 
             // btnDraw
             // 
@@ -97,9 +101,9 @@
             this.lvFigures.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.ColumHeader});
             this.lvFigures.GridLines = true;
-            this.lvFigures.Location = new System.Drawing.Point(834, 196);
+            this.lvFigures.Location = new System.Drawing.Point(834, 225);
             this.lvFigures.Name = "lvFigures";
-            this.lvFigures.Size = new System.Drawing.Size(232, 402);
+            this.lvFigures.Size = new System.Drawing.Size(232, 373);
             this.lvFigures.TabIndex = 15;
             this.lvFigures.UseCompatibleStateImageBehavior = false;
             this.lvFigures.View = System.Windows.Forms.View.Details;
@@ -213,11 +217,22 @@
             this.btnClearPoints.UseVisualStyleBackColor = true;
             this.btnClearPoints.Click += new System.EventHandler(this.btnClearPoints_Click);
             // 
+            // btnChangeFig
+            // 
+            this.btnChangeFig.Location = new System.Drawing.Point(840, 196);
+            this.btnChangeFig.Name = "btnChangeFig";
+            this.btnChangeFig.Size = new System.Drawing.Size(226, 23);
+            this.btnChangeFig.TabIndex = 27;
+            this.btnChangeFig.Text = "Изменить фигуру";
+            this.btnChangeFig.UseVisualStyleBackColor = true;
+            this.btnChangeFig.Click += new System.EventHandler(this.btnChangeFig_Click);
+            // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1072, 627);
+            this.Controls.Add(this.btnChangeFig);
             this.Controls.Add(this.btnClearPoints);
             this.Controls.Add(this.lblPointsN);
             this.Controls.Add(this.lblPointsCount);
@@ -261,6 +276,7 @@
         private System.Windows.Forms.Label lblPointsN;
         private System.Windows.Forms.Button btnClearPoints;
         private System.Windows.Forms.ColumnHeader ColumHeader;
+        private System.Windows.Forms.Button btnChangeFig;
     }
 }
 

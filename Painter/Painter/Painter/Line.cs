@@ -27,9 +27,30 @@ namespace Painter
         {
             Painter.DrawLine(Pen, x, y);    
         }
+        public override bool IS_Seasiable()
+        {
+            return false;
+        }
+        public override void Move(int dx, int dy)
+        {
+            throw new NotImplementedException();
+        }
+        public override void Mark()
+        {
+            throw new NotImplementedException();
+        }
+        public override void DeleteFig()
+        {
+            Pen tmpPen = new Pen(Color.White, 3);
+            Painter.DrawLine(tmpPen, x, y);
+        }
         public override string GetName()
         {
             return "Линия";
+        }
+        public override bool PIsInFigure(Point Point)
+        {
+            throw new NotImplementedException();
         }
     }
 }

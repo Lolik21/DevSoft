@@ -13,10 +13,11 @@ namespace Painter
     }
     public interface IEditable
     {
-      //  bool IS_Seasiable();
-      //  void Mark();
-      //  void Move(int dx, int dy);
-        void ChangeColor(Color Color);      
+        bool IS_Seasiable();
+        void Mark();
+        void Move(int dx, int dy);
+        void ChangeColor(Color Color);
+        bool PIsInFigure(Point Point);     
     }
 
 
@@ -28,7 +29,11 @@ namespace Painter
         public abstract void Draw();
         public abstract void CalcPerimetr();
         public abstract string GetName();
-
+        public abstract bool IS_Seasiable();
+        public abstract void Mark();
+        public abstract void Move(int dx, int dy);
+        public abstract bool PIsInFigure(Point Point);
+        public abstract void DeleteFig();
 
         public void ChangeColor(Color Color)
         {

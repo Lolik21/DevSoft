@@ -29,5 +29,26 @@ namespace Painter
         {
             return "Кривая линия";
         }
+        public override void Move(int dx, int dy)
+        {
+            throw new NotImplementedException();
+        }
+        public override void Mark()
+        {
+            throw new NotImplementedException();
+        }
+        public override bool IS_Seasiable()
+        {
+            return false;
+        }
+        public override bool PIsInFigure(Point Point)
+        {
+            throw new NotImplementedException();
+        }
+        public override void DeleteFig()
+        {
+            Pen tmpPen = new Pen(Color.White, 3);
+            Painter.DrawCurve(tmpPen, PointsArr);
+        }
     }
 }

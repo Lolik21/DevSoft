@@ -18,8 +18,10 @@ namespace Painter
         private Pen PenColor = new Pen(Color.Black,3);
         private List<Point> points = new List<Point>();
         private FigList FigList = FigList.Instanse();
-        private Figure SelectedFig = null;                    
-
+        private Figure SelectedFig = null;
+        private bool MouseIsDown = false;
+        private Point PrevPoint = new Point();
+        private Point CurrPoint = new Point();
 
         public mainForm()
         {
@@ -33,7 +35,6 @@ namespace Painter
             lblChousenFig.Text = "Линия";
             lblPointsN.Text = "0";
         }
-
         
         private void btnLine_Click(object sender, EventArgs e)
         {
@@ -68,7 +69,8 @@ namespace Painter
             {
                 CurrFabric.Painter = Painter;
                 Figure Fig;
-                Fig = CurrFabric.GetFigure(PenColor, points);
+                Pen Pen = new Pen(PenColor.Color, PenColor.Width);
+                Fig = CurrFabric.GetFigure(Pen, points);
                 Fig.Draw();
                 lvFigures.Items.Add(Fig.GetName());
                 FigList.AddToList(Fig);
@@ -90,10 +92,12 @@ namespace Painter
             {
                 PenColor.Color = this.ColorPenDialog.Color;
             }
+            
         }
         private void btnClearPoints_Click(object sender, EventArgs e)
         {
             points.Clear();
+            lblPointsN.Text = points.Count.ToString();
         }
         private void MainView_MouseClick(object sender, MouseEventArgs e)
         {
@@ -103,10 +107,80 @@ namespace Painter
             points.Add(p);
             lblPointsN.Text = points.Count.ToString();
         }
-
         private void lvFigures_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+            ReadrawSelected();
+            if (lvFigures.SelectedIndices.Count > 0)
+            {
+                int ind = 0;
+                ind = lvFigures.SelectedIndices[0];
+                SelectedFig = FigList.GetItem(ind);
+                MarkFigure(SelectedFig);
+            }                     
+        }
+        private void btnChangeFig_Click(object sender, EventArgs e)
+        {
+            if (SelectedFig != null)
+            {
+                SelectedFig.ChangeColor(PenColor.Color);
+                SelectedFig.Draw();
+                MainView.Image = Canvas;
+                SelectedFig = null;
+                lvFigures.SelectedIndices.Clear();
+            }
+        }
+
+        private void MarkFigure(Figure SelectedFig)
+        {                        
+            if (SelectedFig.IS_Seasiable())
+            {
+                SelectedFig.Mark();
+                MainView.Image = Canvas;
+            }
+        }
+        private void ReadrawSelected()
+        {
+            if (SelectedFig != null)
+            {
+                FigList.ReadrawFigures();
+                MainView.Image = Canvas;
+            }
+        }
+
+        private void MainView_MouseDown(object sender, MouseEventArgs e)
+        {
+            lvFigures.SelectedIndices.Clear();
+            ReadrawSelected();
+            Point p = new Point();
+            p.X = e.X;
+            p.Y = e.Y;
+            SelectedFig = FigList.FindPoint(p);
+            if (SelectedFig != null)
+            {
+                MouseIsDown = true;
+                PrevPoint = p;
+                MarkFigure(SelectedFig);
+            }
+        }
+        private void MainView_MouseUp(object sender, MouseEventArgs e)
+        {
+            MouseIsDown = false;
+            FigList.ReadrawFigures();
+        }
+        private void MainView_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (MouseIsDown)
+            {
+                CurrPoint.X = e.X;
+                CurrPoint.Y = e.Y;
+                int dx =  CurrPoint.X - PrevPoint.X;
+                int dy =  CurrPoint.Y - PrevPoint.Y;
+                this.Text = Convert.ToString(CurrPoint);
+                SelectedFig.Move(dx, dy);
+                PrevPoint = CurrPoint;
+                MainView.Image = Canvas;
+            }
         }
     }
 }

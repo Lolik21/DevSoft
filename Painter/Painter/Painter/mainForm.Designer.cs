@@ -103,7 +103,7 @@
             this.lvFigures.TabIndex = 15;
             this.lvFigures.UseCompatibleStateImageBehavior = false;
             this.lvFigures.View = System.Windows.Forms.View.Details;
-            this.lvFigures.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.lvFigures_ItemChecked);
+            this.lvFigures.SelectedIndexChanged += new System.EventHandler(this.lvFigures_SelectedIndexChanged);
             // 
             // ColumHeader
             // 

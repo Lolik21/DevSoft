@@ -104,9 +104,9 @@ namespace Painter
             lblPointsN.Text = points.Count.ToString();
         }
 
-        private void lvFigures_ItemChecked(object sender, ItemCheckedEventArgs e)
+        private void lvFigures_SelectedIndexChanged(object sender, EventArgs e)
         {
-            MessageBox.Show("HJeads");
+
         }
     }
 }

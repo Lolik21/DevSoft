@@ -24,10 +24,13 @@ namespace Painter
         {
             Figures = new List<Figure>();
         }
-
         public void AddToList(Figure Figure)
         {
             Figures.Add(Figure);
+        }
+        public Figure GetItem(int Index)
+        {
+            return Figures[Index];
         }
     }
 }

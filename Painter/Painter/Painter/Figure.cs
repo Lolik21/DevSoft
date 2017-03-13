@@ -20,7 +20,6 @@ namespace Painter
         bool PIsInFigure(Point Point);     
     }
 
-
     public abstract class Figure : IPerimetr, IEditable
     {
         protected Pen PenType;

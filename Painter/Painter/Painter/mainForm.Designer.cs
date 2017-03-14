@@ -32,7 +32,6 @@
             this.ColorPenDialog = new System.Windows.Forms.ColorDialog();
             this.btnDraw = new System.Windows.Forms.Button();
             this.btnPenColor = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
             this.lvFigures = new System.Windows.Forms.ListView();
             this.ColumHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnLine = new System.Windows.Forms.Button();
@@ -46,16 +45,23 @@
             this.lblPointsN = new System.Windows.Forms.Label();
             this.btnClearPoints = new System.Windows.Forms.Button();
             this.btnChangeFig = new System.Windows.Forms.Button();
+            this.MainMenu = new System.Windows.Forms.MenuStrip();
+            this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.открытьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.сохранитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.MainView)).BeginInit();
+            this.MainMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // MainView
             // 
             this.MainView.BackColor = System.Drawing.SystemColors.Window;
             this.MainView.Dock = System.Windows.Forms.DockStyle.Left;
-            this.MainView.Location = new System.Drawing.Point(0, 0);
+            this.MainView.Location = new System.Drawing.Point(0, 24);
             this.MainView.Name = "MainView";
-            this.MainView.Size = new System.Drawing.Size(830, 627);
+            this.MainView.Size = new System.Drawing.Size(830, 603);
             this.MainView.TabIndex = 0;
             this.MainView.TabStop = false;
             this.MainView.MouseClick += new System.Windows.Forms.MouseEventHandler(this.MainView_MouseClick);
@@ -83,18 +89,6 @@
             this.btnPenColor.Text = "Цвет";
             this.btnPenColor.UseVisualStyleBackColor = true;
             this.btnPenColor.Click += new System.EventHandler(this.btnPenColor_Click);
-            // 
-            // label1
-            // 
-            this.label1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(830, 0);
-            this.label1.Name = "label1";
-            this.label1.Padding = new System.Windows.Forms.Padding(0, 5, 0, 5);
-            this.label1.Size = new System.Drawing.Size(242, 31);
-            this.label1.TabIndex = 10;
-            this.label1.Text = "Выберите фигуру";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // lvFigures
             // 
@@ -227,6 +221,43 @@
             this.btnChangeFig.UseVisualStyleBackColor = true;
             this.btnChangeFig.Click += new System.EventHandler(this.btnChangeFig_Click);
             // 
+            // MainMenu
+            // 
+            this.MainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.файлToolStripMenuItem});
+            this.MainMenu.Location = new System.Drawing.Point(0, 0);
+            this.MainMenu.Name = "MainMenu";
+            this.MainMenu.Size = new System.Drawing.Size(1072, 24);
+            this.MainMenu.TabIndex = 28;
+            this.MainMenu.Text = "menuStrip1";
+            // 
+            // файлToolStripMenuItem
+            // 
+            this.файлToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.открытьToolStripMenuItem,
+            this.сохранитьToolStripMenuItem});
+            this.файлToolStripMenuItem.Name = "файлToolStripMenuItem";
+            this.файлToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
+            this.файлToolStripMenuItem.Text = "Файл";
+            // 
+            // открытьToolStripMenuItem
+            // 
+            this.открытьToolStripMenuItem.Name = "открытьToolStripMenuItem";
+            this.открытьToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.открытьToolStripMenuItem.Text = "Открыть";
+            this.открытьToolStripMenuItem.Click += new System.EventHandler(this.открытьToolStripMenuItem_Click);
+            // 
+            // сохранитьToolStripMenuItem
+            // 
+            this.сохранитьToolStripMenuItem.Name = "сохранитьToolStripMenuItem";
+            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.сохранитьToolStripMenuItem.Text = "Сохранить";
+            this.сохранитьToolStripMenuItem.Click += new System.EventHandler(this.сохранитьToolStripMenuItem_Click);
+            // 
+            // openFileDialog
+            // 
+            this.openFileDialog.FileName = "openFileDialog1";
+            // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -244,14 +275,17 @@
             this.Controls.Add(this.btnRectangle);
             this.Controls.Add(this.btnLine);
             this.Controls.Add(this.lvFigures);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.btnPenColor);
             this.Controls.Add(this.btnDraw);
             this.Controls.Add(this.MainView);
+            this.Controls.Add(this.MainMenu);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MainMenuStrip = this.MainMenu;
             this.Name = "mainForm";
             this.Text = "Paint";
             ((System.ComponentModel.ISupportInitialize)(this.MainView)).EndInit();
+            this.MainMenu.ResumeLayout(false);
+            this.MainMenu.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -263,7 +297,6 @@
         private System.Windows.Forms.ColorDialog ColorPenDialog;
         private System.Windows.Forms.Button btnDraw;
         private System.Windows.Forms.Button btnPenColor;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ListView lvFigures;
         private System.Windows.Forms.Button btnLine;
         private System.Windows.Forms.Button btnRectangle;
@@ -277,6 +310,12 @@
         private System.Windows.Forms.Button btnClearPoints;
         private System.Windows.Forms.ColumnHeader ColumHeader;
         private System.Windows.Forms.Button btnChangeFig;
+        private System.Windows.Forms.MenuStrip MainMenu;
+        private System.Windows.Forms.ToolStripMenuItem файлToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem открытьToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem сохранитьToolStripMenuItem;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog;
+        private System.Windows.Forms.OpenFileDialog openFileDialog;
     }
 }
 

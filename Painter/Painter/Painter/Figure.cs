@@ -20,10 +20,15 @@ namespace Painter
         bool PIsInFigure(Point Point);     
     }
 
+    [Serializable]
     public abstract class Figure : IPerimetr, IEditable
     {
+        [NonSerialized()]
         protected Pen PenType;
-        protected Graphics _Painter;
+        [NonSerialized()]
+        public Graphics _Painter;
+
+        public Color PenColor { get; set; }
 
         public abstract void Draw();
         public abstract void CalcPerimetr();
@@ -47,6 +52,7 @@ namespace Painter
                 if (value != null)
                 {
                     this.PenType = value;
+                    PenColor = value.Color;
                 }
             }
         }        

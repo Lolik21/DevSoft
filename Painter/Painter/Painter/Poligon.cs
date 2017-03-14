@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 
 namespace Painter
 {
+    [Serializable]
     class Poligon : CurveLine
     {
+        
         public Poligon(Pen pen, List<Point> points) : base(pen, points)
         {
 

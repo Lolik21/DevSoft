@@ -7,12 +7,12 @@ using System.Drawing;
 
 namespace Painter
 {
+    [Serializable]
     class Line : Figure
     {
         protected Point x;
         protected Point y;
-      
-
+       
         public Line (Pen PenType, Point x, Point y)
         {
             this.Pen = PenType;

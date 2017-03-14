@@ -7,6 +7,7 @@ using System.Drawing;
 
 namespace Painter
 {
+    [Serializable]
     class CurveLine : Figure
     {
         protected Point[] PointsArr;

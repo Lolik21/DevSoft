@@ -17,11 +17,12 @@ namespace Painter
         private Fabric CurrFabric = new LineFabric();
         private Pen PenColor = new Pen(Color.Black,3);
         private List<Point> points = new List<Point>();
-        private FigList FigList = FigList.Instanse();
+        private FigList FigList = new FigList();
         private Figure SelectedFig = null;
         private bool MouseIsDown = false;
         private Point PrevPoint = new Point();
         private Point CurrPoint = new Point();
+        private FigSerialization FigSerializator = new FigSerialization();
 
         public mainForm()
         {
@@ -104,8 +105,7 @@ namespace Painter
             Point p = new Point();
             p.X = e.X;
             p.Y = e.Y;
-            points.Add(p);
-            lblPointsN.Text = points.Count.ToString();
+            points.Add(p);            
         }
         private void lvFigures_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -165,7 +165,9 @@ namespace Painter
         }
         private void MainView_MouseUp(object sender, MouseEventArgs e)
         {
+            if (MouseIsDown) points.RemoveAt(points.Count - 1);
             MouseIsDown = false;
+            lblPointsN.Text = points.Count.ToString();
             FigList.ReadrawFigures();
         }
         private void MainView_MouseMove(object sender, MouseEventArgs e)
@@ -176,10 +178,58 @@ namespace Painter
                 CurrPoint.Y = e.Y;
                 int dx =  CurrPoint.X - PrevPoint.X;
                 int dy =  CurrPoint.Y - PrevPoint.Y;
-                this.Text = Convert.ToString(CurrPoint);
                 SelectedFig.Move(dx, dy);
+                FigList.ReadrawFigures();
                 PrevPoint = CurrPoint;
                 MainView.Image = Canvas;
+            }
+        }
+
+        private void открытьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                openFileDialog.Filter = "Dat Files |*.dat";
+                openFileDialog.Title = "Открыть фигуры";
+                openFileDialog.ShowDialog();
+                if (openFileDialog.FileName != "")
+                {
+                    FigList.Clear();
+                    lvFigures.Items.Clear();                 
+                    FigList = FigSerializator.Deserialize(openFileDialog.FileName);
+                    FigList.ResetColors();
+                    FigList.SetPainter(Painter);
+                    for (int i = 0; i< FigList.Count(); i++)
+                    {
+                        lvFigures.Items.Add(FigList.GetItem(i).GetName());
+                    }
+                    FigList.ReadrawFigures();
+                    MainView.Image = Canvas;
+
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
+        }
+        private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                saveFileDialog.Filter = "Dat Files |*.dat";
+                saveFileDialog.Title = "Сохранить фигуры";
+                saveFileDialog.ShowDialog();
+                if (saveFileDialog.FileName != "")
+                {
+                    FigSerializator.Serialize(saveFileDialog.FileName, FigList);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
     }

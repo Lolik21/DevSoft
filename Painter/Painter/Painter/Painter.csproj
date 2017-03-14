@@ -50,6 +50,7 @@
     <Compile Include="Ellipse.cs" />
     <Compile Include="Fabric.cs" />
     <Compile Include="FigList.cs" />
+    <Compile Include="FigSerialization.cs" />
     <Compile Include="Figure.cs" />
     <Compile Include="Line.cs" />
     <Compile Include="mainForm.cs">

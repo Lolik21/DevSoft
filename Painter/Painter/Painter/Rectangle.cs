@@ -7,6 +7,7 @@ using System.Drawing;
 
 namespace Painter
 {
+    [Serializable]
     class Rectangle : Figure
     {
         protected int x1, y1;

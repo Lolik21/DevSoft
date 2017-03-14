@@ -7,18 +7,9 @@ using System.Drawing;
 
 namespace Painter
 {
+    [Serializable]
     public class FigList
-    {
-        static FigList uniqueFigList;
-        public static FigList Instanse()
-        {
-            if (uniqueFigList == null)
-            {
-                uniqueFigList = new FigList();
-            }
-            return uniqueFigList;
-        }
-
+    {        
         private List<Figure> Figures;
 
         public FigList()
@@ -53,6 +44,29 @@ namespace Painter
             {
                 Figures[i].Draw();
             }
+        }
+        public void SetPainter(Graphics Gr)
+        {
+            for (int i = 0; i < Figures.Count; i++)
+            {
+                Figures[i].Painter = Gr;
+            }
+        }
+        public void ResetColors()
+        {
+            for (int i = 0; i < Figures.Count; i++)
+            {
+                Figures[i].Pen = new Pen(Figures[i].PenColor);
+                Figures[i].Pen.Width = 3;
+            }
+        }
+        public void Clear()
+        {
+            Figures.Clear();
+        }       
+        public int Count()
+        {
+            return Figures.Count();
         }
     }
 }

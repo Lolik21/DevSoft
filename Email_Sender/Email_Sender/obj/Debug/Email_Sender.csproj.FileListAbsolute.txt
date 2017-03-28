@@ -1,0 +1,14 @@
+C:\Users\Ilya\Documents\GitHub\DevSoft\Email_Sender\Email_Sender\bin\Debug\Email_Sender.exe.config
+C:\Users\Ilya\Documents\GitHub\DevSoft\Email_Sender\Email_Sender\bin\Debug\Email_Sender.exe
+C:\Users\Ilya\Documents\GitHub\DevSoft\Email_Sender\Email_Sender\bin\Debug\Email_Sender.pdb
+C:\Users\Ilya\Documents\GitHub\DevSoft\Email_Sender\Email_Sender\obj\Debug\MainWindow.g.cs
+C:\Users\Ilya\Documents\GitHub\DevSoft\Email_Sender\Email_Sender\obj\Debug\App.g.cs
+C:\Users\Ilya\Documents\GitHub\DevSoft\Email_Sender\Email_Sender\obj\Debug\Email_Sender_MarkupCompile.cache
+C:\Users\Ilya\Documents\GitHub\DevSoft\Email_Sender\Email_Sender\obj\Debug\Email_Sender_MarkupCompile.lref
+C:\Users\Ilya\Documents\GitHub\DevSoft\Email_Sender\Email_Sender\obj\Debug\MainWindow.baml
+C:\Users\Ilya\Documents\GitHub\DevSoft\Email_Sender\Email_Sender\obj\Debug\Email_Sender.g.resources
+C:\Users\Ilya\Documents\GitHub\DevSoft\Email_Sender\Email_Sender\obj\Debug\Email_Sender.Properties.Resources.resources
+C:\Users\Ilya\Documents\GitHub\DevSoft\Email_Sender\Email_Sender\obj\Debug\Email_Sender.csproj.GenerateResource.Cache
+C:\Users\Ilya\Documents\GitHub\DevSoft\Email_Sender\Email_Sender\obj\Debug\Email_Sender.exe
+C:\Users\Ilya\Documents\GitHub\DevSoft\Email_Sender\Email_Sender\obj\Debug\Email_Sender.pdb
+C:\Users\Ilya\Documents\GitHub\DevSoft\Email_Sender\Email_Sender\obj\Debug\Email_Sender.csprojResolveAssemblyReference.cache

@@ -1,0 +1,5 @@
+C:\Users\Ilya\Documents\GitHub\DevSoft\Painter\WpfApplication1\WpfApplication1\obj\Debug\Email_Sender.csprojResolveAssemblyReference.cache
+C:\Users\Ilya\Documents\GitHub\DevSoft\Painter\WpfApplication1\WpfApplication1\obj\Debug\MainWindow.g.cs
+C:\Users\Ilya\Documents\GitHub\DevSoft\Painter\WpfApplication1\WpfApplication1\obj\Debug\App.g.cs
+C:\Users\Ilya\Documents\GitHub\DevSoft\Painter\WpfApplication1\WpfApplication1\obj\Debug\WpfApplication1_MarkupCompile.cache
+C:\Users\Ilya\Documents\GitHub\DevSoft\Painter\WpfApplication1\WpfApplication1\obj\Debug\WpfApplication1_MarkupCompile.lref

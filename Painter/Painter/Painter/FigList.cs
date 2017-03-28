@@ -28,7 +28,7 @@ namespace Painter
         {
             for (int i = Figures.Count-1; i >= 0; i--)
             {
-                if (Figures[i].IS_Seasiable())
+                if (Figures[i] is Interfaces.IEditable)
                 {
                     if (Figures[i].PIsInFigure(Point))
                     {

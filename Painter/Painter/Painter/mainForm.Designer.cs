@@ -47,8 +47,8 @@
             this.btnChangeFig = new System.Windows.Forms.Button();
             this.MainMenu = new System.Windows.Forms.MenuStrip();
             this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.открытьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.сохранитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.OpenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.SaveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.MainView)).BeginInit();
@@ -234,25 +234,26 @@
             // файлToolStripMenuItem
             // 
             this.файлToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.открытьToolStripMenuItem,
-            this.сохранитьToolStripMenuItem});
+            this.OpenToolStripMenuItem,
+            this.SaveToolStripMenuItem});
             this.файлToolStripMenuItem.Name = "файлToolStripMenuItem";
             this.файлToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
             this.файлToolStripMenuItem.Text = "Файл";
             // 
-            // открытьToolStripMenuItem
+            // OpenToolStripMenuItem
             // 
-            this.открытьToolStripMenuItem.Name = "открытьToolStripMenuItem";
-            this.открытьToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.открытьToolStripMenuItem.Text = "Открыть";
-            this.открытьToolStripMenuItem.Click += new System.EventHandler(this.открытьToolStripMenuItem_Click);
+            this.OpenToolStripMenuItem.CheckOnClick = true;
+            this.OpenToolStripMenuItem.Name = "OpenToolStripMenuItem";
+            this.OpenToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.OpenToolStripMenuItem.Text = "Открыть";
+            this.OpenToolStripMenuItem.Click += new System.EventHandler(this.OpenToolStripMenuItem_Click);
             // 
-            // сохранитьToolStripMenuItem
+            // SaveToolStripMenuItem
             // 
-            this.сохранитьToolStripMenuItem.Name = "сохранитьToolStripMenuItem";
-            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.сохранитьToolStripMenuItem.Text = "Сохранить";
-            this.сохранитьToolStripMenuItem.Click += new System.EventHandler(this.сохранитьToolStripMenuItem_Click);
+            this.SaveToolStripMenuItem.Name = "SaveToolStripMenuItem";
+            this.SaveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.SaveToolStripMenuItem.Text = "Сохранить";
+            this.SaveToolStripMenuItem.Click += new System.EventHandler(this.SaveToolStripMenuItem_Click);
             // 
             // openFileDialog
             // 
@@ -312,8 +313,8 @@
         private System.Windows.Forms.Button btnChangeFig;
         private System.Windows.Forms.MenuStrip MainMenu;
         private System.Windows.Forms.ToolStripMenuItem файлToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem открытьToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem сохранитьToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem OpenToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem SaveToolStripMenuItem;
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
     }

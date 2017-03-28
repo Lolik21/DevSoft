@@ -19,25 +19,23 @@ namespace Painter
             this.x = x;
             this.y = y;    
         }
-        public override void CalcPerimetr()
+
+        public override void Move(int dx, int dy)
         {
 
         }
-        public override void Draw()
-        {
-            Painter.DrawLine(Pen, x, y);    
-        }
-        public override bool IS_Seasiable()
+        public override bool PIsInFigure(Point Point)
         {
             return false;
         }
-        public override void Move(int dx, int dy)
-        {
-            throw new NotImplementedException();
-        }
         public override void Mark()
         {
-            throw new NotImplementedException();
+
+        }
+
+        public override void Draw()
+        {
+            Painter.DrawLine(Pen, x, y);    
         }
         public override void DeleteFig()
         {
@@ -47,10 +45,6 @@ namespace Painter
         public override string GetName()
         {
             return "Линия";
-        }
-        public override bool PIsInFigure(Point Point)
-        {
-            throw new NotImplementedException();
         }
     }
 }

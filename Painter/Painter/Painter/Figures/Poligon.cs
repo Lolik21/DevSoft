@@ -8,30 +8,19 @@ using System.Threading.Tasks;
 namespace Painter
 {
     [Serializable]
-    class Poligon : CurveLine
+    class Poligon : Figure, Interfaces.IEditable
     {
-        
-        public Poligon(Pen pen, List<Point> points) : base(pen, points)
+        protected Point[] PointsArr;
+        public Poligon(Pen pen, List<Point> points)
         {
-
+            PointsArr = new Point[points.Count];
+            PointsArr = points.ToArray();
+            this.Pen = pen;
         }
         public override void Mark()
         {
             Pen MarkPen = new Pen(Color.Red, Pen.Width);
             Painter.DrawPolygon(MarkPen, PointsArr);
-        }
-        public override void CalcPerimetr()
-        {
-
-        }
-        public override void Draw()
-        {
-            Painter.DrawPolygon(Pen, PointsArr);
-            Painter.FillPolygon(Pen.Brush, PointsArr);
-        }
-        public override bool IS_Seasiable()
-        {
-            return true;
         }
         public override void Move(int dx, int dy)
         {
@@ -41,16 +30,6 @@ namespace Painter
             for (int i = 0; i < PointsArr.Length; i++)
                 PointsArr[i].Y = PointsArr[i].Y + dy;
             Draw();
-        }
-        public override string GetName()
-        {
-            return "Многоугольник";
-        }
-        public override void DeleteFig()
-        {
-            Pen tmpPen = new Pen(Color.White, 3);
-            Painter.DrawPolygon(tmpPen, PointsArr);
-            Painter.FillPolygon(tmpPen.Brush, PointsArr);
         }
         public override bool PIsInFigure(Point Point)
         {
@@ -65,6 +44,22 @@ namespace Painter
             }
             else return false;
         }
+
+        public override void DeleteFig()
+        {
+            Pen tmpPen = new Pen(Color.White, 3);
+            Painter.DrawPolygon(tmpPen, PointsArr);
+            Painter.FillPolygon(tmpPen.Brush, PointsArr);
+        }
+        public override void Draw()
+        {
+            Painter.DrawPolygon(Pen, PointsArr);
+            Painter.FillPolygon(Pen.Brush, PointsArr);
+        }       
+        public override string GetName()
+        {
+            return "Многоугольник";
+        }            
         private int FindMaxX(Point[] Points)
         {
             int Max = 0;

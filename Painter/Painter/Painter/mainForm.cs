@@ -133,7 +133,7 @@ namespace Painter
 
         private void MarkFigure(Figure SelectedFig)
         {                        
-            if (SelectedFig.IS_Seasiable())
+            if (SelectedFig is Interfaces.IEditable)
             {
                 SelectedFig.Mark();
                 MainView.Image = Canvas;
@@ -185,7 +185,7 @@ namespace Painter
             }
         }
 
-        private void открытьToolStripMenuItem_Click(object sender, EventArgs e)
+        private void OpenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
             {
@@ -215,7 +215,7 @@ namespace Painter
             }
             
         }
-        private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
+        private void SaveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
             {

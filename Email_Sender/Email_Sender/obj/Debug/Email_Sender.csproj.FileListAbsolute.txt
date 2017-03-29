@@ -12,3 +12,17 @@ C:\Users\Ilya\Documents\GitHub\DevSoft\Email_Sender\Email_Sender\obj\Debug\Email
 C:\Users\Ilya\Documents\GitHub\DevSoft\Email_Sender\Email_Sender\obj\Debug\Email_Sender.exe
 C:\Users\Ilya\Documents\GitHub\DevSoft\Email_Sender\Email_Sender\obj\Debug\Email_Sender.pdb
 C:\Users\Ilya\Documents\GitHub\DevSoft\Email_Sender\Email_Sender\obj\Debug\Email_Sender.csprojResolveAssemblyReference.cache
+C:\Users\NotePad.by\Documents\GitHub\DevSoft\Email_Sender\Email_Sender\bin\Debug\Email_Sender.exe.config
+C:\Users\NotePad.by\Documents\GitHub\DevSoft\Email_Sender\Email_Sender\obj\Debug\Email_Sender.exe
+C:\Users\NotePad.by\Documents\GitHub\DevSoft\Email_Sender\Email_Sender\obj\Debug\Email_Sender.pdb
+C:\Users\NotePad.by\Documents\GitHub\DevSoft\Email_Sender\Email_Sender\bin\Debug\Email_Sender.exe
+C:\Users\NotePad.by\Documents\GitHub\DevSoft\Email_Sender\Email_Sender\bin\Debug\Email_Sender.pdb
+C:\Users\NotePad.by\Documents\GitHub\DevSoft\Email_Sender\Email_Sender\obj\Debug\Email_Sender.csprojResolveAssemblyReference.cache
+C:\Users\NotePad.by\Documents\GitHub\DevSoft\Email_Sender\Email_Sender\obj\Debug\MainWindow.g.cs
+C:\Users\NotePad.by\Documents\GitHub\DevSoft\Email_Sender\Email_Sender\obj\Debug\App.g.cs
+C:\Users\NotePad.by\Documents\GitHub\DevSoft\Email_Sender\Email_Sender\obj\Debug\Email_Sender_MarkupCompile.cache
+C:\Users\NotePad.by\Documents\GitHub\DevSoft\Email_Sender\Email_Sender\obj\Debug\Email_Sender_MarkupCompile.lref
+C:\Users\NotePad.by\Documents\GitHub\DevSoft\Email_Sender\Email_Sender\obj\Debug\MainWindow.baml
+C:\Users\NotePad.by\Documents\GitHub\DevSoft\Email_Sender\Email_Sender\obj\Debug\Email_Sender.g.resources
+C:\Users\NotePad.by\Documents\GitHub\DevSoft\Email_Sender\Email_Sender\obj\Debug\Email_Sender.Properties.Resources.resources
+C:\Users\NotePad.by\Documents\GitHub\DevSoft\Email_Sender\Email_Sender\obj\Debug\Email_Sender.csproj.GenerateResource.Cache

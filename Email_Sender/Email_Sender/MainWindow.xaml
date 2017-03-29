@@ -7,13 +7,24 @@
         mc:Ignorable="d"
         Title="Email Sender" Height="350" Width="521.392">
     <Grid>
-        <TextBox x:Name="tbTo" Height="243" Margin="10,66,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="366" HorizontalAlignment="Left" AcceptsReturn="True" AcceptsTab="True" />
-        <TextBox x:Name="tbSubject" HorizontalAlignment="Left" Height="23" Margin="10,38,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="366"/>
-        <TextBox x:Name="tgText" HorizontalAlignment="Left" Height="23" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="366"/>
-        <Button x:Name="btnSend" Content="Отправить" HorizontalAlignment="Left" Margin="381,289,0,0" VerticalAlignment="Top" Width="126" Click="btnSend_Click"/>
-        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" Margin="381,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="126" />
-        <TextBox x:Name="textBox_Copy" HorizontalAlignment="Left" Height="23" Margin="381,38,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="126"/>
-        <Button x:Name="btnSend_Copy" Content="Войти" HorizontalAlignment="Left" Margin="381,66,0,0" VerticalAlignment="Top" Width="126"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition MaxHeight="30" />
+            <RowDefinition MaxHeight="30" />
+            <RowDefinition MaxHeight="30" />
+            <RowDefinition MaxHeight="30" />
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TextBox Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="1" x:Name="tbTo" TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="True" />
+        <TextBox Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="1" x:Name="tbSubject" TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="True" />
+        <TextBox Grid.Column="0" Grid.Row="2" Grid.RowSpan="3" x:Name="tbText" TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="True" />
+
 
     </Grid>
 </Window>

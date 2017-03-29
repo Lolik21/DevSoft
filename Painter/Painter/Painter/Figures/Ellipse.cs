@@ -8,7 +8,7 @@ using System.Drawing;
 namespace Painter
 {
     [Serializable]
-    class Ellipse :  Figure, Interfaces.IEditable
+    class Ellipse :  Figure
     {
         protected int x1, y1;
         protected int Width, Height;

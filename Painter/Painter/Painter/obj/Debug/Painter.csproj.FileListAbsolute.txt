@@ -7,3 +7,12 @@ C:\Users\Ilya\Documents\GitHub\DevSoft\Painter\Painter\Painter\obj\Debug\Painter
 C:\Users\Ilya\Documents\GitHub\DevSoft\Painter\Painter\Painter\obj\Debug\Painter.csproj.GenerateResource.Cache
 C:\Users\Ilya\Documents\GitHub\DevSoft\Painter\Painter\Painter\obj\Debug\Painter.exe
 C:\Users\Ilya\Documents\GitHub\DevSoft\Painter\Painter\Painter\obj\Debug\Painter.pdb
+C:\Users\NotePad.by\Documents\GitHub\DevSoft\Painter\Painter\Painter\bin\Debug\Painter.exe.config
+C:\Users\NotePad.by\Documents\GitHub\DevSoft\Painter\Painter\Painter\obj\Debug\Painter.exe
+C:\Users\NotePad.by\Documents\GitHub\DevSoft\Painter\Painter\Painter\obj\Debug\Painter.pdb
+C:\Users\NotePad.by\Documents\GitHub\DevSoft\Painter\Painter\Painter\bin\Debug\Painter.exe
+C:\Users\NotePad.by\Documents\GitHub\DevSoft\Painter\Painter\Painter\bin\Debug\Painter.pdb
+C:\Users\NotePad.by\Documents\GitHub\DevSoft\Painter\Painter\Painter\obj\Debug\Painter.csprojResolveAssemblyReference.cache
+C:\Users\NotePad.by\Documents\GitHub\DevSoft\Painter\Painter\Painter\obj\Debug\Painter.mainForm.resources
+C:\Users\NotePad.by\Documents\GitHub\DevSoft\Painter\Painter\Painter\obj\Debug\Painter.Properties.Resources.resources
+C:\Users\NotePad.by\Documents\GitHub\DevSoft\Painter\Painter\Painter\obj\Debug\Painter.csproj.GenerateResource.Cache

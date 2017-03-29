@@ -197,13 +197,17 @@ namespace Painter
                     FigList.Clear();
                     lvFigures.Items.Clear();                 
                     FigList = FigSerializator.Deserialize(openFileDialog.FileName);
+                    Canvas = new Bitmap(MainView.Width, MainView.Height);
+                    Painter = Graphics.FromImage(Canvas);
                     FigList.ResetColors();
                     FigList.SetPainter(Painter);
                     for (int i = 0; i< FigList.Count(); i++)
                     {
                         lvFigures.Items.Add(FigList.GetItem(i).GetName());
                     }
+                    
                     FigList.ReadrawFigures();
+                    
                     MainView.Image = Canvas;
 
                 }

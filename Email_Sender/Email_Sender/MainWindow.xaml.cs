@@ -14,32 +14,87 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Net.Mail;
 using System.Net;
+using Microsoft.Win32;
+using System.Threading;
 
 namespace Email_Sender
 {
-    /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
-    /// </summary>
+
+
     public partial class MainWindow : Window
     {
+        Attachment att = null;
+        bool SSL = false;
+        SmtpClient smtp;
         public MainWindow()
         {
             InitializeComponent();
+            tbPass.PasswordChar = '*';
         }
 
+        
         private void btnSend_Click(object sender, RoutedEventArgs e)
         {
-            MailAddress from = new MailAddress("cvobodne@yandex.ru");
-            MailAddress to = new MailAddress("cvobodn@yandex.ru");
-            MailMessage m = new MailMessage(from, to);
-            m.Subject = "hello";
-            m.Body = "<h2>Привет как там дела?</h2>";
-            m.IsBodyHtml = true;
-            SmtpClient smtp = new SmtpClient("smtp.yandex.ru", 25);
-            smtp.Credentials = new NetworkCredential("cvobodne@yandex.ru", "JasdoFy123");
-            smtp.EnableSsl = true;
-            smtp.Timeout = 5;
-            smtp.Send(m); 
+            try
+            {
+                MailAddress from = new MailAddress(tbLogin.Text);
+                MailAddress to = new MailAddress(tbTo.Text);
+                MailMessage m = new MailMessage(from, to);
+                m.Subject = tbSubject.Text;
+                m.Body = tbText.Text;
+                m.IsBodyHtml = true;
+                smtp = new SmtpClient(tbSmtp.Text, 25);
+                smtp.Credentials = new NetworkCredential(tbLogin.Text, tbPass.Password);
+                smtp.EnableSsl = SSL;
+                if (att != null)
+                {
+                    m.Attachments.Add(att);
+                }
+                Thread myth = new Thread(new ParameterizedThreadStart(StartSend));
+                myth.Start(m);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }                         
+        }
+
+        public void StartSend(object m)
+        {
+            try
+            {
+                smtp.Send((MailMessage)m);
+                att.Dispose();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void btnAttach_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog myDialog = new OpenFileDialog();
+            myDialog.Filter = "Все файлы (*.*)| *.*";
+            myDialog.CheckFileExists = true;
+            myDialog.Multiselect = false;
+            if (myDialog.ShowDialog() == true)
+            {
+                if (myDialog.FileName != "")
+                {
+                    att = new Attachment(myDialog.FileName);
+                }
+            }
+        }
+
+        private void cbSSL_Click(object sender, RoutedEventArgs e)
+        {
+            if (SSL == false)
+            {
+                SSL = true;
+            }
+            else
+                SSL = false;
         }
     }
 }

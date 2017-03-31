@@ -8,23 +8,35 @@
         Title="Email Sender" Height="350" Width="521.392">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*"/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="150"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition MaxHeight="30" />
             <RowDefinition MaxHeight="30" />
             <RowDefinition MaxHeight="30" />
             <RowDefinition MaxHeight="30" />
-            <RowDefinition/>
+            <RowDefinition MaxHeight="30" />
+            <RowDefinition MaxHeight="30"/>
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <TextBox Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="1" x:Name="tbTo" TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="True" />
-        <TextBox Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="1" x:Name="tbSubject" TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="True" />
-        <TextBox Grid.Column="0" Grid.Row="2" Grid.RowSpan="3" x:Name="tbText" TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="True" />
-
+        <TextBox Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="1" x:Name="tbTo" Margin="10,0" />
+        <TextBox Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="1" x:Name="tbSubject" Margin="10,0" />
+        <TextBox Grid.Column="0" Grid.Row="5" Grid.RowSpan="4" x:Name="tbText" TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="True" Margin="10,0,10,10" />
+        <Label Grid.Column="0" Grid.Row="0" x:Name="lblTo" Content="Кому: " Margin="10,0"/>
+        <Label Grid.Column="0" Grid.Row="2" x:Name="lblSubject" Content="Тема: " Margin="10,0"/>
+        <Label Grid.Column="0" Grid.Row="4" x:Name="lblText" Content="Текст сообщения: " Margin="10,0"/>
+        <Label Grid.Column="1" Grid.Row="0" x:Name="lblLogin" Content="Логин: " Margin="0,0,10,0"/>
+        <Label Grid.Column="1" Grid.Row="2" x:Name="lblPass" Content="Пароль: " Margin="0,0,10,0"/>
+        <TextBox Grid.Column="1" Grid.Row="1" Grid.RowSpan="1" x:Name="tbLogin" Margin="0,0,10,0"/>
+        <PasswordBox Grid.Column="1" Grid.Row="3" Grid.RowSpan="1" x:Name="tbPass" Margin="0,0,10,0"/>
+        <Button x:Name="btnSend" Grid.Column="1" Grid.Row="8" MaxHeight="30" Margin="0,0,10,0" Content="Отправить" Click="btnSend_Click"/>
+        <Button x:Name="btnAttach" Grid.Column="1" Grid.Row="7" MaxHeight="30" Content="Прикрепить" RenderTransformOrigin="0.5,0.674" Margin="0,0,10,0" Click="btnAttach_Click"/>
+        <Label Grid.Column="1" Grid.Row="4" x:Name="lblSmtp" Content="Stmp Сервер: " Margin="0,0,10,0"/>
+        <TextBox Grid.Column="1" Grid.Row="5" Grid.RowSpan="1" x:Name="tbSmtp" Margin="0,0,10,0"/>
+        <CheckBox Grid.Column="1" Grid.Row="6" x:Name="cbSSL" Content="SSL соединение " Margin="0,0,10,0" Click="cbSSL_Click"/>
 
     </Grid>
 </Window>

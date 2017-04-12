@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using MainFigCreater;
+using System.IO;
+using System.Reflection;
 
 namespace Painter
 {
@@ -14,64 +12,72 @@ namespace Painter
     {
         private Bitmap Canvas;
         private Graphics Painter;
-        private Fabric CurrFabric = new LineFabric();
+        private List<AbstractFabric> Creators { get; set; }
+        private int SelectedFabric { get; set; }
+        private AbstractFigure SelectedFig = null;
         private Pen PenColor = new Pen(Color.Black,3);
         private List<Point> points = new List<Point>();
         private FigList FigList = new FigList();
-        private Figure SelectedFig = null;
         private bool MouseIsDown = false;
         private Point PrevPoint = new Point();
         private Point CurrPoint = new Point();
         private FigSerialization FigSerializator = new FigSerialization();
+        private int btnPosX = 0;
+        private int btnCount = 0;
+        public List<Type> Types = new List<Type>();
 
         public mainForm()
         {
             InitializeComponent();
-            Init();          
         }
-        private void Init()
+     
+        private void CreateFabric(string path)
         {
-            Canvas = new Bitmap(MainView.Width, MainView.Height);
-            Painter = Graphics.FromImage(Canvas);
-            lblChousenFig.Text = "Линия";
-            lblPointsN.Text = "0";
+            int MARGIN = 10;
+            int BTNSIZE = 50;
+            Button tmpBtn = new Button();
+            try
+            {
+                Type type = Assembly.LoadFile(path).GetExportedTypes()[0];
+                AbstractFabric fab = Activator.CreateInstance(type) as AbstractFabric;
+                Creators.Add(fab);           
+                tmpBtn.Location = new Point(btnPosX, 0);
+                tmpBtn.Size = new Size(BTNSIZE, BTNSIZE);
+                tmpBtn.TabIndex = btnCount;
+            
+                tmpBtn.BackgroundImage = Image.FromFile(Environment.CurrentDirectory + 
+                                                "\\Images\\"+ fab.GetImgName());
+                tmpBtn.BackgroundImageLayout = ImageLayout.Stretch;
+                tmpBtn.Click += btn_Clicked;
+                btnPosX += tmpBtn.Width + MARGIN;
+                btnCount++;
+                this.pnlBtnPannel.BeginInvoke((MethodInvoker)(() => 
+                pnlBtnPannel.Controls.Add(tmpBtn)));
+                Types.Add(fab.GetFType());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }                                
         }
-        
-        private void btnLine_Click(object sender, EventArgs e)
+        private void btn_Clicked(object sender, EventArgs e)
         {
-            CurrFabric = new LineFabric();
-            lblChousenFig.Text = "Линия";
+            Button btn = sender as Button;
+            SelectedFabric = btn.TabIndex;
         }
-        private void btnRectangle_Click(object sender, EventArgs e)
+        private void OnChanged(object sender, FileSystemEventArgs e)
         {
-            CurrFabric = new RectangleFabric();
-            lblChousenFig.Text = "Прямоугольник";
+            CreateFabric(e.FullPath);
         }
-        private void btnEllipse_Click(object sender, EventArgs e)
-        {
-            CurrFabric = new EllipseFabric();
-            lblChousenFig.Text = "Эллипс";
-        }
-        private void btnCurveLine_Click(object sender, EventArgs e)
-        {
-            CurrFabric = new CurveLineFabric();
-            lblChousenFig.Text = "Кривая линия";
-        }
-        private void btnPoligon_Click(object sender, EventArgs e)
-        {
-            CurrFabric = new PoligonFabric();
-            lblChousenFig.Text = "Многоугольник";
-        }
-
         private void btnDraw_Click(object sender, EventArgs e)
         {
-            int i = CurrFabric.CheckPoints(ref points);
+            int i = Creators[SelectedFabric].CheckPoints(ref points);
             if (i > 0)
             {
-                CurrFabric.Painter = Painter;
-                Figure Fig;
+                Creators[SelectedFabric].Painter = Painter;
+                AbstractFigure Fig;
                 Pen Pen = new Pen(PenColor.Color, PenColor.Width);
-                Fig = CurrFabric.GetFigure(Pen, points);
+                Fig = Creators[SelectedFabric].GetFigure(Pen, points);
                 Fig.Draw();
                 lvFigures.Items.Add(Fig.GetName());
                 FigList.AddToList(Fig);
@@ -131,9 +137,9 @@ namespace Painter
             }
         }
 
-        private void MarkFigure(Figure SelectedFig)
+        private void MarkFigure(AbstractFigure SelectedFig)
         {                        
-            if (SelectedFig is Interfaces.IEditable)
+            if (SelectedFig is IEditable)
             {
                 SelectedFig.Mark();
                 MainView.Image = Canvas;
@@ -189,14 +195,14 @@ namespace Painter
         {
             try
             {
-                openFileDialog.Filter = "Dat Files |*.dat";
+                openFileDialog.Filter = "Dat Files |*.json";
                 openFileDialog.Title = "Открыть фигуры";
                 openFileDialog.ShowDialog();
                 if (openFileDialog.FileName != "")
                 {
                     FigList.Clear();
                     lvFigures.Items.Clear();                 
-                    FigList = FigSerializator.Deserialize(openFileDialog.FileName);
+                    FigSerializator.Deserialize(openFileDialog.FileName,ref FigList,Types);
                     Canvas = new Bitmap(MainView.Width, MainView.Height);
                     Painter = Graphics.FromImage(Canvas);
                     FigList.ResetColors();
@@ -223,18 +229,36 @@ namespace Painter
         {
             try
             {
-                saveFileDialog.Filter = "Dat Files |*.dat";
+                saveFileDialog.Filter = "Dat Files |*.json";
                 saveFileDialog.Title = "Сохранить фигуры";
                 saveFileDialog.ShowDialog();
                 if (saveFileDialog.FileName != "")
                 {
-                    FigSerializator.Serialize(saveFileDialog.FileName, FigList);
+                    FigSerializator.Serialize(saveFileDialog.FileName, FigList, Types);
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void mainForm_Load(object sender, EventArgs e)
+        {
+            Canvas = new Bitmap(MainView.Width, MainView.Height);
+            Painter = Graphics.FromImage(Canvas);
+            FileSystemWatcher fileWatcher = new FileSystemWatcher(AppDomain.CurrentDomain.BaseDirectory + "Modules\\", "*.dll");
+            fileWatcher.Created += new FileSystemEventHandler(OnChanged);
+            pnlBtnPannel.AutoScroll = true;
+            fileWatcher.EnableRaisingEvents = true;
+            Creators = new List<AbstractFabric>();
+
+            string[] files = Directory.GetFiles(Environment.CurrentDirectory + "\\Modules\\");
+            foreach (string file in files)
+            {
+                CreateFabric(file);
+            }
+
         }
     }
 }

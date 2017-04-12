@@ -1,34 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Drawing;
+using MainFigCreater;
+using System.Runtime.Serialization;
 
 namespace Painter
 {
-    [Serializable]
+    [DataContract]
     public class FigList
-    {        
-        private List<Figure> Figures;
-
+    {
+        [DataMember]
+        private List<AbstractFigure> Figures;
         public FigList()
         {
-            Figures = new List<Figure>();
+            Figures = new List<AbstractFigure>();
         }
-        public void AddToList(Figure Figure)
+        public void AddToList(AbstractFigure Figure)
         {
             Figures.Add(Figure);
         }
-        public Figure GetItem(int Index)
+        public AbstractFigure GetItem(int Index)
         {
             return Figures[Index];
         }
-        public Figure FindPoint(Point Point)
+        public AbstractFigure FindPoint(Point Point)
         {
             for (int i = Figures.Count-1; i >= 0; i--)
             {
-                if (Figures[i] is Interfaces.IEditable)
+                if (Figures[i] is IEditable)
                 {
                     if (Figures[i].PIsInFigure(Point))
                     {

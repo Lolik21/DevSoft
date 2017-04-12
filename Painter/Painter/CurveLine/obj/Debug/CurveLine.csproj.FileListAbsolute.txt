@@ -1,0 +1,7 @@
+C:\Users\Ilya\Documents\GitHub\DevSoft\Painter\Painter\CurveLine\obj\Debug\CurveLine.csprojResolveAssemblyReference.cache
+C:\Users\Ilya\Documents\GitHub\DevSoft\Painter\Painter\CurveLine\bin\Debug\CurveLine.dll
+C:\Users\Ilya\Documents\GitHub\DevSoft\Painter\Painter\CurveLine\bin\Debug\CurveLine.pdb
+C:\Users\Ilya\Documents\GitHub\DevSoft\Painter\Painter\CurveLine\bin\Debug\MainFigCreater.dll
+C:\Users\Ilya\Documents\GitHub\DevSoft\Painter\Painter\CurveLine\bin\Debug\MainFigCreater.pdb
+C:\Users\Ilya\Documents\GitHub\DevSoft\Painter\Painter\CurveLine\obj\Debug\CurveLine.dll
+C:\Users\Ilya\Documents\GitHub\DevSoft\Painter\Painter\CurveLine\obj\Debug\CurveLine.pdb

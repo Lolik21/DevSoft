@@ -1,0 +1,7 @@
+C:\Users\Ilya\Documents\GitHub\DevSoft\Painter\Painter\Ellipse\bin\Debug\Ellipse.dll
+C:\Users\Ilya\Documents\GitHub\DevSoft\Painter\Painter\Ellipse\bin\Debug\Ellipse.pdb
+C:\Users\Ilya\Documents\GitHub\DevSoft\Painter\Painter\Ellipse\bin\Debug\MainFigCreater.dll
+C:\Users\Ilya\Documents\GitHub\DevSoft\Painter\Painter\Ellipse\bin\Debug\MainFigCreater.pdb
+C:\Users\Ilya\Documents\GitHub\DevSoft\Painter\Painter\Ellipse\obj\Debug\Ellipse.csprojResolveAssemblyReference.cache
+C:\Users\Ilya\Documents\GitHub\DevSoft\Painter\Painter\Ellipse\obj\Debug\Ellipse.dll
+C:\Users\Ilya\Documents\GitHub\DevSoft\Painter\Painter\Ellipse\obj\Debug\Ellipse.pdb

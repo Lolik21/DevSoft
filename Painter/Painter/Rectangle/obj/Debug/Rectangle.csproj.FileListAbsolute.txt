@@ -1,0 +1,7 @@
+C:\Users\Ilya\Documents\GitHub\DevSoft\Painter\Painter\Rectangle\bin\Debug\Rectangle.dll
+C:\Users\Ilya\Documents\GitHub\DevSoft\Painter\Painter\Rectangle\bin\Debug\Rectangle.pdb
+C:\Users\Ilya\Documents\GitHub\DevSoft\Painter\Painter\Rectangle\bin\Debug\MainFigCreater.dll
+C:\Users\Ilya\Documents\GitHub\DevSoft\Painter\Painter\Rectangle\bin\Debug\MainFigCreater.pdb
+C:\Users\Ilya\Documents\GitHub\DevSoft\Painter\Painter\Rectangle\obj\Debug\Rectangle.csprojResolveAssemblyReference.cache
+C:\Users\Ilya\Documents\GitHub\DevSoft\Painter\Painter\Rectangle\obj\Debug\Rectangle.dll
+C:\Users\Ilya\Documents\GitHub\DevSoft\Painter\Painter\Rectangle\obj\Debug\Rectangle.pdb

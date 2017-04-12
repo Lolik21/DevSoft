@@ -16,3 +16,5 @@ C:\Users\NotePad.by\Documents\GitHub\DevSoft\Painter\Painter\Painter\obj\Debug\P
 C:\Users\NotePad.by\Documents\GitHub\DevSoft\Painter\Painter\Painter\obj\Debug\Painter.mainForm.resources
 C:\Users\NotePad.by\Documents\GitHub\DevSoft\Painter\Painter\Painter\obj\Debug\Painter.Properties.Resources.resources
 C:\Users\NotePad.by\Documents\GitHub\DevSoft\Painter\Painter\Painter\obj\Debug\Painter.csproj.GenerateResource.Cache
+C:\Users\Ilya\Documents\GitHub\DevSoft\Painter\Painter\Painter\bin\Debug\MainFigCreater.dll
+C:\Users\Ilya\Documents\GitHub\DevSoft\Painter\Painter\Painter\bin\Debug\MainFigCreater.pdb

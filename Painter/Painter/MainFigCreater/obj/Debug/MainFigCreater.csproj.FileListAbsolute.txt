@@ -1,0 +1,5 @@
+C:\Users\Ilya\Documents\GitHub\DevSoft\Painter\Painter\MainFigCreater\obj\Debug\MainFigCreater.csprojResolveAssemblyReference.cache
+C:\Users\Ilya\Documents\GitHub\DevSoft\Painter\Painter\MainFigCreater\bin\Debug\MainFigCreater.dll
+C:\Users\Ilya\Documents\GitHub\DevSoft\Painter\Painter\MainFigCreater\bin\Debug\MainFigCreater.pdb
+C:\Users\Ilya\Documents\GitHub\DevSoft\Painter\Painter\MainFigCreater\obj\Debug\MainFigCreater.dll
+C:\Users\Ilya\Documents\GitHub\DevSoft\Painter\Painter\MainFigCreater\obj\Debug\MainFigCreater.pdb

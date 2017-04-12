@@ -1,0 +1,7 @@
+C:\Users\Ilya\Documents\GitHub\DevSoft\Painter\Painter\Poligon\bin\Debug\Poligon.dll
+C:\Users\Ilya\Documents\GitHub\DevSoft\Painter\Painter\Poligon\bin\Debug\Poligon.pdb
+C:\Users\Ilya\Documents\GitHub\DevSoft\Painter\Painter\Poligon\bin\Debug\MainFigCreater.dll
+C:\Users\Ilya\Documents\GitHub\DevSoft\Painter\Painter\Poligon\bin\Debug\MainFigCreater.pdb
+C:\Users\Ilya\Documents\GitHub\DevSoft\Painter\Painter\Poligon\obj\Debug\Poligon.csprojResolveAssemblyReference.cache
+C:\Users\Ilya\Documents\GitHub\DevSoft\Painter\Painter\Poligon\obj\Debug\Poligon.dll
+C:\Users\Ilya\Documents\GitHub\DevSoft\Painter\Painter\Poligon\obj\Debug\Poligon.pdb

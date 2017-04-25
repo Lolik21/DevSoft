@@ -35,6 +35,12 @@ namespace Poligon
                 PointsArr[i].Y = PointsArr[i].Y + dy;
             Draw();
         }
+
+        public override Type GetFabricType()
+        {
+            return typeof(PoligonFabric);
+        }
+
         public override bool PIsInFigure(Point Point)
         {
             int MaxX = FindMaxX(PointsArr);

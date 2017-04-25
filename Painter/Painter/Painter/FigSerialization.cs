@@ -33,6 +33,25 @@ namespace Painter
                 }
                 Regex Pattern = new Regex("\\{\"__type\":\"(.+?):");
 
+                bool AllIsReplased = false;
+                int i = 0;
+                while (!AllIsReplased)
+                {
+                    MatchCollection Matches = Pattern.Matches(str);                  
+
+                    if (!IsInTypes(Matches[i].Groups[1].Value, Types))
+                    {
+                        DeleteType(Matches[i].Groups[0].Index, ref str);
+                    }
+                    else
+                    {                                             
+                        if (Matches.Count == i) AllIsReplased = true;
+                        i++;
+                    }
+                        
+                   
+                }
+
                 foreach (Match match in Pattern.Matches(str))
                 {
                     if (!IsInTypes(match.Groups[1].Value,Types))
@@ -78,7 +97,7 @@ namespace Painter
             }
             if (i < str.Length)
             {
-                if (!IsFirst)
+                if (!IsFirst || str[LastInd] == ']') 
                 {
                     LastInd--;
                 }

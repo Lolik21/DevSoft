@@ -1,0 +1,26 @@
+﻿<UserControl x:Class="Gwent.MainMenu"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Gwent"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Button x:Name="btnStartGame" Grid.Column="0" Grid.Row="0" 
+                Content="Начать игру" Margin="30,20,30,20" Click="btnStartGame_Click" />
+        <Button x:Name="btnChouseCard" Grid.Column="0" Grid.Row="1" 
+                Content="Выбрать карты" Margin="30,20,30,20" Click="btnChouseCard_Click"/>
+        <Button x:Name="btnClose" Grid.Column="0" Grid.Row="2"
+                Content="Выйти" Margin="30,20,30,20" Click="btnClose_Click" />
+
+    </Grid>
+</UserControl>

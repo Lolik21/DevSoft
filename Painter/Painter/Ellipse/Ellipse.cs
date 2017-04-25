@@ -26,6 +26,11 @@ namespace Ellipse
             Pen = PenType;
         }
 
+        public override Type GetFabricType()
+        {
+            return typeof(EllipseFabric);
+        }
+
         public override string GetName()
         {
             return "Эллипс";

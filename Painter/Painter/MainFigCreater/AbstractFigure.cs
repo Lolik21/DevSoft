@@ -20,6 +20,7 @@ namespace MainFigCreater
         public abstract bool PIsInFigure(Point Point);
         public abstract void Mark();
         public abstract string GetName();
+        public abstract Type GetFabricType();
         public void ChangeColor(Color Color)
         {
             Pen.Color = Color;

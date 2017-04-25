@@ -1,0 +1,6 @@
+C:\Users\Ilya\Documents\GitHub\DevSoft\Gwent\Loader\bin\Debug\Loader.exe.config
+C:\Users\Ilya\Documents\GitHub\DevSoft\Gwent\Loader\bin\Debug\Loader.exe
+C:\Users\Ilya\Documents\GitHub\DevSoft\Gwent\Loader\bin\Debug\Loader.pdb
+C:\Users\Ilya\Documents\GitHub\DevSoft\Gwent\Loader\obj\Debug\Loader.exe
+C:\Users\Ilya\Documents\GitHub\DevSoft\Gwent\Loader\obj\Debug\Loader.pdb
+C:\Users\Ilya\Documents\GitHub\DevSoft\Gwent\Loader\obj\Debug\Loader.csprojResolveAssemblyReference.cache

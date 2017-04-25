@@ -39,6 +39,12 @@ namespace CurveLine
         {
             return "Кривая линия";
         }
+
+        public override Type GetFabricType()
+        {
+            return typeof(CurveLineFabric);
+        }
+
         public override void DeleteFig()
         {
             Pen tmpPen = new Pen(Color.White, 3);

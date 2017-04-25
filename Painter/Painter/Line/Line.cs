@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using MainFigCreater;
 using System.Runtime.Serialization;
 
@@ -30,6 +31,11 @@ namespace Line
         public override void Mark()
         {
 
+        }
+
+        public override Type GetFabricType()
+        {
+            return typeof(LineFabric);
         }
 
         public override void Draw()

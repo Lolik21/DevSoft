@@ -10,6 +10,8 @@ namespace Painter
 {
     public partial class mainForm : Form
     {
+        private const int MARGIN = 10;
+        private const int BTNSIZE = 50;
         private Bitmap Canvas;
         private Graphics Painter;
         private List<AbstractFabric> Creators { get; set; }
@@ -25,49 +27,65 @@ namespace Painter
         private int btnPosX = 0;
         private int btnCount = 0;
         public List<Type> Types = new List<Type>();
+        private List<AppDomain> Domains = new List<AppDomain>();
+        private AppDomainSetup setup = new AppDomainSetup();
+        private string path = "";
+        private List<Button> Buttons = new List<Button>();
 
         public mainForm()
         {
             InitializeComponent();
         }
-     
-        private void CreateFabric(string path)
-        {
-            int MARGIN = 10;
-            int BTNSIZE = 50;
+
+        private void CreateFabric()
+        {            
             Button tmpBtn = new Button();
             try
             {
-                Type type = Assembly.LoadFile(path).GetExportedTypes()[0];
+                Type type = null;
+                using (var fs = new FileStream(path, FileMode.Open))
+                {
+                    var bytes = new byte[fs.Length];
+                    fs.Read(bytes, 0, bytes.Length);
+                    Assembly assembly = AppDomain.CurrentDomain.Load(bytes);
+                    type = assembly.GetExportedTypes()[0];
+                }              
                 AbstractFabric fab = Activator.CreateInstance(type) as AbstractFabric;
                 Creators.Add(fab);           
                 tmpBtn.Location = new Point(btnPosX, 0);
                 tmpBtn.Size = new Size(BTNSIZE, BTNSIZE);
-                tmpBtn.TabIndex = btnCount;
-            
-                tmpBtn.BackgroundImage = Image.FromFile(Environment.CurrentDirectory + 
-                                                "\\Images\\"+ fab.GetImgName());
+                try
+                {
+                    tmpBtn.BackgroundImage = Image.FromFile(Environment.CurrentDirectory +
+                                                                    "\\Images\\" + fab.GetImgName());
+                }
+                catch
+                {
+                    MessageBox.Show("Не удалось найти картинку для кнопки, кнопка будет пустая!");
+                }
+                
                 tmpBtn.BackgroundImageLayout = ImageLayout.Stretch;
                 tmpBtn.Click += btn_Clicked;
                 btnPosX += tmpBtn.Width + MARGIN;
                 btnCount++;
-                this.pnlBtnPannel.BeginInvoke((MethodInvoker)(() => 
+                this.pnlBtnPannel.Invoke((MethodInvoker)(() => 
                 pnlBtnPannel.Controls.Add(tmpBtn)));
                 Types.Add(fab.GetFType());
+                Buttons.Add(tmpBtn);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-            }                                
+            }         
         }
         private void btn_Clicked(object sender, EventArgs e)
         {
             Button btn = sender as Button;
-            SelectedFabric = btn.TabIndex;
+            SelectedFabric = Buttons.IndexOf(btn);
         }
         private void OnChanged(object sender, FileSystemEventArgs e)
         {
-            CreateFabric(e.FullPath);
+            CreateDomain(e.FullPath);
         }
         private void btnDraw_Click(object sender, EventArgs e)
         {
@@ -134,6 +152,61 @@ namespace Painter
                 MainView.Image = Canvas;
                 SelectedFig = null;
                 lvFigures.SelectedIndices.Clear();
+            }                                
+        }
+
+        private void RedrawButtons(List<Button> Buttons, int DeletedButtonID)
+        {
+            btnPosX = btnPosX - BTNSIZE - MARGIN;
+            btnCount = btnCount - 1;
+            this.pnlBtnPannel.Invoke((MethodInvoker)(() =>
+                this.pnlBtnPannel.Controls.RemoveAt(DeletedButtonID)));
+            
+            for (int i = DeletedButtonID; i<Buttons.Count; i++)
+            {
+                 this.Buttons[i].Invoke((MethodInvoker)(() => 
+                Buttons[i].Location = new Point(Buttons[i].Location.X - BTNSIZE - MARGIN,
+                    Buttons[i].Location.Y)));                           
+            }
+        }
+
+        public delegate void DeleteDel(string Name);
+
+        private void Delete_Fab(object sender, FileSystemEventArgs e)
+        {
+            int TypeID = 0;
+            for (int i=0; i<Types.Count; i++)
+            {
+                if (Types[i].Name == e.Name.Split('.')[0])
+                {
+                    TypeID = i;
+                }
+            }
+            string Name = FigList.DeleteFig(Types[TypeID]);
+            DeleteDel Del = new DeleteDel(DeleteFromList);
+            if (Name != null) lvFigures.Invoke(Del, Name);                     
+            SelectedFig = null;
+            SelectedFabric = 0;
+            Types.RemoveAt(TypeID);
+            Creators.RemoveAt(TypeID);
+            Buttons.RemoveAt(TypeID);                     
+            RedrawButtons(Buttons, TypeID);
+            Domains.RemoveAt(TypeID);
+            MainView.Image = Canvas;
+        }
+
+        private void DeleteFromList(string Name)
+        {
+            
+            lvFigures.SelectedIndices.Clear();       
+            int i = 0;
+            while (i < lvFigures.Items.Count)
+            {
+                if (lvFigures.Items[i].Text == Name)
+                {
+                    lvFigures.Items.RemoveAt(i);
+                }
+                else i++;
             }
         }
 
@@ -225,6 +298,16 @@ namespace Painter
             }
             
         }
+
+        private void CreateDomain(string path)
+        {
+            AppDomain FabDomain = AppDomain.CreateDomain("Fabric Domain "
+                    + Convert.ToString(btnCount), null, setup);
+            this.path = path;
+            FabDomain.DoCallBack(CreateFabric);
+            Domains.Add(FabDomain);
+        }
+
         private void SaveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
@@ -249,14 +332,16 @@ namespace Painter
             Painter = Graphics.FromImage(Canvas);
             FileSystemWatcher fileWatcher = new FileSystemWatcher(AppDomain.CurrentDomain.BaseDirectory + "Modules\\", "*.dll");
             fileWatcher.Created += new FileSystemEventHandler(OnChanged);
+            fileWatcher.Deleted += new FileSystemEventHandler(Delete_Fab);
             pnlBtnPannel.AutoScroll = true;
             fileWatcher.EnableRaisingEvents = true;
             Creators = new List<AbstractFabric>();
 
+            setup.ApplicationBase = Environment.CurrentDirectory;
             string[] files = Directory.GetFiles(Environment.CurrentDirectory + "\\Modules\\");
             foreach (string file in files)
             {
-                CreateFabric(file);
+                CreateDomain(file);
             }
 
         }

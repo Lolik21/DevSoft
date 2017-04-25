@@ -1,0 +1,9 @@
+C:\Users\Ilya\Documents\GitHub\DevSoft\Gwent\DBLoader\bin\Debug\DBLoader.dll
+C:\Users\Ilya\Documents\GitHub\DevSoft\Gwent\DBLoader\bin\Debug\DBLoader.pdb
+C:\Users\Ilya\Documents\GitHub\DevSoft\Gwent\DBLoader\bin\Debug\GwentCard.dll
+C:\Users\Ilya\Documents\GitHub\DevSoft\Gwent\DBLoader\bin\Debug\GwentCard.pdb
+C:\Users\Ilya\Documents\GitHub\DevSoft\Gwent\DBLoader\obj\Debug\DBLoader.csprojResolveAssemblyReference.cache
+C:\Users\Ilya\Documents\GitHub\DevSoft\Gwent\DBLoader\obj\Debug\DBLoader.dll
+C:\Users\Ilya\Documents\GitHub\DevSoft\Gwent\DBLoader\obj\Debug\DBLoader.pdb
+C:\Users\Ilya\Documents\GitHub\DevSoft\Gwent\DBLoader\bin\Debug\MySql.Data.dll
+C:\Users\Ilya\Documents\GitHub\DevSoft\Gwent\DBLoader\bin\Debug\MySql.Data.xml

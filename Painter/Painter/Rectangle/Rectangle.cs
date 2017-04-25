@@ -49,6 +49,12 @@ namespace Rectangle
             Painter.FillRectangle(Pen.Brush, x1, y1, Width, Height);
             Painter.DrawRectangle(Pen, x1, y1, Width, Height);
         }
+
+        public override Type GetFabricType()
+        {
+            return typeof(RectangleFabric);
+        }
+
         public override void DeleteFig()
         {
             Pen tmpPen = new Pen(Color.White, 3);

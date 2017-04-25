@@ -68,5 +68,23 @@ namespace Painter
         {
             return Figures.Count();
         }
+        public string DeleteFig(Type FabType)
+        {
+            string DeletedFigName = null;
+            int i = 0;
+            while (i< Figures.Count)
+            {
+                if (Figures[i].GetType() == FabType)
+                {
+                    Figures[i].DeleteFig();
+                    if (DeletedFigName == null)
+                        DeletedFigName = Figures[i].GetName();
+                    Figures.RemoveAt(i);
+                }
+                else i++;              
+            }
+            return DeletedFigName;
+
+        }
     }
 }

@@ -89,6 +89,7 @@ namespace Painter
         }
         private void btnDraw_Click(object sender, EventArgs e)
         {
+            if (Creators.Count == 0) return;
             int i = Creators[SelectedFabric].CheckPoints(ref points);
             if (i > 0)
             {
@@ -296,7 +297,7 @@ namespace Painter
             {
                 MessageBox.Show(ex.Message);
             }
-            
+          
         }
 
         private void CreateDomain(string path)

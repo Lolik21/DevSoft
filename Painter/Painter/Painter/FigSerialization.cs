@@ -37,19 +37,20 @@ namespace Painter
                 int i = 0;
                 while (!AllIsReplased)
                 {
-                    MatchCollection Matches = Pattern.Matches(str);                  
-
-                    if (!IsInTypes(Matches[i].Groups[1].Value, Types))
+                    MatchCollection Matches = Pattern.Matches(str);
+                    if (Matches.Count != 0)
                     {
-                        DeleteType(Matches[i].Groups[0].Index, ref str);
+                        if (!IsInTypes(Matches[i].Groups[1].Value, Types))
+                        {
+                            DeleteType(Matches[i].Groups[0].Index, ref str);
+                        }
+                        else
+                        {
+                            if (Matches.Count == i + 1) AllIsReplased = true;
+                            i++;
+                        }
                     }
-                    else
-                    {                                             
-                        if (Matches.Count == i) AllIsReplased = true;
-                        i++;
-                    }
-                        
-                   
+                    else AllIsReplased = true;                   
                 }
 
                 foreach (Match match in Pattern.Matches(str))

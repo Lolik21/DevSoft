@@ -25,6 +25,9 @@ namespace Gwent
         private int CurrFractionID = 1;
         private List<GwentCard> AllCards;
         private List<GwentCard> UserCards;
+        private Thickness OnMouseImageMagrin = new Thickness(0, 0, 0, 0);
+        private Thickness StdImageMagrin = new Thickness(10, 10, 10, 10);
+
 
         public ChouseCard()
         {
@@ -36,6 +39,9 @@ namespace Gwent
             AllCards = Cards;
             LeftImages = InitFractionCards(AllCards);            
             DisplayImages(grdAllCards,LeftImages);
+            grdAllCards.MouseEnter += Grid_MouseEnter;
+            grdAllCards.MouseLeave += Grid_MouseLeave;
+                       
         }
 
         private void btnToMenu_Click(object sender, RoutedEventArgs e)
@@ -53,7 +59,7 @@ namespace Gwent
         {
             Grid.SetRow(Image, Row);
             Grid.SetColumn(Image, Colum);
-            MyGrid.Children.Add(Image);
+            MyGrid.Children.Add(Image);          
         }
 
         private void DisplayImages(Grid Grid, List<Image> Images)
@@ -63,12 +69,13 @@ namespace Gwent
             while (Counter < Images.Count)
             {
                 RowDefinition row = new RowDefinition();
+                
                 Grid.RowDefinitions.Add(row);
                 for (int i = 0; i < CARDS_ON_ROW; i++)
                 {
                     if (Counter < Images.Count)
                     {
-                        AddToGrid(Grid, Images[Counter], (Counter / CARDS_ON_ROW) + 1, i); 
+                        AddToGrid(Grid, Images[Counter], (Counter / CARDS_ON_ROW) , i); 
                     }
                     Counter++;
                 }
@@ -88,10 +95,25 @@ namespace Gwent
                     img.Stretch = Stretch.Fill;
                     img.Source = bti;
                     img.Tag = Card;
+                    img.MouseEnter += Mouse_EnterImage;
+                    img.MouseLeave += Mouse_LeaveImage;
+                    img.Margin = StdImageMagrin;
                     Images.Add(img);
                 }
             }
             return Images; 
+        }
+
+        private void Mouse_EnterImage(object sender, RoutedEventArgs e)
+        {            
+            Image img = sender as Image;
+            img.Margin = OnMouseImageMagrin;
+        }
+
+        private void Mouse_LeaveImage(object sender, RoutedEventArgs e)
+        {
+            Image img = sender as Image;
+            img.Margin = StdImageMagrin;
         }
 
         private void DisplayUserCards(List<GwentCard> Cards, Grid Grid)
@@ -111,6 +133,17 @@ namespace Gwent
             UserCards.Clear();
             LeftImages.Clear();
             RightImages.Clear();
+        }
+
+        private void Grid_MouseEnter(object sender, MouseEventArgs e)
+        {
+            Grid grd = sender as Grid;
+            grd.MaxHeight = grd.ActualHeight;       
+        }
+        private void Grid_MouseLeave(object sender, MouseEventArgs e)
+        {
+            Grid grd = sender as Grid;
+            grd.MaxHeight = MaxHeight;
         }
     }
 }

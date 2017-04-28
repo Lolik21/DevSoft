@@ -24,3 +24,5 @@ C:\Users\Ilya\Documents\GitHub\DevSoft\Gwent\Gwent\obj\Debug\Battlefield.g.cs
 C:\Users\Ilya\Documents\GitHub\DevSoft\Gwent\Gwent\obj\Debug\Battlefield.baml
 C:\Users\Ilya\Documents\GitHub\DevSoft\Gwent\Gwent\bin\Debug\MySql.Data.dll
 C:\Users\Ilya\Documents\GitHub\DevSoft\Gwent\Gwent\bin\Debug\MySql.Data.xml
+C:\Users\Ilya\Documents\GitHub\DevSoft\Gwent\Gwent\bin\Debug\Battleground.dll
+C:\Users\Ilya\Documents\GitHub\DevSoft\Gwent\Gwent\bin\Debug\Battleground.pdb

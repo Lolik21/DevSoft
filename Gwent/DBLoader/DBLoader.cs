@@ -12,6 +12,7 @@ namespace nDBLoader
         const string DB_NAME = "gwent";
         const string USER_ID = "root";
         const string PASSWD = "HelliMomJasdo41631";
+        Fabric fab = new Fabric();       
 
         private MySqlConnectionStringBuilder ConnectToDB()
         {
@@ -22,31 +23,16 @@ namespace nDBLoader
             mysqlCSB.Password = PASSWD;
             return mysqlCSB;
         }
-
-        private string GetByNameFromTable(int ID,string Name,string Table)
-        {
-            string queryString = @"SELECT "+Name+" FROM "+Table+" WHERE ID = "
-                                    + Convert.ToString(ID);
-            MySqlCommand Command = new MySqlCommand(queryString, MySqlDB);
-            using (MySqlDataReader dr = Command.ExecuteReader())
-            {
-                if (dr.HasRows)
-                {
-                    while (dr.Read())
-                    {
-                        return dr[Name].ToString();
-                    }
-                }
-            }
-            return null;
-        }
-
+              
         public List<GwentCard> LoadCards()
         {
             List<GwentCard> Cards = new List<GwentCard>();
+            List<AdditionInfo> SpecialAbilityInfo = new List<AdditionInfo>();
+            List<AdditionInfo> FractionInfo = new List<AdditionInfo>();
+
+            GetAdditionInfo(SpecialAbilityInfo, FractionInfo);
 
             string queryString = @"SELECT * FROM gwentcards";
-
             MySqlCommand Command = new MySqlCommand(queryString, MySqlDB);
             using (MySqlDataReader dr = Command.ExecuteReader())
             {
@@ -54,60 +40,108 @@ namespace nDBLoader
                 {
                     while (dr.Read())
                     {                       
-                        Cards.Add(CardCreator(dr, Cards));
+                        Cards.Add(CardCreator(dr,SpecialAbilityInfo,FractionInfo));
                     }
                 }
-            }
-
-            GetAdditionInfo(Cards);
+            }        
             return Cards;
         }
 
-        private void GetAdditionInfo(List<GwentCard> Cards)
+        private void GetAdditionInfo(List<AdditionInfo> SpecialAbilityInfo , List<AdditionInfo> FractionInfo)
         {
-            for (int i = 0; i < Cards.Count; i++)
+            GetFractionInfo(FractionInfo);
+            GetSpAbilityInfo(SpecialAbilityInfo);
+        }
+        
+
+        private void FillWithAdditionInfo(GwentCard Card,
+                                            List<AdditionInfo> SpecialAbilityInfo, List<AdditionInfo> FractionInfo)
+        {
+            if (Card.FractionID > 0)
             {
-                GetFractionInfo(Cards[i]);
-                GetSpAbilityInfo(Cards[i]);
+                Card.FractionName = FractionInfo[Card.FractionID-1].Name;
+                Card.FractionDescription = FractionInfo[Card.FractionID - 1].Description;
+            }
+
+            if (Card.SpAbilityID > 0)
+            {
+                Card.SpAbilityName = SpecialAbilityInfo[Card.SpAbilityID-1].Name;
+                Card.SpAbilityDescription = SpecialAbilityInfo[Card.SpAbilityID - 1].Description;
             }
         }
 
-        private GwentCard CardCreator(MySqlDataReader dr, List<GwentCard> Cards)
+        private GwentCard CardCreator(MySqlDataReader dr, List<AdditionInfo>
+                                            SpecialAbilityInfo, List<AdditionInfo> FractionInfo)
         {
             GwentCard card;
-            if (dr["Line"] == null && dr["FractionID"] == null)
-            {
-                card = new GwentCard();
-            }
-            else card = new PlaceableCard();
+            string SpAbiliteName = GetSpAbiliteName(dr, SpecialAbilityInfo);
+            card = fab.GetCard(SpAbiliteName);
             GetMainInfo(dr, card);
             if (card is IPlaceable)
             {
                 GetPlaceableCardInfo(dr, card as PlaceableCard);
             }
+            FillWithAdditionInfo(card, SpecialAbilityInfo, FractionInfo);
+         
             return card;
+        }
+
+        private string GetSpAbiliteName(MySqlDataReader dr, List<AdditionInfo> SpecialAbilityInfo)
+        {
+            int SpAbilityID;
+            if (dr["SpecialAbilitesID"] != DBNull.Value)
+            {
+                SpAbilityID = (int)dr["SpecialAbilitesID"];
+                return SpecialAbilityInfo[SpAbilityID - 1].Name;
+            } else return null;
         }
 
         private void GetPlaceableCardInfo(MySqlDataReader dr,PlaceableCard card)
         {
             card.CardDefaultStrength = (int)dr["CardPower"];
         }
-        private void GetFractionInfo(GwentCard card)
+
+
+        private void GetFractionInfo(List<AdditionInfo> FractionInfo)
         {
-            if (card.FractionID != 0)
-            {                          
-                card.FractionName = GetByNameFromTable(card.FractionID, "Name", "fractions");
-                card.FractionDescription = GetByNameFromTable(card.FractionID, "Description", "fractions");
-            }
-        }
-        private void GetSpAbilityInfo(GwentCard card)
-        {
-            if (card.SpAbilityID != 0)
+            string queryString = @"SELECT * FROM fractions";
+            MySqlCommand Command = new MySqlCommand(queryString, MySqlDB);
+            using (MySqlDataReader dr = Command.ExecuteReader())
             {
-                card.SpAbilityDescription = GetByNameFromTable(card.SpAbilityID, "Description", "specialabilites");
-                card.SpAbilityName = GetByNameFromTable(card.SpAbilityID, "Name", "specialabilites");
+                if (dr.HasRows)
+                {
+                    while (dr.Read())
+                    {
+                        AdditionInfo inf = new AdditionInfo();
+                        inf.Name = dr["Name"].ToString();
+                        inf.ID = (int)dr["ID"];
+                        inf.Description = dr["Description"].ToString();
+                        FractionInfo.Add(inf);
+                    }
+                }
             }
         }
+        private void GetSpAbilityInfo(List<AdditionInfo> SpecialAbilityInfo)
+        {
+            string queryString = @"SELECT * FROM specialabilites";
+            MySqlCommand Command = new MySqlCommand(queryString, MySqlDB);
+            using (MySqlDataReader dr = Command.ExecuteReader())
+            {
+                if (dr.HasRows)
+                {
+                    while (dr.Read())
+                    {
+                        AdditionInfo inf = new AdditionInfo();
+                        inf.Name = dr["Name"].ToString();
+                        inf.ID = (int)dr["ID"];
+                        inf.Description = dr["Description"].ToString();
+                        SpecialAbilityInfo.Add(inf);
+                    }
+                }
+            }
+        }
+
+
         private void GetMainInfo(MySqlDataReader dr, GwentCard card)
         {
             card.CardID = (int)dr["CardID"];

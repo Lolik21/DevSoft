@@ -1,0 +1,5 @@
+C:\Users\Ilya\Documents\GitHub\DevSoft\Gwent\Battleground\bin\Debug\Battleground.dll
+C:\Users\Ilya\Documents\GitHub\DevSoft\Gwent\Battleground\bin\Debug\Battleground.pdb
+C:\Users\Ilya\Documents\GitHub\DevSoft\Gwent\Battleground\obj\Debug\Battleground.csprojResolveAssemblyReference.cache
+C:\Users\Ilya\Documents\GitHub\DevSoft\Gwent\Battleground\obj\Debug\Battleground.dll
+C:\Users\Ilya\Documents\GitHub\DevSoft\Gwent\Battleground\obj\Debug\Battleground.pdb

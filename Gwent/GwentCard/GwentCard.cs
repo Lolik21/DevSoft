@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using nBattleground;
+
 
 namespace nGwentCard
 {
-    public class GwentCard
+    public abstract class GwentCard
     {       
         public int CardID { get; set; }
         public string CardName { get; set; }
@@ -20,8 +22,7 @@ namespace nGwentCard
         public string SpAbilityDescription { get; set; }
         public string ToImgPath { get; set; }
         public int CardLine { get; set; }
-        public delegate void SpAbilityDelegate();
-        public SpAbilityDelegate SpAbilityMethod;
         public Image Image { get; set; }
+        public abstract void PerformSpecialAbility(Battleground Battleground);
     }
 }

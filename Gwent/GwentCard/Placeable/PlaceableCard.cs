@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace nGwentCard
 {
-    public class PlaceableCard : GwentCard, IPlaceable
-    {
-        
+    public abstract class PlaceableCard : GwentCard, IPlaceable
+    {        
         public int CardDefaultStrength { get; set; }
         public int CardCurrStrength { get; set; }
     }

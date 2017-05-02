@@ -3,8 +3,6 @@ C:\Users\Ilya\Documents\GitHub\DevSoft\Gwent\GwentCard\bin\Debug\GwentCard.dll
 C:\Users\Ilya\Documents\GitHub\DevSoft\Gwent\GwentCard\bin\Debug\GwentCard.pdb
 C:\Users\Ilya\Documents\GitHub\DevSoft\Gwent\GwentCard\obj\Debug\GwentCard.dll
 C:\Users\Ilya\Documents\GitHub\DevSoft\Gwent\GwentCard\obj\Debug\GwentCard.pdb
-C:\Users\Ilya\Documents\GitHub\DevSoft\Gwent\GwentCard\bin\Debug\Battleground.dll
-C:\Users\Ilya\Documents\GitHub\DevSoft\Gwent\GwentCard\bin\Debug\Battleground.pdb
 C:\Users\NotePad.by\Documents\GitHub\DevSoft\Gwent\GwentCard\bin\Debug\GwentCard.dll
 C:\Users\NotePad.by\Documents\GitHub\DevSoft\Gwent\GwentCard\bin\Debug\GwentCard.pdb
 C:\Users\NotePad.by\Documents\GitHub\DevSoft\Gwent\GwentCard\obj\Debug\GwentCard.csprojResolveAssemblyReference.cache

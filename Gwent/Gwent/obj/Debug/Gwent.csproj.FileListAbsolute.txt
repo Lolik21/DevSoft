@@ -24,8 +24,6 @@ C:\Users\Ilya\Documents\GitHub\DevSoft\Gwent\Gwent\obj\Debug\Battlefield.g.cs
 C:\Users\Ilya\Documents\GitHub\DevSoft\Gwent\Gwent\obj\Debug\Battlefield.baml
 C:\Users\Ilya\Documents\GitHub\DevSoft\Gwent\Gwent\bin\Debug\MySql.Data.dll
 C:\Users\Ilya\Documents\GitHub\DevSoft\Gwent\Gwent\bin\Debug\MySql.Data.xml
-C:\Users\Ilya\Documents\GitHub\DevSoft\Gwent\Gwent\bin\Debug\Battleground.dll
-C:\Users\Ilya\Documents\GitHub\DevSoft\Gwent\Gwent\bin\Debug\Battleground.pdb
 C:\Users\NotePad.by\Documents\GitHub\DevSoft\Gwent\Gwent\bin\Debug\Gwent.exe.config
 C:\Users\NotePad.by\Documents\GitHub\DevSoft\Gwent\Gwent\obj\Debug\Gwent.exe
 C:\Users\NotePad.by\Documents\GitHub\DevSoft\Gwent\Gwent\obj\Debug\Gwent.pdb
@@ -38,3 +36,5 @@ C:\Users\NotePad.by\Documents\GitHub\DevSoft\Gwent\Gwent\obj\Debug\MainWindow.g.
 C:\Users\NotePad.by\Documents\GitHub\DevSoft\Gwent\Gwent\obj\Debug\App.g.cs
 C:\Users\NotePad.by\Documents\GitHub\DevSoft\Gwent\Gwent\obj\Debug\Gwent_MarkupCompile.cache
 C:\Users\NotePad.by\Documents\GitHub\DevSoft\Gwent\Gwent\obj\Debug\Gwent_MarkupCompile.lref
+C:\Users\Ilya\Documents\GitHub\DevSoft\Gwent\Gwent\obj\Debug\Card.g.cs
+C:\Users\Ilya\Documents\GitHub\DevSoft\Gwent\Gwent\obj\Debug\Card.baml

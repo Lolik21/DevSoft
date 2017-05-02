@@ -22,12 +22,12 @@ namespace Gwent
         public MainWindow MainWindow { get; set; }
         public Battleground battlegnd { get; set; }
         public List<string> Fractions { get; set; }
-        private List<Image> LeftImages;
-        private List<Image> RightImages;
+        private List<Image> LeftImages = new List<Image>();
+        private List<Image> RightImages = new List<Image>();
         private int CurrFractionID = 1;
-        private int UserCardsCount = 0;
+        private int UserCardsCount = 0;        
+        private List<GwentCard> UserCards = new List<GwentCard>();
         private List<GwentCard> AllCards;
-        private List<GwentCard> UserCards;
         private Thickness OnMouseImageMagrin = new Thickness(0, 0, 0, 0);
         private Thickness StdImageMagrin = new Thickness(10, 10, 10, 10);
 
@@ -46,6 +46,7 @@ namespace Gwent
         {
             AllCards = Cards;
             LeftImages = InitFractionCards(AllCards);
+            RightImages = new List<Image>();
             lblFraction.Content = Fractions[CurrFractionID - 1];                    
             DisplayImages(grdAllCards,LeftImages);                                           
         }
@@ -54,14 +55,14 @@ namespace Gwent
         {
             if (UserCards.Count<22 || UserCardsCount > 32)
             {
-                MessageBox.Show("Вы выбрали недопустимое количество карт\n 
-                    Карт должно быть не менее 22 и не более 32\n
-                    Вы не сможете играть с неверны м колиеством карт",
+                MessageBox.Show("Вы выбрали недопустимое количество карт\n"+
+                    "Карт должно быть не менее 22 и не более 32\n"+
+                    "Вы не сможете играть с неверны м колиеством карт",
                     "Предупреждение",MessageBoxButton.OK,MessageBoxImage.Exclamation);
             }
             battlegnd.UserCards = UserCards;
-            MainWindow.Chouse.Visibility = Visibility.Collapsed;
-            MainWindow.Menu.Visibility = Visibility.Visible;
+            MainWindow.MainGrid.Children[MainWindow.MainGrid.Children.IndexOf(MainWindow.Chouse)].Visibility = Visibility.Collapsed;
+            MainWindow.MainGrid.Children[MainWindow.MainGrid.Children.IndexOf(MainWindow.Menu)].Visibility = Visibility.Visible;
         }
 
         private void AddToGrid(Grid MyGrid, Image Image, int Row, int Colum)
@@ -89,7 +90,7 @@ namespace Gwent
                     Counter++;
                 }
             }
-                
+            Grid.RowDefinitions.Add(new RowDefinition());
         }
 
         private List<Image> InitFractionCards(List<GwentCard> Cards)
@@ -122,6 +123,8 @@ namespace Gwent
             int ind = RightImages.IndexOf(img);
             LeftImages.Add(RightImages[ind]);
             RightImages.RemoveAt(ind);
+            grdAllCards.Children.Clear();
+            grdUserCards.Children.Clear();
             DisplayImages(grdAllCards, LeftImages);
             DisplayImages(grdUserCards, RightImages);
             UserCards.Remove(img.Tag as GwentCard);
@@ -138,6 +141,8 @@ namespace Gwent
             int ind = LeftImages.IndexOf(img);
             RightImages.Add(LeftImages[ind]);
             LeftImages.RemoveAt(ind);
+            grdAllCards.Children.Clear();
+            grdUserCards.Children.Clear();
             DisplayImages(grdAllCards, LeftImages);
             DisplayImages(grdUserCards, RightImages);
             UserCards.Add(img.Tag as GwentCard);
@@ -198,12 +203,38 @@ namespace Gwent
         private void Grid_MouseEnter(object sender, MouseEventArgs e)
         {
             Grid grd = sender as Grid;
-            grd.MaxHeight = grd.ActualHeight;       
+            grd.MaxHeight = grd.ActualHeight;     
         }
         private void Grid_MouseLeave(object sender, MouseEventArgs e)
         {
             Grid grd = sender as Grid;
             grd.MaxHeight = MaxHeight;
+        }
+
+        private void btnPrevFraction_Click_1(object sender, RoutedEventArgs e)
+        {
+            if (CurrFractionID > 1)
+            {
+                CurrFractionID--;
+                NextFractionInit();
+            }
+        }
+
+        private void NextFractionInit()
+        {
+            lblFraction.Content = Fractions[CurrFractionID - 1];
+            UserCards.Clear();
+            lblCardsCount.Content = 0;
+            Init(AllCards);
+        }
+
+        private void btnNextFraction_Click_1(object sender, RoutedEventArgs e)
+        {
+            if (CurrFractionID < Fractions.Count)
+            {
+                CurrFractionID++;
+                NextFractionInit();
+            }
         }
     }
 }

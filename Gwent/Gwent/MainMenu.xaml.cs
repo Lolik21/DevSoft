@@ -33,14 +33,14 @@ namespace Gwent
 
         private void btnChouseCard_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow.Menu.Visibility = Visibility.Collapsed;
-            MainWindow.Chouse.Visibility = Visibility.Collapsed;
+            MainWindow.MainGrid.Children[MainWindow.MainGrid.Children.IndexOf(MainWindow.Menu)].Visibility = Visibility.Collapsed;
+            MainWindow.MainGrid.Children[MainWindow.MainGrid.Children.IndexOf(MainWindow.Chouse)].Visibility = Visibility.Visible;
         }
 
         private void btnStartGame_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow.Menu.Visibility = Visibility.Collapsed;
-            MainWindow.Battlefield.Visibility = Visibility.Collapsed;
+            MainWindow.MainGrid.Children[MainWindow.MainGrid.Children.IndexOf(MainWindow.Menu)].Visibility = Visibility.Collapsed;
+            MainWindow.MainGrid.Children[MainWindow.MainGrid.Children.IndexOf(MainWindow.Battlefield)].Visibility = Visibility.Visible;
         }
     }
 }

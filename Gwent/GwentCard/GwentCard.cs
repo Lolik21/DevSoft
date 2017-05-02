@@ -21,6 +21,7 @@ namespace nGwentCard
         public string SpAbilityDescription { get; set; }
         public string ToImgPath { get; set; }
         public int CardLine { get; set; }
+        public bool Invinsible { get; set; }
         public Image Image { get; set; }
         public abstract void PerformSpecialAbility(Battleground Battleground);
     }

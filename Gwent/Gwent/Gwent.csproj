@@ -63,7 +63,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="GwentCard.xaml">
+    <Page Include="Card.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -86,8 +86,8 @@
       <DependentUpon>ChouseCard.xaml</DependentUpon>
     </Compile>
     <Compile Include="Connection.cs" />
-    <Compile Include="GwentCard.xaml.cs">
-      <DependentUpon>GwentCard.xaml</DependentUpon>
+    <Compile Include="Card.xaml.cs">
+      <DependentUpon>Card.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainMenu.xaml.cs">
       <DependentUpon>MainMenu.xaml</DependentUpon>

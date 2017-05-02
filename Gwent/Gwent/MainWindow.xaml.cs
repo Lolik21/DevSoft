@@ -33,19 +33,20 @@ namespace Gwent
             GetMenuControls();
             ChouseCardInit();
             GetBattleFieldCountrols();
-            Menu.Visibility = Visibility.Collapsed;
-            Chouse.Visibility = Visibility.Collapsed;
-            Battlefield.Visibility = Visibility.Collapsed;
+            MainGrid.Children[MainGrid.Children.IndexOf(Menu)].Visibility = Visibility.Collapsed;
+            MainGrid.Children[MainGrid.Children.IndexOf(Chouse)].Visibility = Visibility.Collapsed;
+            MainGrid.Children[MainGrid.Children.IndexOf(Battlefield)].Visibility = Visibility.Collapsed;
+
         }
         private void GetMenuControls()
         {
-            MainMenu Menu = new MainMenu();
+            Menu = new MainMenu();
             Menu.MainWindow = this;           
             MainGrid.Children.Add(Menu);                 
         }
         public void GetChouseCardControls(List<GwentCard> Cards, List<string> Fractions)
         {
-            ChouseCard Chouse = new ChouseCard();
+            Chouse = new ChouseCard();
             Chouse.MainWindow = this;
             Chouse.Fractions = Fractions;
             Chouse.Init(Cards);
@@ -53,8 +54,7 @@ namespace Gwent
         }
         private void GetBattleFieldCountrols()
         {
-            MainGrid.Children.Clear();
-            Battlefield Battlefield = new Battlefield();
+            Battlefield = new Battlefield();
             MainGrid.Children.Add(Battlefield);
         }
 
@@ -73,7 +73,7 @@ namespace Gwent
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            Menu.Visibility = Visibility.Visible;
+            MainGrid.Children[MainGrid.Children.IndexOf(Menu)].Visibility = Visibility.Visible;
         }
 
         private void Window_Closed(object sender, EventArgs e)

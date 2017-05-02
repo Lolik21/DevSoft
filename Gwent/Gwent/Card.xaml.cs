@@ -18,9 +18,9 @@ namespace Gwent
     /// <summary>
     /// Логика взаимодействия для GwentCard.xaml
     /// </summary>
-    public partial class GwentCard : UserControl
+    public partial class Card : UserControl
     {
-        public GwentCard()
+        public Card()
         {
             InitializeComponent();
         }

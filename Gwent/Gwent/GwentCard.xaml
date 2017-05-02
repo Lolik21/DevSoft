@@ -1,0 +1,17 @@
+﻿<UserControl x:Class="Gwent.GwentCard"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Gwent"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid x:Name="CardGrid" VerticalAlignment="Center" HorizontalAlignment="Center">
+        <Image Source="D:\24.png"/>
+        <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="36" Height="36" Margin="7,6,0,0">
+
+            <Ellipse Fill="White"/>
+            <TextBlock Text="10" FontSize="30" FontFamily="Times New Roman" Foreground="Green" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        </Grid>
+    </Grid>
+</UserControl>

@@ -20,26 +20,34 @@ namespace Gwent
     
     public partial class MainWindow : Window
     {
-        DBLoader Loader = new DBLoader();
-        List<GwentCard> UserCards = new List<GwentCard>();
+        private DBLoader Loader = new DBLoader();
+        private Battleground battlegrd;
+        public MainMenu Menu;
+        public ChouseCard Chouse;
+        public Battlefield Battlefield;
 
         public MainWindow()
         {
             InitializeComponent();
-            Image img = new Image();  
+            battlegrd = new Battleground();
+            GetMenuControls();
+            ChouseCardInit();
+            GetBattleFieldCountrols();
+            Menu.Visibility = Visibility.Collapsed;
+            Chouse.Visibility = Visibility.Collapsed;
+            Battlefield.Visibility = Visibility.Collapsed;
         }
-        public void GetMenuControls()
+        private void GetMenuControls()
         {
-            MainGrid.Children.Clear();
             MainMenu Menu = new MainMenu();
-            Menu.MainWindow = this;
+            Menu.MainWindow = this;           
             MainGrid.Children.Add(Menu);                 
         }
-        public void GetChouseCardControls(List<GwentCard> Cards)
+        public void GetChouseCardControls(List<GwentCard> Cards, List<string> Fractions)
         {
-            MainGrid.Children.Clear();
             ChouseCard Chouse = new ChouseCard();
             Chouse.MainWindow = this;
+            Chouse.Fractions = Fractions;
             Chouse.Init(Cards);
             MainGrid.Children.Add(Chouse);
         }
@@ -50,27 +58,27 @@ namespace Gwent
             MainGrid.Children.Add(Battlefield);
         }
 
-        public void StartGameInit()
+        private void StartGameInit()
         {
-            GetBattleFieldCountrols();
+            
         }
 
-        public void ChouseCardInit()
+        private void ChouseCardInit()
         {
-            List<GwentCard> Cards;
             Loader = new DBLoader();
-            Cards = Loader.LoadCards();            
-            GetChouseCardControls(Cards);
+            battlegrd.AllCards = Loader.LoadCards();            
+            GetChouseCardControls(battlegrd.AllCards, Loader.Fractions);
+            Loader.Dispose();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            GetMenuControls();
+            Menu.Visibility = Visibility.Visible;
         }
 
         private void Window_Closed(object sender, EventArgs e)
         {
-            Loader.Dispose();
+
         }
     }
 

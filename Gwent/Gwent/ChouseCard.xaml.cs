@@ -20,9 +20,12 @@ namespace Gwent
     public partial class ChouseCard : UserControl
     {
         public MainWindow MainWindow { get; set; }
+        public Battleground battlegnd { get; set; }
+        public List<string> Fractions { get; set; }
         private List<Image> LeftImages;
         private List<Image> RightImages;
         private int CurrFractionID = 1;
+        private int UserCardsCount = 0;
         private List<GwentCard> AllCards;
         private List<GwentCard> UserCards;
         private Thickness OnMouseImageMagrin = new Thickness(0, 0, 0, 0);
@@ -32,27 +35,33 @@ namespace Gwent
         public ChouseCard()
         {
             InitializeComponent();
+            grdAllCards.MouseEnter += Grid_MouseEnter;
+            grdAllCards.MouseLeave += Grid_MouseLeave;
+            grdUserCards.MouseEnter += Grid_MouseEnter;
+            grdUserCards.MouseLeave += Grid_MouseLeave;
+            lblCardsCount.Content = UserCardsCount;
         }
 
         public void Init(List<GwentCard> Cards)
         {
             AllCards = Cards;
-            LeftImages = InitFractionCards(AllCards);            
-            DisplayImages(grdAllCards,LeftImages);
-            grdAllCards.MouseEnter += Grid_MouseEnter;
-            grdAllCards.MouseLeave += Grid_MouseLeave;
-                       
+            LeftImages = InitFractionCards(AllCards);
+            lblFraction.Content = Fractions[CurrFractionID - 1];                    
+            DisplayImages(grdAllCards,LeftImages);                                           
         }
 
         private void btnToMenu_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow.GetMenuControls();
-        }
-
-        private void ImageClick(object sender, RoutedEventArgs e)
-        {
-
-
+            if (UserCards.Count<22 || UserCardsCount > 32)
+            {
+                MessageBox.Show("Вы выбрали недопустимое количество карт\n 
+                    Карт должно быть не менее 22 и не более 32\n
+                    Вы не сможете играть с неверны м колиеством карт",
+                    "Предупреждение",MessageBoxButton.OK,MessageBoxImage.Exclamation);
+            }
+            battlegnd.UserCards = UserCards;
+            MainWindow.Chouse.Visibility = Visibility.Collapsed;
+            MainWindow.Menu.Visibility = Visibility.Visible;
         }
 
         private void AddToGrid(Grid MyGrid, Image Image, int Row, int Colum)
@@ -66,10 +75,10 @@ namespace Gwent
         {
             const int CARDS_ON_ROW = 3;
             int Counter = 0;
+            Grid.RowDefinitions.Clear();
             while (Counter < Images.Count)
             {
-                RowDefinition row = new RowDefinition();
-                
+                RowDefinition row = new RowDefinition();              
                 Grid.RowDefinitions.Add(row);
                 for (int i = 0; i < CARDS_ON_ROW; i++)
                 {
@@ -97,11 +106,56 @@ namespace Gwent
                     img.Tag = Card;
                     img.MouseEnter += Mouse_EnterImage;
                     img.MouseLeave += Mouse_LeaveImage;
+                    img.MouseDown += Mouse_LeftImagesClick;
                     img.Margin = StdImageMagrin;
                     Images.Add(img);
                 }
             }
             return Images; 
+        }
+
+        private void Mouse_RightImagesClick(object sender, RoutedEventArgs e)
+        {
+            Image img = sender as Image;
+            img.MouseDown += Mouse_LeftImagesClick;
+            img.MouseDown -= Mouse_RightImagesClick;
+            int ind = RightImages.IndexOf(img);
+            LeftImages.Add(RightImages[ind]);
+            RightImages.RemoveAt(ind);
+            DisplayImages(grdAllCards, LeftImages);
+            DisplayImages(grdUserCards, RightImages);
+            UserCards.Remove(img.Tag as GwentCard);
+            UserCardsCount--;
+            lblValueChanged(UserCardsCount);
+            lblCardsCount.Content = UserCardsCount;
+        }
+
+        private void Mouse_LeftImagesClick(object sender, RoutedEventArgs e)
+        {
+            Image img = sender as Image;
+            img.MouseDown -= Mouse_LeftImagesClick;
+            img.MouseDown += Mouse_RightImagesClick;
+            int ind = LeftImages.IndexOf(img);
+            RightImages.Add(LeftImages[ind]);
+            LeftImages.RemoveAt(ind);
+            DisplayImages(grdAllCards, LeftImages);
+            DisplayImages(grdUserCards, RightImages);
+            UserCards.Add(img.Tag as GwentCard);
+            UserCardsCount++;
+            lblValueChanged(UserCardsCount);
+            lblCardsCount.Content = UserCardsCount;
+        }
+
+        private void lblValueChanged(int Value)
+        {
+            if (Value < 22 || Value > 32)
+            {
+                lblCardsCount.Foreground = System.Windows.Media.Brushes.Red;
+            }           
+            else
+            {
+                lblCardsCount.Foreground = System.Windows.Media.Brushes.White;
+            }               
         }
 
         private void Mouse_EnterImage(object sender, RoutedEventArgs e)
@@ -116,23 +170,29 @@ namespace Gwent
             img.Margin = StdImageMagrin;
         }
 
-        private void DisplayUserCards(List<GwentCard> Cards, Grid Grid)
-        {
-
-        }
-
         private void btnPrevFraction_Click(object sender, RoutedEventArgs e)
         {
-            UserCards.Clear();
-            LeftImages.Clear();
-            RightImages.Clear();
+            if (CurrFractionID > 1)
+            {
+                CurrFractionID--;
+                UserCards.Clear();
+                LeftImages.Clear();
+                RightImages.Clear();
+                Init(AllCards);
+            }            
         }
 
         private void btnNextFraction_Click(object sender, RoutedEventArgs e)
         {
-            UserCards.Clear();
-            LeftImages.Clear();
-            RightImages.Clear();
+            if (CurrFractionID < Fractions.Count)
+            {
+                CurrFractionID++;
+                UserCards.Clear();
+                LeftImages.Clear();
+                RightImages.Clear();
+                Init(AllCards);
+            }
+            
         }
 
         private void Grid_MouseEnter(object sender, MouseEventArgs e)

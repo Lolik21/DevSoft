@@ -12,7 +12,8 @@ namespace nDBLoader
         const string DB_NAME = "gwent";
         const string USER_ID = "root";
         const string PASSWD = "HelliMomJasdo41631";
-        Fabric fab = new Fabric();       
+        Fabric fab = new Fabric();
+        public List<string> Fractions = new List<string>();       
 
         private MySqlConnectionStringBuilder ConnectToDB()
         {
@@ -117,6 +118,7 @@ namespace nDBLoader
                         inf.ID = (int)dr["ID"];
                         inf.Description = dr["Description"].ToString();
                         FractionInfo.Add(inf);
+                        Fractions.Add(inf.Name);
                     }
                 }
             }

@@ -3,3 +3,6 @@ C:\Users\Ilya\Documents\GitHub\DevSoft\Gwent\Battleground\bin\Debug\Battleground
 C:\Users\Ilya\Documents\GitHub\DevSoft\Gwent\Battleground\obj\Debug\Battleground.csprojResolveAssemblyReference.cache
 C:\Users\Ilya\Documents\GitHub\DevSoft\Gwent\Battleground\obj\Debug\Battleground.dll
 C:\Users\Ilya\Documents\GitHub\DevSoft\Gwent\Battleground\obj\Debug\Battleground.pdb
+C:\Users\NotePad.by\Documents\GitHub\DevSoft\Gwent\Battleground\obj\Debug\Battleground.csprojResolveAssemblyReference.cache
+C:\Users\NotePad.by\Documents\GitHub\DevSoft\Gwent\Battleground\obj\Debug\Battleground.dll
+C:\Users\NotePad.by\Documents\GitHub\DevSoft\Gwent\Battleground\obj\Debug\Battleground.pdb

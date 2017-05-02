@@ -9,3 +9,11 @@ C:\Users\Ilya\Documents\GitHub\DevSoft\Gwent\DBLoader\bin\Debug\MySql.Data.dll
 C:\Users\Ilya\Documents\GitHub\DevSoft\Gwent\DBLoader\bin\Debug\MySql.Data.xml
 C:\Users\Ilya\Documents\GitHub\DevSoft\Gwent\DBLoader\bin\Debug\Battleground.dll
 C:\Users\Ilya\Documents\GitHub\DevSoft\Gwent\DBLoader\bin\Debug\Battleground.pdb
+C:\Users\NotePad.by\Documents\GitHub\DevSoft\Gwent\DBLoader\bin\Debug\DBLoader.dll
+C:\Users\NotePad.by\Documents\GitHub\DevSoft\Gwent\DBLoader\bin\Debug\DBLoader.pdb
+C:\Users\NotePad.by\Documents\GitHub\DevSoft\Gwent\DBLoader\bin\Debug\GwentCard.dll
+C:\Users\NotePad.by\Documents\GitHub\DevSoft\Gwent\DBLoader\bin\Debug\GwentCard.pdb
+C:\Users\NotePad.by\Documents\GitHub\DevSoft\Gwent\DBLoader\bin\Debug\MySql.Data.xml
+C:\Users\NotePad.by\Documents\GitHub\DevSoft\Gwent\DBLoader\obj\Debug\DBLoader.csprojResolveAssemblyReference.cache
+C:\Users\NotePad.by\Documents\GitHub\DevSoft\Gwent\DBLoader\obj\Debug\DBLoader.dll
+C:\Users\NotePad.by\Documents\GitHub\DevSoft\Gwent\DBLoader\obj\Debug\DBLoader.pdb

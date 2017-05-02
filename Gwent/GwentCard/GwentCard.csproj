@@ -44,6 +44,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Battleground.cs" />
     <Compile Include="Placeable\Cards\CallerCard.cs" />
     <Compile Include="Placeable\Cards\EnspireCard.cs" />
     <Compile Include="GwentCard.cs" />
@@ -58,13 +59,6 @@
     <Compile Include="Placeable\Cards\SimpleCard.cs" />
     <Compile Include="Placeable\Cards\SpyCard.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Battleground\Battleground.csproj">
-      <Project>{b389fe3b-c189-48ef-82ec-c584d7ae3c65}</Project>
-      <Name>Battleground</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

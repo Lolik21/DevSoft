@@ -90,7 +90,8 @@ namespace Gwent
                     Counter++;
                 }
             }
-            Grid.RowDefinitions.Add(new RowDefinition());
+            if (Counter <= 3) Grid.RowDefinitions.Add(new RowDefinition());
+            Grid.MaxHeight = MaxHeight; 
         }
 
         private List<Image> InitFractionCards(List<GwentCard> Cards)

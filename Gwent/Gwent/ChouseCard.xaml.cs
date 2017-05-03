@@ -167,13 +167,13 @@ namespace Gwent
         private void Mouse_EnterImage(object sender, RoutedEventArgs e)
         {            
             Image img = sender as Image;
-            img.Margin = OnMouseImageMagrin;
+            img.Margin = OnMouseImageMagrin; // Уменьшение маргина
         }
 
         private void Mouse_LeaveImage(object sender, RoutedEventArgs e)
         {
             Image img = sender as Image;
-            img.Margin = StdImageMagrin;
+            img.Margin = StdImageMagrin; // Увеличение маргина 
         }
 
         private void btnPrevFraction_Click(object sender, RoutedEventArgs e)

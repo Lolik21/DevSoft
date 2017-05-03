@@ -90,7 +90,7 @@ namespace Gwent
                     Counter++;
                 }
             }
-            if (Counter <= 3) Grid.RowDefinitions.Add(new RowDefinition());
+            if (Counter <= 3) Grid.RowDefinitions.Add(new RowDefinition()); // Добавляем пустую что-бы не расстягивалась картинка 
             Grid.MaxHeight = MaxHeight; 
         }
 
@@ -201,9 +201,10 @@ namespace Gwent
             
         }
 
+        // Закоментить, и будет прыгать Grid
         private void Grid_MouseEnter(object sender, MouseEventArgs e)
         {
-            Grid grd = sender as Grid;
+            Grid grd = sender as Grid;                    
             grd.MaxHeight = grd.ActualHeight;     
         }
         private void Grid_MouseLeave(object sender, MouseEventArgs e)

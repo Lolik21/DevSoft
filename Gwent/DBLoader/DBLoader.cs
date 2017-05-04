@@ -148,6 +148,8 @@ namespace nDBLoader
         {
             card.CardID = (int)dr["CardID"];
             card.CardLine = (int)dr["Line"];
+            card.Count = (int)dr["Count"];
+            card.ToBattleImgPath = dr["BattleImagePath"].ToString();
             card.Invinsible = Convert.ToBoolean(dr["Invinsible"]);
             card.CardDescription = dr["Description"].ToString();
             card.CardName = dr["Name"].ToString();

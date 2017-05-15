@@ -6,11 +6,15 @@ using System.Threading.Tasks;
 
 namespace nGwentCard
 {
-    public class EnspireCard : GwentCard
+    public class EnspireCard : PlaceableCard
     {
         public override void PerformSpecialAbility(Battleground Battleground)
         {
-            throw new NotImplementedException();
+            foreach (PlaceableCard Card in Battleground.Lines[this.CardLine-1])
+            {
+                if (Card != this && !(Card.Invinsible))
+                    Card.CardCurrStrength = Card.CardCurrStrength * 2;    
+            }
         }
     }
 }

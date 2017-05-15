@@ -1,0 +1,8 @@
+C:\Users\Ilya\Documents\GitHub\DevSoft\Gwent\Gwent_Server\bin\Debug\Gwent_Server.exe.config
+C:\Users\Ilya\Documents\GitHub\DevSoft\Gwent\Gwent_Server\bin\Debug\Gwent_Server.exe
+C:\Users\Ilya\Documents\GitHub\DevSoft\Gwent\Gwent_Server\bin\Debug\Gwent_Server.pdb
+C:\Users\Ilya\Documents\GitHub\DevSoft\Gwent\Gwent_Server\bin\Debug\GwentCard.dll
+C:\Users\Ilya\Documents\GitHub\DevSoft\Gwent\Gwent_Server\bin\Debug\GwentCard.pdb
+C:\Users\Ilya\Documents\GitHub\DevSoft\Gwent\Gwent_Server\obj\Debug\Gwent_Server.csprojResolveAssemblyReference.cache
+C:\Users\Ilya\Documents\GitHub\DevSoft\Gwent\Gwent_Server\obj\Debug\Gwent_Server.exe
+C:\Users\Ilya\Documents\GitHub\DevSoft\Gwent\Gwent_Server\obj\Debug\Gwent_Server.pdb

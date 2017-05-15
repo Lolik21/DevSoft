@@ -10,5 +10,7 @@ namespace nGwentCard
     {
         int CardDefaultStrength { get; set; }
         int CardCurrStrength { get; set; }
+        void PlaceCard(Battleground Battleground);
+
     }
 }

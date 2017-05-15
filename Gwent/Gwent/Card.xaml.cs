@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using nGwentCard;
 
 namespace Gwent
 {
@@ -23,6 +24,39 @@ namespace Gwent
         public Card()
         {
             InitializeComponent();
+        }
+
+        public void SetCardPower(int Power)
+        {
+            tbCardPower.Text = Convert.ToString(Power);
+            CardPowerChanged();
+        }
+
+        public int GetCardPower()
+        {
+            return Convert.ToInt32(tbCardPower.Text);
+        }
+
+        public void SetImage(Image Img)
+        {
+            imgCardImage.Source = Img.Source;
+        }
+
+        public void CardPowerChanged()
+        {                   
+            int CardPower = Convert.ToInt32(tbCardPower.Text);
+            if (CardPower == (Tag as IPlaceable).CardDefaultStrength)
+            {
+                tbCardPower.Foreground = Brushes.Black;
+            } else
+            if (CardPower > (Tag as IPlaceable).CardDefaultStrength)
+            {
+                tbCardPower.Foreground = Brushes.Green;
+            }
+            else
+            {
+                tbCardPower.Foreground = Brushes.Red;
+            }
         }
     }
 }

@@ -33,8 +33,11 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -45,12 +48,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Battleground.cs" />
+    <Compile Include="Connection.cs" />
+    <Compile Include="FractionInfo.cs" />
+    <Compile Include="Packages\ICommandable.cs" />
+    <Compile Include="Packages\ISimple.cs" />
+    <Compile Include="Packages\NetCommandPackage.cs" />
+    <Compile Include="Packages\NetSimplePackage.cs" />
+    <Compile Include="Packages\Package.cs" />
     <Compile Include="Placeable\Cards\CallerCard.cs" />
     <Compile Include="Placeable\Cards\EnspireCard.cs" />
     <Compile Include="GwentCard.cs" />
+    <Compile Include="Placeable\Cards\HealCard.cs" />
     <Compile Include="Placeable\Cards\KillerCard.cs" />
     <Compile Include="Placeable\Cards\MedicCard.cs" />
     <Compile Include="NonPlaceable\HornCard.cs" />
+    <Compile Include="Placeable\Cards\UnionCard.cs" />
     <Compile Include="Placeable\IPlaceable.cs" />
     <Compile Include="Placeable\PlaceableCard.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -58,6 +70,9 @@
     <Compile Include="NonPlaceable\WeatherCard.cs" />
     <Compile Include="Placeable\Cards\SimpleCard.cs" />
     <Compile Include="Placeable\Cards\SpyCard.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

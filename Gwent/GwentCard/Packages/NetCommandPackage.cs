@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Gwent_Server
+namespace nGwentCard
 {
-    class GwentCard
+    public class NetCommandPackage : Package , ICommandable
     {
+        public string Command { get; set; }
+      
     }
 }

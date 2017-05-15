@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Gwent
+namespace nGwentCard
 {
-    class Connection
+    public interface ICommandable
     {
+        string Command { get; set; }
     }
 }

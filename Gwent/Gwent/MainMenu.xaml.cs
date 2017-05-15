@@ -41,6 +41,7 @@ namespace Gwent
         {
             MainWindow.MainGrid.Children[MainWindow.MainGrid.Children.IndexOf(MainWindow.Menu)].Visibility = Visibility.Collapsed;
             MainWindow.MainGrid.Children[MainWindow.MainGrid.Children.IndexOf(MainWindow.Battlefield)].Visibility = Visibility.Visible;
+            MainWindow.Battlefield.InitBattle(MainWindow.battlegrd);
         }
     }
 }

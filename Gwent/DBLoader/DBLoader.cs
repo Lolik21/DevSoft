@@ -13,7 +13,7 @@ namespace nDBLoader
         const string USER_ID = "root";
         const string PASSWD = "HelliMomJasdo41631";
         Fabric fab = new Fabric();
-        public List<string> Fractions = new List<string>();       
+        public List<FractionInfo> Fractions = new List<FractionInfo>();       
 
         private MySqlConnectionStringBuilder ConnectToDB()
         {
@@ -29,9 +29,9 @@ namespace nDBLoader
         {
             List<GwentCard> Cards = new List<GwentCard>();
             List<AdditionInfo> SpecialAbilityInfo = new List<AdditionInfo>();
-            List<AdditionInfo> FractionInfo = new List<AdditionInfo>();
+            Fractions = new List<FractionInfo>();
 
-            GetAdditionInfo(SpecialAbilityInfo, FractionInfo);
+            GetAdditionInfo(SpecialAbilityInfo, Fractions);
 
             string queryString = @"SELECT * FROM gwentcards";
             MySqlCommand Command = new MySqlCommand(queryString, MySqlDB);
@@ -41,14 +41,14 @@ namespace nDBLoader
                 {
                     while (dr.Read())
                     {                       
-                        Cards.Add(CardCreator(dr,SpecialAbilityInfo,FractionInfo));
+                        Cards.Add(CardCreator(dr,SpecialAbilityInfo, Fractions));
                     }
                 }
             }        
             return Cards;
         }
 
-        private void GetAdditionInfo(List<AdditionInfo> SpecialAbilityInfo , List<AdditionInfo> FractionInfo)
+        private void GetAdditionInfo(List<AdditionInfo> SpecialAbilityInfo , List<FractionInfo> FractionInfo)
         {
             GetFractionInfo(FractionInfo);
             GetSpAbilityInfo(SpecialAbilityInfo);
@@ -56,7 +56,7 @@ namespace nDBLoader
         
 
         private void FillWithAdditionInfo(GwentCard Card,
-                                            List<AdditionInfo> SpecialAbilityInfo, List<AdditionInfo> FractionInfo)
+                                            List<AdditionInfo> SpecialAbilityInfo, List<FractionInfo> FractionInfo)
         {
             if (Card.FractionID > 0)
             {
@@ -72,7 +72,7 @@ namespace nDBLoader
         }
 
         private GwentCard CardCreator(MySqlDataReader dr, List<AdditionInfo>
-                                            SpecialAbilityInfo, List<AdditionInfo> FractionInfo)
+                                            SpecialAbilityInfo, List<FractionInfo> FractionInfo)
         {
             GwentCard card;
             string SpAbiliteName = GetSpAbiliteName(dr, SpecialAbilityInfo);
@@ -103,7 +103,7 @@ namespace nDBLoader
         }
 
 
-        private void GetFractionInfo(List<AdditionInfo> FractionInfo)
+        private void GetFractionInfo(List<FractionInfo> FractionInfo)
         {
             string queryString = @"SELECT * FROM fractions";
             MySqlCommand Command = new MySqlCommand(queryString, MySqlDB);
@@ -113,12 +113,12 @@ namespace nDBLoader
                 {
                     while (dr.Read())
                     {
-                        AdditionInfo inf = new AdditionInfo();
+                        FractionInfo inf = new FractionInfo();
                         inf.Name = dr["Name"].ToString();
                         inf.ID = (int)dr["ID"];
                         inf.Description = dr["Description"].ToString();
-                        FractionInfo.Add(inf);
-                        Fractions.Add(inf.Name);
+                        inf.ToImgPath = dr["ImagePath"].ToString();
+                        FractionInfo.Add(inf);                   
                     }
                 }
             }
@@ -149,6 +149,7 @@ namespace nDBLoader
             card.CardID = (int)dr["CardID"];
             card.CardLine = (int)dr["Line"];
             card.Count = (int)dr["Count"];
+            card.DefaultCount = card.Count;
             card.ToBattleImgPath = dr["BattleImagePath"].ToString();
             card.Invinsible = Convert.ToBoolean(dr["Invinsible"]);
             card.CardDescription = dr["Description"].ToString();

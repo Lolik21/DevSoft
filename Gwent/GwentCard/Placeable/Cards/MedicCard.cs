@@ -6,11 +6,33 @@ using System.Threading.Tasks;
 
 namespace nGwentCard
 {
-    public class MedicCard : GwentCard
-    {
+    public class MedicCard : PlaceableCard
+    {        
         public override void PerformSpecialAbility(Battleground Battleground)
         {
-            throw new NotImplementedException();
+            if (!IsSpecialAbilitiPerformed)
+            {
+                Random rnd = new Random();
+
+                List<PlaceableCard> PlaceableCards = new List<PlaceableCard>();
+
+                foreach (GwentCard Card in Battleground.InStackCards)
+                {
+                    if (Card is IPlaceable && !(Card.Invinsible))
+                    {
+                        PlaceableCards.Add(Card as PlaceableCard);
+                    }
+                }
+
+                if (PlaceableCards.Count != 0)
+                {
+                    int RandomNumber = rnd.Next(PlaceableCards.Count);
+                    Battleground.InStackCards.Remove(PlaceableCards[RandomNumber]);
+                    PlaceableCards[RandomNumber].PlaceCard(Battleground);                
+                }
+                PlaceableCards.Clear();
+                IsSpecialAbilitiPerformed = true;
+            }                     
         }
     }
 }

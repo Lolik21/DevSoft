@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace nGwentCard
 {
-    public class SimpleCard : GwentCard
+    public class SimpleCard : PlaceableCard
     {
         public override void PerformSpecialAbility(Battleground Battleground)
         {
-            throw new NotImplementedException();
+            
         }
     }
 }

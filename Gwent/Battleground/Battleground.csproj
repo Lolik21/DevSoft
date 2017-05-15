@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B389FE3B-C189-48EF-82EC-C584D7AE3C65}</ProjectGuid>
+    <ProjectGuid>{93223DF1-1426-4463-8ABB-B0F2A395DFDB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Battleground</RootNamespace>
@@ -30,18 +30,33 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Battleground.cs" />
+    <Compile Include="Battlegound.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GwentCard\GwentCard.csproj">
+      <Project>{42c3ddf6-a239-4a52-975b-fdbbfdf0a707}</Project>
+      <Name>GwentCard</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Gwent\Gwent.csproj">
+      <Project>{d3d2db6a-1d6a-4d30-ba75-86ba0a0a48ea}</Project>
+      <Name>Gwent</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

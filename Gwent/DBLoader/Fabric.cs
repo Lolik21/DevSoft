@@ -21,6 +21,8 @@ namespace nDBLoader
                 case "WeatherCard": return new WeatherCard();
                 case "HornCard": return new HornCard();
                 case "ScarecrowCard": return new ScarecrowCard();
+                case "HealCard": return new HealCard();
+                case "UnionCard": return new UnionCard();
                 default: return new SimpleCard();
             }              
         }

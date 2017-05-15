@@ -21,7 +21,7 @@ namespace Gwent
     public partial class MainWindow : Window
     {
         private DBLoader Loader = new DBLoader();
-        private Battleground battlegrd;
+        public Battleground battlegrd;
         public MainMenu Menu;
         public ChouseCard Chouse;
         public Battlefield Battlefield;
@@ -44,10 +44,11 @@ namespace Gwent
             Menu.MainWindow = this;           
             MainGrid.Children.Add(Menu);                 
         }
-        public void GetChouseCardControls(List<GwentCard> Cards, List<string> Fractions)
+        public void GetChouseCardControls(List<GwentCard> Cards, List<FractionInfo> Fractions)
         {
             Chouse = new ChouseCard();
             Chouse.MainWindow = this;
+            Chouse.battlegnd = this.battlegrd;
             Chouse.Fractions = Fractions;
             Chouse.Init(Cards);
             MainGrid.Children.Add(Chouse);
@@ -55,6 +56,7 @@ namespace Gwent
         private void GetBattleFieldCountrols()
         {
             Battlefield = new Battlefield();
+            Battlefield.MainWindow = this;
             MainGrid.Children.Add(Battlefield);
         }
 
@@ -66,8 +68,9 @@ namespace Gwent
         private void ChouseCardInit()
         {
             Loader = new DBLoader();
-            battlegrd.AllCards = Loader.LoadCards();            
-            GetChouseCardControls(battlegrd.AllCards, Loader.Fractions);
+            battlegrd.AllCards = Loader.LoadCards();
+            battlegrd.Fractions = Loader.Fractions;            
+            GetChouseCardControls(battlegrd.AllCards, battlegrd.Fractions);
             Loader.Dispose();
         }
 

@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace nGwentCard
 {
-    public class Battleground
+    public interface ISimple
     {
-       
+        int EffectedCardID { get; set; }
+        int SelectedCardID { get; set; }
     }
 }

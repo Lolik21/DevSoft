@@ -22,9 +22,11 @@ namespace nGwentCard
         public string ToImgPath { get; set; }
         public string ToBattleImgPath { get; set; }
         public int Count { get; set; }
+        public int DefaultCount { get; set; }
         public int CardLine { get; set; }
         public bool Invinsible { get; set; }
         public Image Image { get; set; }
+        public bool IsSpecialAbilitiPerformed { get; set; }
         public abstract void PerformSpecialAbility(Battleground Battleground);
     }
 }

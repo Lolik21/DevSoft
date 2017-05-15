@@ -7,24 +7,102 @@
              mc:Ignorable="d" 
              d:DesignHeight="720" d:DesignWidth="1280">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1.5*"/>
-            <ColumnDefinition Width="5*"/>
-        </Grid.ColumnDefinitions>
+        <Grid x:Name="grdPlayGround">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200*"/>
+                <ColumnDefinition Width="1000*"/>
+                <ColumnDefinition Width="200*"/>
+            </Grid.ColumnDefinitions>
 
-        <Grid Grid.Column="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1.25*"/>
-            </Grid.RowDefinitions>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1.25*"/>
+                </Grid.RowDefinitions>
+                <Border x:Name="brdLine6" Grid.Row="0" Background="#101010" BorderBrush="Black" BorderThickness="1" Margin="3">
+                    <Grid x:Name="grdLine6" Margin="3" HorizontalAlignment="Center">
+
+                    </Grid>
+                </Border>
+                <Border x:Name="brdLine5" Grid.Row="1" Background="#101010" BorderBrush="Black" BorderThickness="1" Margin="3">
+                    <Grid x:Name="grdLine5" Margin="3" HorizontalAlignment="Center">
+
+                    </Grid>
+                </Border>
+                <Border x:Name="brdLine4" Grid.Row="2" Background="#101010" BorderBrush="Black" BorderThickness="1" Margin="3">
+                    <Grid x:Name="grdLine4" Margin="3" HorizontalAlignment="Center">
+
+                    </Grid>
+                </Border>
+                <Border x:Name="brdLine1" Grid.Row="3" Background="#101010" BorderBrush="Black" BorderThickness="1" Margin="3">
+                    <Grid x:Name="grdLine1" Margin="3" HorizontalAlignment="Center">
+
+                    </Grid>
+                </Border>
+                <Border x:Name="brdLine2" Grid.Row="4" Background="#101010" BorderBrush="Black" BorderThickness="1" Margin="3">
+                    <Grid x:Name="grdLine2" Margin="3" HorizontalAlignment="Center">
+
+                    </Grid>
+                </Border>
+                <Border x:Name="brdLine3" Grid.Row="5" Background="#101010" BorderBrush="Black" BorderThickness="1" Margin="3">
+                    <Grid x:Name="grdLine3" Margin="3" HorizontalAlignment="Center">
+
+                    </Grid>
+                </Border>
+                <Border Grid.Row="6" Background="#101010" BorderBrush="Black" BorderThickness="1" Margin="3">
+                    <Grid x:Name="grdInHandCards" Margin="3" HorizontalAlignment="Center">
 
 
+                    </Grid>
+                </Border>
+
+
+            </Grid>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="124*"/>
+                    <RowDefinition Height="175*"/>
+                    <RowDefinition Height="98*"/>
+                    <RowDefinition Height="199*"/>
+                    <RowDefinition Height="124*"/>
+                </Grid.RowDefinitions>
+                <Border Grid.Row="2" Background="#101010" BorderBrush="Black" BorderThickness="1" Margin="30,3,30,3">
+
+                </Border>
+                <Label x:Name="lblUserCardsPower" Grid.Row="4" Content="0" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="60" FontFamily="Times New Roman"/>
+                <Label x:Name="lblOponentCardsPower" Grid.Row="0" Content="0" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="60" FontFamily="Times New Roman"/>
+            </Grid>
+
+            <Grid Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Border Grid.Row="4" Background="#101010" BorderBrush="Black" BorderThickness="1" Margin="25,10,25,10">
+                    <Label x:Name="lblInDeckCards" VerticalAlignment="Bottom"  HorizontalAlignment="Center" Content="0" FontSize="24" Foreground="White"/>
+                </Border>
+                <Border Grid.Row="3" Background="#101010" BorderBrush="Black" BorderThickness="1" Margin="25,10,25,10">
+                </Border>
+                <Border Grid.Row="1" Background="#101010" BorderBrush="Black" BorderThickness="1" Margin="25,10,25,10">
+                </Border>
+                <Border Grid.Row="0" Background="#101010" BorderBrush="Black" BorderThickness="1" Margin="25,10,25,10">
+                    <Label x:Name="lblOponentInDeckCards" VerticalAlignment="Bottom"  HorizontalAlignment="Center" Content="0" FontSize="24" Foreground="White"/>
+                </Border>
+
+            </Grid>
         </Grid>
-
+        <Grid x:Name="grdNotification">
+            <Label x:Name="lblNotification" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="60" Foreground="White" Content="" />
+        </Grid>
     </Grid>
+
 </UserControl>

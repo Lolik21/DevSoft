@@ -85,7 +85,6 @@
     <Compile Include="ChouseCard.xaml.cs">
       <DependentUpon>ChouseCard.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Connection.cs" />
     <Compile Include="Card.xaml.cs">
       <DependentUpon>Card.xaml</DependentUpon>
     </Compile>

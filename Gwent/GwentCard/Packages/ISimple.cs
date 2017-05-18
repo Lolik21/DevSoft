@@ -11,6 +11,5 @@ namespace nGwentCard
         bool IsRemoved { get; set; }
         int CardID { get; set; }
         int AffectedCardPos { get; set; }
-        bool IsSpecialAbilitiPerformed { get; set; }
     }
 }

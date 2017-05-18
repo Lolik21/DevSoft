@@ -112,7 +112,6 @@ namespace Gwent_Server
                 TurnStart.Command = ConfigurationManager.AppSettings["StartTurnGameCommand"];
                 NetCommandPackage TurnWait = new NetCommandPackage();
                 TurnWait.Command = ConfigurationManager.AppSettings["TurnWaitGameCommand"];
-                Package CurrPkg;
                 NextIsTerm = (WhoIsTerm + 1) % 2;
                 while (!Clients[WhoIsTerm].IsConnectionLost && !Clients[NextIsTerm].IsConnectionLost)
                 {
@@ -120,14 +119,7 @@ namespace Gwent_Server
                     {
                         SendToClient(Clients[WhoIsTerm], TurnStart);
                         SendToClient(Clients[NextIsTerm], TurnWait);
-                        do
-                        {
-                            CurrPkg = GetFromClient(Clients[WhoIsTerm]);
-                            if (CurrPkg is ICommandable)
-                                ProcessCommand(Clients, CurrPkg as NetCommandPackage, WhoIsTerm);
-                            else ProcessSimple(Clients, CurrPkg, WhoIsTerm);
-
-                        } while (!Clients[WhoIsTerm].IsTurnEnd);
+                        ClientTurn(Clients, WhoIsTerm, NextIsTerm);
                     }                                 
                     WhoIsTerm = NextIsTerm;
                     NextIsTerm = (WhoIsTerm + 1) % 2;
@@ -136,9 +128,10 @@ namespace Gwent_Server
                         int WhoWin = GetWhoWin(Clients,WhoIsTerm,NextIsTerm);
                         int WhoLost = (WhoWin + 1) % 2;                       
                         Clients[WhoLost].Health--;
-                        ProccesRoundRezults(Clients, WhoLost, WhoWin);
-                    }
-                       
+                        ProccesRoundRezults(Clients, WhoWin, WhoLost);
+                        Clients[WhoLost].IsPassed = false;
+                        Clients[WhoWin].IsPassed = false;
+                    }                    
                 }
                 
                 Console.WriteLine("Сессия закончилась");
@@ -151,6 +144,19 @@ namespace Gwent_Server
                 ProcessExeption(Clients, WhoIsTerm, NextIsTerm);
             }
             
+        }
+
+        private void ClientTurn(List<GwentClient> Clients, int WhoIsTerm, int NextIsTerm)
+        {
+            Package CurrPkg;
+            do
+            {
+                CurrPkg = GetFromClient(Clients[WhoIsTerm]);
+                if (CurrPkg is ICommandable)
+                    ProcessCommand(Clients, CurrPkg as NetCommandPackage, WhoIsTerm);
+                else ProcessSimple(Clients, CurrPkg, WhoIsTerm);
+
+            } while (!Clients[WhoIsTerm].IsTurnEnd);
         }
 
         private void InitBattle(List<GwentClient> Clients, int WhoIsTerm, int NextIsTerm)
@@ -170,11 +176,24 @@ namespace Gwent_Server
         {
             if (Clients[WhoLost].Health == 0)
             {
-                NetCommandPackage Pkg = new NetCommandPackage();
+                NetCommandPackage LostGameCommand = new NetCommandPackage();
+                LostGameCommand.Command = ConfigurationManager.AppSettings["LostGameCommand"];
+                SendToClient(Clients[WhoLost], LostGameCommand);
+                NetCommandPackage WinGameCommand = new NetCommandPackage();
+                WinGameCommand.Command = ConfigurationManager.AppSettings["WinGameCommand"];
+                SendToClient(Clients[WhoWin], WinGameCommand);
+                Clients[WhoWin].IsConnectionLost = true;
+                Clients[WhoLost].IsConnectionLost = true;
+
             }
             else
             {
-
+                NetCommandPackage LostRoundCommand = new NetCommandPackage();
+                LostRoundCommand.Command = ConfigurationManager.AppSettings["LostRoundCommand"];
+                SendToClient(Clients[WhoLost], LostRoundCommand);
+                NetCommandPackage WinRoundCommand = new NetCommandPackage();
+                WinRoundCommand.Command = ConfigurationManager.AppSettings["WinRoundCommand"];
+                SendToClient(Clients[WhoWin], WinRoundCommand);
             }
         }
 
@@ -257,16 +276,7 @@ namespace Gwent_Server
         {
             int NextIsTerm = (WhoIsTerm + 1) % 2;
             SendToClient(Pair[NextIsTerm], Simple);
-        }
-
-        
-
-        private void InitInfo(Package pkg, GwentClient Client)
-        {
-            Client.Scope = pkg.Scope;
-            Client.InDeckCardCount = pkg.InDeckCardCount;
-            Client.InHandCardCount = pkg.InHandCardCount;
-        }
+        }       
 
         private List<GwentClient> FindPairs(GwentClient client, List<GwentClient> Query)
         {

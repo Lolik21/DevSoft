@@ -66,8 +66,8 @@
                 <Label x:Name="lblOponentCardsPower" Grid.Row="0"  Foreground="Wheat" Content="0" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="60" FontFamily="Times New Roman"/>
                 <Label x:Name="lblOponentInHandCardCount" Grid.Row="1" Foreground="White" Content="0" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="50" FontFamily="Times New Roman"/>
                 <Label x:Name="lblInHandCardCount" Grid.Row="3" Foreground="White" Content="0" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="50" FontFamily="Times New Roman"/>
-                <Label x:Name="lblPassed" Grid.Row="1" Foreground="White" Content="Пасс" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="50" FontFamily="Times New Roman" Visibility="Hidden"/>
-                <Label x:Name="lblOponentPassed" Grid.Row="3" Foreground="White" Content="Пасс" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="50" FontFamily="Times New Roman" Visibility="Hidden"/>
+                <Label x:Name="lblOponentPassed" Grid.Row="1" Foreground="White" Content="Пасс" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="50" FontFamily="Times New Roman" Visibility="Hidden"/>
+                <Label x:Name="lblPassed" Grid.Row="3" Foreground="White" Content="Пасс" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="50" FontFamily="Times New Roman" Visibility="Hidden"/>
             </Grid>
 
             <Grid Grid.Column="2">

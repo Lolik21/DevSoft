@@ -109,8 +109,10 @@ namespace nGwentCard
 
         private void ProcessSimple(Package pkg, ISimple Simple)
         {
-            
-            
+            battlegnd.Control.Dispatcher.Invoke(() =>
+            {
+                battlegnd.CardArived(Simple);
+            });        
             SendGoodCommand();
         }
 
@@ -128,8 +130,8 @@ namespace nGwentCard
             {
                 NetCommandPackage SyncPackage = new NetCommandPackage();
                 SyncPackage.Command = ConfigurationManager.AppSettings["SyncGameCommand"];
-                SyncPackage.InDeckCardCount = battlegnd.InHandCards.Count;
-                SyncPackage.InHandCardCount = battlegnd.InStackCards.Count;
+                SyncPackage.InDeckCardCount = battlegnd.InStackCards.Count;
+                SyncPackage.InHandCardCount = battlegnd.InHandCards.Count;
                 SyncPackage.Scope = battlegnd.UserCardsPower;
                 SendMessage(SyncPackage);
             }
@@ -150,6 +152,7 @@ namespace nGwentCard
                 battlegnd.Control.Dispatcher.Invoke(() =>
                 {
                     battlegnd.ShowNotMessage("Ходит ваш опонент, подождите");
+                    battlegnd.IsUserTurn = false;
                     battlegnd.PlayGroundGrid.IsEnabled = false;
                 });
                 SendGoodCommand();
@@ -159,6 +162,7 @@ namespace nGwentCard
                 battlegnd.Control.Dispatcher.Invoke(() =>
                 {
                     battlegnd.ShowNotMessage("Ваш ход");
+                    battlegnd.IsUserTurn = true;
                     battlegnd.PlayGroundGrid.IsEnabled = true;
                 });
                 SendGoodCommand();
@@ -179,19 +183,56 @@ namespace nGwentCard
                     battlegnd.EndBattle();
                 });
             }
-            else if (Command.Command == ConfigurationManager.AppSettings["LeaveGameCommand"])
+            else if (Command.Command == ConfigurationManager.AppSettings["PassedGameCommand"])
             {
                 battlegnd.Control.Dispatcher.Invoke(() =>
                 {
                     battlegnd.Passed();
                 });
-            }               
+                SendGoodCommand();
+            }
+            else if (Command.Command == ConfigurationManager.AppSettings["LostRoundCommand"])
+            {
+                battlegnd.Control.Dispatcher.Invoke(() =>
+                {
+                    battlegnd.ShowNotMessage("Вы проиграли раунд");
+                    battlegnd.EndRound();
+                });
+                SendGoodCommand();
+            }
+            else if (Command.Command == ConfigurationManager.AppSettings["WinRoundCommand"])
+            {
+                battlegnd.Control.Dispatcher.Invoke(() =>
+                {
+                    battlegnd.ShowNotMessage("Вы выиграли раунд");
+                    battlegnd.EndRound();
+                });
+                SendGoodCommand();
+            }
+            else if (Command.Command == ConfigurationManager.AppSettings["LostGameCommand"])
+            {
+                battlegnd.Control.Dispatcher.Invoke(() =>
+                {
+                    MessageBox.Show("Вы проиграли игру, перенаправление в меню...");
+                    battlegnd.EndBattle();
+                });
+                SendGoodCommand();
+            }
+            else if (Command.Command == ConfigurationManager.AppSettings["WinGameCommand"])
+            {
+                battlegnd.Control.Dispatcher.Invoke(() =>
+                {
+                    MessageBox.Show("Вы выиграли игру, перенаправление в меню...");
+                    battlegnd.EndBattle();
+                });
+                SendGoodCommand();
+            }
         }
 
         public void SendPassedCommand()
         {
             NetCommandPackage Passed = new NetCommandPackage();
-            Passed.Command = ConfigurationManager.AppSettings["SyncGameCommand"];
+            Passed.Command = ConfigurationManager.AppSettings["PassedGameCommand"];
             SendMessage(Passed);
         }
 
@@ -218,7 +259,6 @@ namespace nGwentCard
             Simple.IsRemoved = IsRemoved;
             Simple.AffectedCardPos = AffectedCardPos;
             Simple.CardID = CardID;
-            Simple.IsSpecialAbilitiPerformed = IsSpAbilitiPerformed;
             SendMessage(Simple);
         }
 

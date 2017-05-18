@@ -41,6 +41,7 @@ namespace Gwent
             Battlegrnd.InHandCardsAdded += AddedToInHandCards;
             Battlegrnd.OponentPassed += OponentPassed;
             Battlegrnd.SyncCommandArived += Sync;
+            Battlegrnd.RoundEnded += OnRoundEnded;
             Battlegrnd.PlayGroundGrid = grdPlayGround;       
             Battlegrnd.Control = this;
             Battlegrnd.PlayGroundGrid.IsEnabled = false; 
@@ -51,6 +52,16 @@ namespace Gwent
             InitLineGrids(LinesGrids);
             InitLineBorders(LinesBorder);
             BindBorderDelegates(LinesBorder);                              
+        }
+
+        private void OnWeatherChanged()
+        {
+            grdWeather.ColumnDefinitions.Clear();
+            grdWeather.Children.Clear();
+            foreach (GwentCard Card in Battlegrnd.CurrWeatherCard)
+            {
+                AddNewCardToGrid(Card, grdWeather, BindLineCardsDelegates);
+            }
         }
 
         private void InitLineBorders(List<Border> Borders)
@@ -95,22 +106,37 @@ namespace Gwent
                 GwentCard Card = GetGwentCard(element);
                 Border brd = sender as Border;              
                 int Line = LinesBorder.IndexOf(brd);
-                if ((Card.CardLine-1) == Line)
+                if (((Card.CardLine-1) == Line) || (Card.CardLine == 0))
                 {
+                    grdPlayGround.IsEnabled = false;
                     Battlegrnd.InHandCards.RemoveAt(grdInHandCards.Children.IndexOf(element));
                     AddedToInHandCards();
                     if (Card is IPlaceable)
                     {
-                        (Card as IPlaceable).PlaceCard(Battlegrnd);                     
+                        (Card as IPlaceable).PlaceCard(Battlegrnd);
+                        Battlegrnd.EndTurn();
+                        Battlegrnd.SelectedCardID = -1;
+                        Battlegrnd.AffectedCardID = -1;
+                    }
+                    else if (Card is Iimpact)
+                    {
+                        if ((Card as Iimpact).Impact(Battlegrnd, Line, Battlegrnd.AffectedCardID))
+                        {
+                            Battlegrnd.EndTurn();
+                            Battlegrnd.SelectedCardID = -1;
+                            Battlegrnd.AffectedCardID = -1;
+                        }
+                        else grdPlayGround.IsEnabled = true;
                     }
                     else
                     {
-
-                    }
-                    Battlegrnd.SelectedCardID = -1;
-                    Battlegrnd.AffectedCardID = -1;
-                    Battlegrnd.EndTurn();
-                }            
+                        Battlegrnd.AddWeatherCard(Card);
+                        Battlegrnd.EndTurn();
+                        Battlegrnd.SelectedCardID = -1;
+                        Battlegrnd.AffectedCardID = -1;
+                    }                   
+                }
+                lblUserCardsPower.Content = Battlegrnd.UserCardsPower;            
             }            
         }
 
@@ -132,8 +158,8 @@ namespace Gwent
                 PlaceableCard GwentCard = Card.Tag as PlaceableCard;
                 GwentCard.CardCurrStrength = GwentCard.CardDefaultStrength;
             }
-
             int i = 0;
+            ApplyWeatherEffect();
             while (i< LinesGrids[Line-1].Children.Count)
             {
                 UIElement element = LinesGrids[Line - 1].Children[i];
@@ -149,8 +175,7 @@ namespace Gwent
                 PlaceableCard GwentCard = Card.Tag as PlaceableCard;                
                 Card.SetCardPower(GwentCard.CardCurrStrength);
             }
-            lblInDeckCards.Content = Battlegrnd.InStackCards.Count;
-            ApplyWeatherEffect();
+            lblInDeckCards.Content = Battlegrnd.InStackCards.Count;            
             RecalcScope();
         }
 
@@ -188,6 +213,17 @@ namespace Gwent
 
         private void ApplyWeatherEffect()
         {
+            GwentCard ClearSkyCard = null;
+            foreach (GwentCard Card in Battlegrnd.CurrWeatherCard)
+            {
+                if (Card.GetType() == typeof(ClearSkyCard))
+                {
+                    ClearSkyCard = Card;
+                }
+            }
+
+            if (ClearSkyCard != null) ClearSkyCard.PerformSpecialAbility(Battlegrnd);
+            else     
             foreach (GwentCard Card in Battlegrnd.CurrWeatherCard)
             {
                 Card.PerformSpecialAbility(Battlegrnd);
@@ -206,8 +242,9 @@ namespace Gwent
 
         public void InitBattle()
         {
-            grdInHandCards.IsEnabled = false;
-            Battlegrnd.InitStrength(Battlegrnd.UserCards);              
+            grdPlayGround.IsEnabled = false;
+            Battlegrnd.InitStrength(Battlegrnd.UserCards);
+            Battlegrnd.InitSpAbility(Battlegrnd.UserCards);
             Connection net = new Connection();
             Battlegrnd.Net = net;
             Battlegrnd.SplitUserCards(Battlegrnd.UserCards);
@@ -215,6 +252,8 @@ namespace Gwent
             AddedToInHandCards();
             net.battlegnd = Battlegrnd;
             net.InitConnection();
+            lblPassed.Visibility = Visibility.Hidden;
+            lblPassed.Visibility = Visibility.Hidden;
             lblInDeckCards.Content = Battlegrnd.InStackCards.Count;
             lblInHandCardCount.Content = Battlegrnd.InHandCards.Count;
             ShowNotificationMessage("Ожидание подключения соперника");                            
@@ -418,9 +457,35 @@ namespace Gwent
             lblOponentInDeckCards.Content = OpInStackCardCount;
             lblOponentInHandCardCount.Content = OpInHandCardCount;
         }
+
+        private void OnRoundEnded()
+        {
+            foreach (Grid Grid in LinesGrids)
+            {
+                foreach (UIElement Element in Grid.Children)
+                {
+                    GwentCard Card = GetGwentCard(Element);
+                    if (LinesGrids.IndexOf(Grid) < 3)
+                    {
+                        AddNewCardToGrid(Card, grdUserUsedCards, BindLineCardsDelegates);
+                    }
+                    else
+                    {                        
+                        AddNewCardToGrid(Card, grdOponentUsedCards, BindLineCardsDelegates);
+                    }
+                }
+                Grid.Children.Clear();
+                Grid.ColumnDefinitions.Clear();
+                lblOponentPassed.Visibility = Visibility.Hidden;
+                lblPassed.Visibility = Visibility.Hidden;
+            }
+        }
+
         private void btnPassGame_Click(object sender, RoutedEventArgs e)
         {
             Battlegrnd.Net.SendPassedCommand();
+            lblPassed.Visibility = Visibility.Visible;
+            grdPlayGround.IsEnabled = false;
             Battlegrnd.EndTurn();
         }
 

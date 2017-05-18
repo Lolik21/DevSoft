@@ -9,10 +9,20 @@ namespace nGwentCard
     public class ScarecrowCard : GwentCard, Iimpact
     {
 
-        public void Impact(Battleground Battlegrnd, int CardLine, int CardPos)
+        public bool Impact(Battleground Battlegrnd, int CardLine, int CardPos)
         {
-            Battlegrnd.AddToInHandCards(Battlegrnd.Lines[CardLine][CardPos]);
-            Battlegrnd.RemoveFromLine(CardLine, Battlegrnd.Lines[CardLine][CardPos]);
+            if (CardPos != -1)
+            {
+                GwentCard Card = Battlegrnd.Lines[CardLine][CardPos];
+                Battlegrnd.RemoveFromLine(CardLine, Card);
+                Battlegrnd.AddToInHandCards(Card);
+                return true;               
+            }
+            else
+            {
+                return false;
+            }
+            
         }
 
         public override void PerformSpecialAbility(Battleground Battleground)

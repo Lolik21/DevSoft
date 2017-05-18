@@ -8,6 +8,6 @@ namespace nGwentCard
 {
     public interface Iimpact
     {
-        void Impact(Battleground Battlegrnd,int CardLine, int CardPos);
+        bool Impact(Battleground Battlegrnd,int CardLine, int CardPos);
     }
 }

@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Gwent"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="720" d:DesignWidth="1280">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition />
@@ -15,12 +15,25 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Button x:Name="btnStartGame" Grid.Column="0" Grid.Row="0" 
-                Content="Начать игру" Margin="30,20,30,20" Click="btnStartGame_Click" />
-        <Button x:Name="btnChouseCard" Grid.Column="0" Grid.Row="1" 
-                Content="Выбрать карты" Margin="30,20,30,20" Click="btnChouseCard_Click"/>
-        <Button x:Name="btnClose" Grid.Column="0" Grid.Row="2"
-                Content="Выйти" Margin="30,20,30,20" Click="btnClose_Click" />
+        <Button x:Name="btnStartGame" Grid.Column="0" Grid.Row="0" FontFamily="Times New Roman" FontSize="70" Foreground="OldLace"
+                Content="Начать игру" Margin="30,20,30,20" Click="btnStartGame_Click">
+            <Button.Background>
+                <ImageBrush ImageSource="Resources/Button3.jpg"/>
+            </Button.Background>
+        </Button>
+        <Button x:Name="btnChouseCard" Grid.Column="0" Grid.Row="1" FontFamily="Times New Roman" FontSize="70" Foreground="OldLace"
+                Content="Выбрать карты" Margin="30,20,30,20" Click="btnChouseCard_Click">
+            <Button.Background>
+                <ImageBrush ImageSource="Resources/Button2.jpg"/>
+            </Button.Background>
+        </Button>
+        <Button x:Name="btnClose" Grid.Column="0" Grid.Row="2" FontFamily="Times New Roman" FontSize="70" Foreground="OldLace" 
+                Content="Выйти" Margin="30,20,30,20" Click="btnClose_Click">
+            <Button.Background>
+                <ImageBrush ImageSource="Resources/Button1.jpg"/>
+            </Button.Background>
+        </Button>
+
 
     </Grid>
 </UserControl>

@@ -37,6 +37,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -132,6 +133,15 @@
       <Project>{42c3ddf6-a239-4a52-975b-fdbbfdf0a707}</Project>
       <Name>GwentCard</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Button1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Button2.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Button3.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

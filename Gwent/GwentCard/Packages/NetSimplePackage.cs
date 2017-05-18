@@ -8,7 +8,9 @@ namespace nGwentCard
 {
     public class NetSimplePackage : Package, ISimple
     {
-        public int EffectedCardID { get; set; }
-        public int SelectedCardID { get; set; }
+        public bool IsRemoved { get; set; }    
+        public int CardID { get; set; }
+        public int AffectedCardPos { get; set; }
+        public bool IsSpecialAbilitiPerformed { get; set; }
     }
 }

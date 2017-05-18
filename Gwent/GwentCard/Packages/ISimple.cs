@@ -8,7 +8,9 @@ namespace nGwentCard
 {
     public interface ISimple
     {
-        int EffectedCardID { get; set; }
-        int SelectedCardID { get; set; }
+        bool IsRemoved { get; set; }
+        int CardID { get; set; }
+        int AffectedCardPos { get; set; }
+        bool IsSpecialAbilitiPerformed { get; set; }
     }
 }

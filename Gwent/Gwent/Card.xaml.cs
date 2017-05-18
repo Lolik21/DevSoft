@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Media.Effects;
 using nGwentCard;
 
 namespace Gwent
@@ -48,14 +49,27 @@ namespace Gwent
             if (CardPower == (Tag as IPlaceable).CardDefaultStrength)
             {
                 tbCardPower.Foreground = Brushes.Black;
+                this.Effect = null;
             } else
             if (CardPower > (Tag as IPlaceable).CardDefaultStrength)
             {
                 tbCardPower.Foreground = Brushes.Green;
+                this.Effect = new DropShadowEffect()
+                {
+                    Color = Colors.Green,
+                    ShadowDepth = 0,
+                    BlurRadius = 25
+                };
             }
             else
             {
                 tbCardPower.Foreground = Brushes.Red;
+                this.Effect = new DropShadowEffect()
+                {
+                    Color = Colors.Red,
+                    ShadowDepth = 0,
+                    BlurRadius = 25
+                };
             }
         }
     }

@@ -68,6 +68,7 @@ namespace nDBLoader
             {
                 Card.SpAbilityName = SpecialAbilityInfo[Card.SpAbilityID-1].Name;
                 Card.SpAbilityDescription = SpecialAbilityInfo[Card.SpAbilityID - 1].Description;
+                Card.WhenSendIsPerformed = SpecialAbilityInfo[Card.SpAbilityID - 1].IsPerformedAfterSend;
             }
         }
 
@@ -76,6 +77,7 @@ namespace nDBLoader
         {
             GwentCard card;
             string SpAbiliteName = GetSpAbiliteName(dr, SpecialAbilityInfo);
+     
             card = fab.GetCard(SpAbiliteName);
             GetMainInfo(dr, card);
             if (card is IPlaceable)
@@ -137,6 +139,7 @@ namespace nDBLoader
                         inf.Name = dr["Name"].ToString();
                         inf.ID = (int)dr["ID"];
                         inf.Description = dr["Description"].ToString();
+                        inf.IsPerformedAfterSend = Convert.ToBoolean(dr["WhenSendIsPerformed"]);
                         SpecialAbilityInfo.Add(inf);
                     }
                 }

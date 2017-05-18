@@ -19,7 +19,7 @@ namespace nDBLoader
                 case "KillerCard": return new KillerCard();
                 case "MedicCard": return new MedicCard();
                 case "WeatherCard": return new WeatherCard();
-                case "HornCard": return new HornCard();
+                case "ClearSkyCard": return new ClearSkyCard();
                 case "ScarecrowCard": return new ScarecrowCard();
                 case "HealCard": return new HealCard();
                 case "UnionCard": return new UnionCard();

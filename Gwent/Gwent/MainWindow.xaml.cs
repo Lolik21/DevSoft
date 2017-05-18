@@ -55,7 +55,7 @@ namespace Gwent
         }
         private void GetBattleFieldCountrols()
         {
-            Battlefield = new Battlefield();
+            Battlefield = new Battlefield(battlegrd);
             Battlefield.MainWindow = this;
             MainGrid.Children.Add(Battlefield);
         }
@@ -81,7 +81,7 @@ namespace Gwent
 
         private void Window_Closed(object sender, EventArgs e)
         {
-
+            battlegrd.EndBattle();
         }
     }
 

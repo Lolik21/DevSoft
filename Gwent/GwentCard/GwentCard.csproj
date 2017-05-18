@@ -50,6 +50,9 @@
     <Compile Include="Battleground.cs" />
     <Compile Include="Connection.cs" />
     <Compile Include="FractionInfo.cs" />
+    <Compile Include="ImpactCards\Iimpact.cs" />
+    <Compile Include="NonPlaceable\ClearSkyCard.cs" />
+    <Compile Include="NonPlaceable\WeatherCard.cs" />
     <Compile Include="Packages\ICommandable.cs" />
     <Compile Include="Packages\ISimple.cs" />
     <Compile Include="Packages\NetCommandPackage.cs" />
@@ -61,18 +64,13 @@
     <Compile Include="Placeable\Cards\HealCard.cs" />
     <Compile Include="Placeable\Cards\KillerCard.cs" />
     <Compile Include="Placeable\Cards\MedicCard.cs" />
-    <Compile Include="NonPlaceable\HornCard.cs" />
     <Compile Include="Placeable\Cards\UnionCard.cs" />
     <Compile Include="Placeable\IPlaceable.cs" />
     <Compile Include="Placeable\PlaceableCard.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="NonPlaceable\ScarecrowCard.cs" />
-    <Compile Include="NonPlaceable\WeatherCard.cs" />
+    <Compile Include="ImpactCards\ScarecrowCard.cs" />
     <Compile Include="Placeable\Cards\SimpleCard.cs" />
     <Compile Include="Placeable\Cards\SpyCard.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

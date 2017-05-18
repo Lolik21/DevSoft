@@ -27,6 +27,7 @@ namespace nGwentCard
         public bool Invinsible { get; set; }
         public Image Image { get; set; }
         public bool IsSpecialAbilitiPerformed { get; set; }
+        public bool WhenSendIsPerformed { get; set; }
         public abstract void PerformSpecialAbility(Battleground Battleground);
     }
 }

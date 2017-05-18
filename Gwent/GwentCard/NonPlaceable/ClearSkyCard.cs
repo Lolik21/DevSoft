@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace nGwentCard
 {
-    public class ScarecrowCard : GwentCard
+    public class ClearSkyCard : GwentCard
     {
         public override void PerformSpecialAbility(Battleground Battleground)
         {
-            throw new NotImplementedException();
+            Battleground.CurrWeatherCard.Clear();
         }
     }
 }

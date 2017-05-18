@@ -47,7 +47,8 @@ namespace Gwent_Server
                     if (ClientsQuery.Count >= 1)
                     {
                         List<GwentClient> Pair = FindPairs(ClientObj, ClientsQuery);
-                        Console.WriteLine("Клиенты обьеденились в группу : " + Pair[0].Client.Client.RemoteEndPoint.ToString()+" "+ Pair[1].Client.Client.RemoteEndPoint.ToString());
+                        Console.WriteLine("Клиенты обьеденились в группу : " + 
+                            Pair[0].Client.Client.RemoteEndPoint.ToString()+" "+ Pair[1].Client.Client.RemoteEndPoint.ToString());
                         Thread NewThread = new Thread(() => Game(Pair));
                         NewThread.Start();
                     }
@@ -95,10 +96,7 @@ namespace Gwent_Server
 
         private Package GetFromClient(GwentClient Client)
         {
-            Package RecivedPkg = Client.GetMessage();
-            NetCommandPackage OkPakage = new NetCommandPackage();
-            OkPakage.Command = ConfigurationManager.AppSettings["IsGood"];
-            Client.SendMessage(OkPakage);
+            Package RecivedPkg = Client.GetMessage();           
             return RecivedPkg;
         }
 
@@ -106,80 +104,132 @@ namespace Gwent_Server
         {
             Random rnd = new Random();
             int WhoIsTerm = rnd.Next(1);
-            bool IsConnectionLost = false;
+            int NextIsTerm = (WhoIsTerm + 1) % 2;
             try
             {
-                NetCommandPackage StartGamePackage = new NetCommandPackage();
-                StartGamePackage.Command = ConfigurationManager.AppSettings["StartGameCommand"];
-
-                Clients[0].SendMessage(StartGamePackage);
-                Clients[1].SendMessage(StartGamePackage);
-                Console.WriteLine("Клиентам отправлено уведосление о начале игры");
-
-                GetSyncResponse(Clients);
-                Console.WriteLine("Клиенты Синхронизировались");
-
-
-
+                InitBattle(Clients, WhoIsTerm, NextIsTerm);
                 NetCommandPackage TurnStart = new NetCommandPackage();
                 TurnStart.Command = ConfigurationManager.AppSettings["StartTurnGameCommand"];
                 NetCommandPackage TurnWait = new NetCommandPackage();
                 TurnWait.Command = ConfigurationManager.AppSettings["TurnWaitGameCommand"];
                 Package CurrPkg;
-                while (!IsConnectionLost)
+                NextIsTerm = (WhoIsTerm + 1) % 2;
+                while (!Clients[WhoIsTerm].IsConnectionLost && !Clients[NextIsTerm].IsConnectionLost)
                 {
-                    int NextIsTerm = (WhoIsTerm + 1) % 2;
-
-                    SendToClient(Clients[WhoIsTerm], TurnStart);
-                    SendToClient(Clients[NextIsTerm], TurnWait);
-
-                    do
+                    if (!Clients[WhoIsTerm].IsPassed)
                     {
-                        CurrPkg = GetFromClient(Clients[WhoIsTerm]);
-                        if (CurrPkg is ICommandable) ProcessCommand(Clients, CurrPkg as ICommandable, WhoIsTerm, ref IsConnectionLost);
-                        else ProcessSimple(Clients, CurrPkg, WhoIsTerm);
+                        SendToClient(Clients[WhoIsTerm], TurnStart);
+                        SendToClient(Clients[NextIsTerm], TurnWait);
+                        do
+                        {
+                            CurrPkg = GetFromClient(Clients[WhoIsTerm]);
+                            if (CurrPkg is ICommandable)
+                                ProcessCommand(Clients, CurrPkg as NetCommandPackage, WhoIsTerm);
+                            else ProcessSimple(Clients, CurrPkg, WhoIsTerm);
 
-                    } while (TurnEndMessageIsGiven(CurrPkg) || IsConnectionLost);
-
-                  
+                        } while (!Clients[WhoIsTerm].IsTurnEnd);
+                    }                                 
                     WhoIsTerm = NextIsTerm;
+                    NextIsTerm = (WhoIsTerm + 1) % 2;
+                    if (Clients[WhoIsTerm].IsPassed && Clients[NextIsTerm].IsPassed)
+                    {
+                        int WhoWin = GetWhoWin(Clients,WhoIsTerm,NextIsTerm);
+                        int WhoLost = (WhoWin + 1) % 2;                       
+                        Clients[WhoLost].Health--;
+                        ProccesRoundRezults(Clients, WhoLost, WhoWin);
+                    }
+                       
                 }
+                
                 Console.WriteLine("Сессия закончилась");
                 Clients[0].Dispose();
                 Clients[1].Dispose();
             }           
-            catch (Exception ex)
+            catch (Exception Exeption)
             {
-                Console.WriteLine(ex.Message);
-                Clients[0].Dispose();
-                Clients[1].Dispose();
+                Console.WriteLine(Exeption.Message);
+                ProcessExeption(Clients, WhoIsTerm, NextIsTerm);
             }
             
         }
 
-        private bool TurnEndMessageIsGiven(Package Pakage)
+        private void InitBattle(List<GwentClient> Clients, int WhoIsTerm, int NextIsTerm)
         {
-            if (Pakage is ICommandable)
+            NetCommandPackage StartGamePackage = new NetCommandPackage();
+            StartGamePackage.Command = ConfigurationManager.AppSettings["StartGameCommand"];
+            Clients[0].SendMessage(StartGamePackage);
+            Clients[1].SendMessage(StartGamePackage);
+            Console.WriteLine("Клиентам отправлено уведосление о начале игры");
+            GetSyncResponse(Clients);
+            Console.WriteLine("Клиенты Синхронизировались");
+           
+        }
+
+
+        private void ProccesRoundRezults(List<GwentClient> Clients, int WhoWin, int WhoLost)
+        {
+            if (Clients[WhoLost].Health == 0)
             {
-                if ((Pakage as ICommandable).Command == ConfigurationManager.AppSettings["TurnEndGameCommand"])
-                    return true;             
+                NetCommandPackage Pkg = new NetCommandPackage();
             }
-            return false;
+            else
+            {
+
+            }
         }
 
-        private void ProcessSimple(List<GwentClient> Pair, Package Simple, int WhoIsTerm)
+        private int GetWhoWin (List<GwentClient> Clients, int WhoIsTerm, int NextIsTerm)
         {
-            int NextIsTerm = (WhoIsTerm + 1) % 2;
-            SendToClient(Pair[NextIsTerm], Simple);
+            int WhoWin;
+            Random rnd = new Random();
+            if (Clients[WhoIsTerm].Scope == Clients[NextIsTerm].Scope)
+            {
+                WhoWin = rnd.Next(2);
+            }
+            if (Clients[WhoIsTerm].Scope > Clients[NextIsTerm].Scope)
+            {
+                WhoWin = WhoIsTerm;
+            }
+            else
+            {
+                WhoWin = NextIsTerm;
+            }
+            return WhoWin;
         }
 
-        private void ProcessCommand(List<GwentClient> Pair, ICommandable Command, int WhoIsTerm,ref bool IsConnectionLost)
+        private void ProcessExeption(List<GwentClient> Clients, int WhoIsTerm, int NextIsTerm)
+        {
+            try
+            {
+                NetCommandPackage Error = new NetCommandPackage();
+                Error.Command = ConfigurationManager.AppSettings["ConnectionLost"];
+                Clients[NextIsTerm].SendMessage(Error);
+                Clients[WhoIsTerm].SendMessage(Error);
+            }
+            catch (Exception InnerExeption)
+            {
+                Console.WriteLine(InnerExeption.Message);
+            }
+            finally
+            {
+                Clients[0].Dispose();
+                Clients[1].Dispose();
+            }
+        }
+
+
+
+        private void ProcessCommand(List<GwentClient> Pair, NetCommandPackage Command, int WhoIsTerm)
         {
             int NextIsTerm = (WhoIsTerm + 1) % 2;
-                   
+
             if (Command.Command == ConfigurationManager.AppSettings["LeaveGameCommand"])
             {
-                IsConnectionLost = true;
+                NetCommandPackage LeavePkg = new NetCommandPackage();
+                LeavePkg.Command = ConfigurationManager.AppSettings["LeaveGameCommand"];
+                Pair[NextIsTerm].SendMessage(LeavePkg);
+                Pair[WhoIsTerm].IsConnectionLost = true;
+                Pair[WhoIsTerm].IsTurnEnd = true;
             }
             else
             if (Command.Command == ConfigurationManager.AppSettings["PassedGameCommand"])
@@ -188,9 +238,28 @@ namespace Gwent_Server
                 NetCommandPackage Passed = new NetCommandPackage();
                 Passed.Command = ConfigurationManager.AppSettings["PassedGameCommand"];
                 SendToClient(Pair[NextIsTerm], Passed);
-            }        
-                          
+            }
+            else
+            if (Command.Command == ConfigurationManager.AppSettings["TurnEndGameCommand"])
+            {
+                Pair[WhoIsTerm].IsTurnEnd = true;
+            }
+            if (Command.Command == ConfigurationManager.AppSettings["SyncGameCommand"])
+            {                
+                SendToClient(Pair[NextIsTerm], Command);
+                Pair[WhoIsTerm].Scope = Command.Scope;
+            }
+
+
         }
+
+        private void ProcessSimple(List<GwentClient> Pair, Package Simple, int WhoIsTerm)
+        {
+            int NextIsTerm = (WhoIsTerm + 1) % 2;
+            SendToClient(Pair[NextIsTerm], Simple);
+        }
+
+        
 
         private void InitInfo(Package pkg, GwentClient Client)
         {

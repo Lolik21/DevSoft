@@ -25,40 +25,25 @@
                     <RowDefinition Height="1.25*"/>
                 </Grid.RowDefinitions>
                 <Border x:Name="brdLine6" Grid.Row="0" Background="#101010" BorderBrush="Black" BorderThickness="1" Margin="3">
-                    <Grid x:Name="grdLine6" Margin="3" HorizontalAlignment="Center">
-
-                    </Grid>
+                    <Grid x:Name="grdLine6" Margin="1" HorizontalAlignment="Center"/>
                 </Border>
                 <Border x:Name="brdLine5" Grid.Row="1" Background="#101010" BorderBrush="Black" BorderThickness="1" Margin="3">
-                    <Grid x:Name="grdLine5" Margin="3" HorizontalAlignment="Center">
-
-                    </Grid>
+                    <Grid x:Name="grdLine5" Margin="1" HorizontalAlignment="Center"/>
                 </Border>
                 <Border x:Name="brdLine4" Grid.Row="2" Background="#101010" BorderBrush="Black" BorderThickness="1" Margin="3">
-                    <Grid x:Name="grdLine4" Margin="3" HorizontalAlignment="Center">
-
-                    </Grid>
+                    <Grid x:Name="grdLine4" Margin="1" HorizontalAlignment="Center"/>
                 </Border>
                 <Border x:Name="brdLine1" Grid.Row="3" Background="#101010" BorderBrush="Black" BorderThickness="1" Margin="3">
-                    <Grid x:Name="grdLine1" Margin="3" HorizontalAlignment="Center">
-
-                    </Grid>
+                    <Grid x:Name="grdLine1" Margin="1" HorizontalAlignment="Center"/>
                 </Border>
                 <Border x:Name="brdLine2" Grid.Row="4" Background="#101010" BorderBrush="Black" BorderThickness="1" Margin="3">
-                    <Grid x:Name="grdLine2" Margin="3" HorizontalAlignment="Center">
-
-                    </Grid>
+                    <Grid x:Name="grdLine2" Margin="1" HorizontalAlignment="Center"/>
                 </Border>
                 <Border x:Name="brdLine3" Grid.Row="5" Background="#101010" BorderBrush="Black" BorderThickness="1" Margin="3">
-                    <Grid x:Name="grdLine3" Margin="3" HorizontalAlignment="Center">
-
-                    </Grid>
+                    <Grid x:Name="grdLine3" Margin="1" HorizontalAlignment="Center"/>
                 </Border>
                 <Border Grid.Row="6" Background="#101010" BorderBrush="Black" BorderThickness="1" Margin="3">
-                    <Grid x:Name="grdInHandCards" Margin="3" HorizontalAlignment="Center">
-
-
-                    </Grid>
+                    <Grid x:Name="grdInHandCards" Margin="3" HorizontalAlignment="Center"/>
                 </Border>
 
 
@@ -73,10 +58,16 @@
                     <RowDefinition Height="124*"/>
                 </Grid.RowDefinitions>
                 <Border Grid.Row="2" Background="#101010" BorderBrush="Black" BorderThickness="1" Margin="30,3,30,3">
+                    <Grid x:Name="grdWeather" HorizontalAlignment="Center" Margin="3">
 
+                    </Grid>
                 </Border>
-                <Label x:Name="lblUserCardsPower" Grid.Row="4" Content="0" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="60" FontFamily="Times New Roman"/>
-                <Label x:Name="lblOponentCardsPower" Grid.Row="0" Content="0" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="60" FontFamily="Times New Roman"/>
+                <Label x:Name="lblUserCardsPower" Grid.Row="4" Foreground="Wheat" Content="0" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="60" FontFamily="Times New Roman"/>
+                <Label x:Name="lblOponentCardsPower" Grid.Row="0"  Foreground="Wheat" Content="0" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="60" FontFamily="Times New Roman"/>
+                <Label x:Name="lblOponentInHandCardCount" Grid.Row="1" Foreground="White" Content="0" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="50" FontFamily="Times New Roman"/>
+                <Label x:Name="lblInHandCardCount" Grid.Row="3" Foreground="White" Content="0" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="50" FontFamily="Times New Roman"/>
+                <Label x:Name="lblPassed" Grid.Row="1" Foreground="White" Content="Пасс" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="50" FontFamily="Times New Roman" Visibility="Hidden"/>
+                <Label x:Name="lblOponentPassed" Grid.Row="3" Foreground="White" Content="Пасс" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="50" FontFamily="Times New Roman" Visibility="Hidden"/>
             </Grid>
 
             <Grid Grid.Column="2">
@@ -91,17 +82,26 @@
                     <Label x:Name="lblInDeckCards" VerticalAlignment="Bottom"  HorizontalAlignment="Center" Content="0" FontSize="24" Foreground="White"/>
                 </Border>
                 <Border Grid.Row="3" Background="#101010" BorderBrush="Black" BorderThickness="1" Margin="25,10,25,10">
+                    <Grid x:Name="grdUserUsedCards"/>
                 </Border>
                 <Border Grid.Row="1" Background="#101010" BorderBrush="Black" BorderThickness="1" Margin="25,10,25,10">
+                    <Grid x:Name="grdOponentUsedCards"/>
                 </Border>
                 <Border Grid.Row="0" Background="#101010" BorderBrush="Black" BorderThickness="1" Margin="25,10,25,10">
                     <Label x:Name="lblOponentInDeckCards" VerticalAlignment="Bottom"  HorizontalAlignment="Center" Content="0" FontSize="24" Foreground="White"/>
                 </Border>
-
+                <Grid Grid.Row="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Button x:Name="btnPassGame" Grid.Row="0" Margin="15" MinHeight="35" Content="Пасс" FontSize="30" FontFamily="Times New Roman" Click="btnPassGame_Click"/>
+                    <Button x:Name="btnLeaveGame" Grid.Row="1" Margin="15" MinHeight="35" Content="Выйти" FontSize="30" FontFamily="Times New Roman" Click="btnLeaveGame_Click"/>
+                </Grid>
             </Grid>
         </Grid>
         <Grid x:Name="grdNotification">
-            <Label x:Name="lblNotification" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="60" Foreground="White" Content="" />
+            <TextBlock x:Name="tbNotification" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="60" Foreground="White" Text="" MaxWidth="900" TextWrapping="Wrap"/>
         </Grid>
     </Grid>
 

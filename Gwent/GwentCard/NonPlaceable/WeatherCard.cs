@@ -6,11 +6,18 @@ using System.Threading.Tasks;
 
 namespace nGwentCard
 {
-    public class WeatherCard : GwentCard
+    public class WeatherCard: GwentCard
     {
         public override void PerformSpecialAbility(Battleground Battleground)
         {
-            throw new NotImplementedException();
+            foreach (PlaceableCard Card in Battleground.Lines[this.CardLine-1])
+            {
+                Card.CardCurrStrength = 1;
+            }
+            foreach (PlaceableCard Card in Battleground.Lines[(this.CardLine - 1) + 3])
+            {
+                Card.CardCurrStrength = 1;
+            }
         }
     }
 }

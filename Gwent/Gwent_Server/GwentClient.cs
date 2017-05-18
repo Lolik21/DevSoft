@@ -16,11 +16,11 @@ namespace Gwent_Server
         public TcpClient Client;
         private GwentServer GwentServer;
         public bool IsPassed { get; set; }
-        public bool IsClientTurn { get; set; }
-        public int InHandCardCount { get; set; }
-        public int InDeckCardCount { get; set; }
         public int Scope { get; set; }
         public int Health { get; set; }
+        public bool IsConnectionLost { get; set; }
+        public bool IsTurnEnd { get; set; }
+
 
 
         public GwentClient(TcpClient NewClient, GwentServer server)
@@ -29,21 +29,23 @@ namespace Gwent_Server
             this.GwentServer = server;
             this.Client = NewClient;
             this.ClientStream = NewClient.GetStream();
-            this.IsClientTurn = false;
             this.Health = 2;
+            this.Scope = 0;
         }
 
         public Package GetMessage()
         {
             Package pkg = new Package();
             StringBuilder builder = new StringBuilder();
-            do
-            {
-                byte[] bytes = new byte[64];
-                ClientStream.Read(bytes, 0, bytes.Length);
-                builder.Append(Encoding.Default.GetString(bytes));
+            short Size = 0;
+            byte[] SizeBytes = new byte[2];
+            ClientStream.Read(SizeBytes, 0, 2);
+            Size = BitConverter.ToInt16(SizeBytes,0);
+            Console.WriteLine("Пришёл пакет размером :" + SizeBytes.Length);
 
-            } while (ClientStream.DataAvailable);
+            byte[] bytes = new byte[Size];
+            ClientStream.Read(bytes, 0, bytes.Length);
+            builder.Append(Encoding.Default.GetString(bytes));
             string str = builder.ToString().TrimEnd('\0');        
             pkg = XamlReader.Parse(str) as Package;
             return pkg;                            
@@ -51,9 +53,13 @@ namespace Gwent_Server
         
        public void SendMessage(Package pkg)
         {
-            string Str = XamlWriter.Save(pkg) + "\0";
-            byte[] buff = Encoding.Default.GetBytes(Str);
+            string Str = XamlWriter.Save(pkg);
+            byte[] buff = Encoding.Default.GetBytes(Str);           
+            short Size = (short)buff.Length;
+            byte[] BSize = BitConverter.GetBytes(Size);
+            ClientStream.Write(BSize, 0, BSize.Length);
             ClientStream.Write(buff, 0, buff.Length);
+            Console.WriteLine("Отправлен пакет размером :" + Size);
         }
 
         public void Dispose()

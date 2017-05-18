@@ -7,5 +7,4 @@ C:\Users\NotePad.by\Documents\GitHub\DevSoft\Gwent\GwentCard\bin\Debug\GwentCard
 C:\Users\NotePad.by\Documents\GitHub\DevSoft\Gwent\GwentCard\obj\Debug\GwentCard.csprojResolveAssemblyReference.cache
 C:\Users\NotePad.by\Documents\GitHub\DevSoft\Gwent\GwentCard\obj\Debug\GwentCard.dll
 C:\Users\NotePad.by\Documents\GitHub\DevSoft\Gwent\GwentCard\obj\Debug\GwentCard.pdb
-C:\Users\Ilya\Documents\GitHub\DevSoft\Gwent\GwentCard\bin\Debug\GwentCard.dll.config
 C:\Users\Ilya\Documents\GitHub\DevSoft\Gwent\GwentCard\obj\Debug\GwentCard.csprojResolveAssemblyReference.cache

@@ -28,17 +28,29 @@ namespace Gwent
         private List<Grid> LinesGrids { get; set; }
         private List<Border> LinesBorder { get; set; }
         private DispatcherTimer timer = new DispatcherTimer();
-        public Battlefield()
+        private delegate void BindDelegatesHandler(UIElement Element);
+
+
+        public Battlefield(Battleground Battle)
         {
             InitializeComponent();
+            Battlegrnd = Battle;
+            Battlegrnd.LineCardsChanged += CardsChanged;
+            Battlegrnd.ShowNotificationMessage += ShowNotificationMessage;
+            Battlegrnd.BattleEnd += EndBattle;
+            Battlegrnd.InHandCardsAdded += AddedToInHandCards;
+            Battlegrnd.OponentPassed += OponentPassed;
+            Battlegrnd.SyncCommandArived += Sync;
+            Battlegrnd.PlayGroundGrid = grdPlayGround;       
+            Battlegrnd.Control = this;
+            Battlegrnd.PlayGroundGrid.IsEnabled = false; 
             timer.Tick += timerTick;
             timer.Interval = TimeSpan.FromMilliseconds(3000);
             LinesGrids = new List<Grid>();
             LinesBorder = new List<Border>();
             InitLineGrids(LinesGrids);
             InitLineBorders(LinesBorder);
-            BindBorderDelegates(LinesBorder);
-                       
+            BindBorderDelegates(LinesBorder);                              
         }
 
         private void InitLineBorders(List<Border> Borders)
@@ -91,9 +103,14 @@ namespace Gwent
                     {
                         (Card as IPlaceable).PlaceCard(Battlegrnd);                     
                     }
-                                                        
-                }
-                Battlegrnd.SelectedCardID = -1;    
+                    else
+                    {
+
+                    }
+                    Battlegrnd.SelectedCardID = -1;
+                    Battlegrnd.AffectedCardID = -1;
+                    Battlegrnd.EndTurn();
+                }            
             }            
         }
 
@@ -103,11 +120,7 @@ namespace Gwent
             grdInHandCards.ColumnDefinitions.Clear();
             foreach (GwentCard Card in Battlegrnd.InHandCards)
             {
-                AddNewCardToGrid(Card, grdInHandCards);
-            }
-            foreach (UIElement Element in grdInHandCards.Children)
-            {
-                Element.MouseLeftButtonUp += Mouse_LeftButtonUp;
+                AddNewCardToGrid(Card, grdInHandCards, BindInHandCardsDelegates);
             }
         }
 
@@ -191,17 +204,10 @@ namespace Gwent
             LinesGrids.Add(grdLine6);
         }
 
-        public void InitBattle(Battleground Battlegrnd)
+        public void InitBattle()
         {
-            this.Battlegrnd = Battlegrnd;
-            Battlegrnd.InitStrength(Battlegrnd.UserCards);
-            Battlegrnd.LineCardsChanged += CardsChanged;
-            Battlegrnd.ShowNotificationMessage += ShowNotificationMessage;
-            Battlegrnd.BattleEnd += EndBattle;
-            Battlegrnd.InHandCardsAdded += AddedToInHandCards;
-            Battlegrnd.PlayGroundGrid = grdPlayGround;
-            Battlegrnd.Control = this;
-            Battlegrnd.PlayGroundGrid.IsEnabled = false;
+            grdInHandCards.IsEnabled = false;
+            Battlegrnd.InitStrength(Battlegrnd.UserCards);              
             Connection net = new Connection();
             Battlegrnd.Net = net;
             Battlegrnd.SplitUserCards(Battlegrnd.UserCards);
@@ -210,6 +216,7 @@ namespace Gwent
             net.battlegnd = Battlegrnd;
             net.InitConnection();
             lblInDeckCards.Content = Battlegrnd.InStackCards.Count;
+            lblInHandCardCount.Content = Battlegrnd.InHandCards.Count;
             ShowNotificationMessage("Ожидание подключения соперника");                            
         }
 
@@ -219,12 +226,25 @@ namespace Gwent
             LinesGrids[Line - 1].RowDefinitions.Clear();
             foreach(GwentCard Card in Battlegrnd.Lines[Line-1])
             {
-                AddNewCardToGrid(Card, LinesGrids[Line - 1]);
+                AddNewCardToGrid(Card, LinesGrids[Line - 1], BindLineCardsDelegates);
             }
             RecalcStrength(Line);
         }
 
-        private void AddNewCardToGrid(GwentCard Card, Grid Grid)
+        private void BindLineCardsDelegates(UIElement Element)
+        {
+            Element.MouseEnter += Mouse_EnterLineCard;
+            Element.MouseLeave += Mouse_LeaveLineCard;
+        }
+
+        private void BindInHandCardsDelegates(UIElement Element)
+        {
+            Element.MouseEnter += Mouse_EnterInHandCard;
+            Element.MouseLeave += Mouse_LeaveInHandCard;
+            Element.MouseLeftButtonUp += Mouse_LeftButtonUp;
+        }
+
+        private void AddNewCardToGrid(GwentCard Card, Grid Grid, BindDelegatesHandler BindDelegates)
         {
             BitmapImage bti = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + Card.ToBattleImgPath, UriKind.Absolute));
             Image img = new Image()
@@ -258,7 +278,7 @@ namespace Gwent
         private void ShowNotificationMessage(string Message)
         {
 
-            lblNotification.Content = Message;
+            tbNotification.Text = Message;
             grdNotification.Visibility = Visibility.Visible;
             timer.Start();
 
@@ -269,13 +289,6 @@ namespace Gwent
             timer.Stop();
             grdNotification.Visibility = Visibility.Hidden;           
         }
-
-        private void BindDelegates(UIElement element)
-        {
-            element.MouseEnter += Mouse_Enter;
-            element.MouseLeave += Mouse_Leave;          
-        }
-
         private int GetGridChildrenIndex(UIElement Element)
         {
             foreach(Grid grd in LinesGrids)
@@ -289,15 +302,44 @@ namespace Gwent
             return -1;
         }
 
-        private void Mouse_Enter(object sender, RoutedEventArgs args)
-        {
-            UIElement element = sender as UIElement;
-            Battlegrnd.AffectedCardID = GetGridChildrenIndex(element);
+        private void ZoomInAnimation(UIElement element)
+        {                    
             ScaleTransform scTransform = new ScaleTransform();
             DoubleAnimation anim = new DoubleAnimation(0.9, 1, TimeSpan.FromMilliseconds(100));
             scTransform.BeginAnimation(ScaleTransform.ScaleXProperty, anim);
             scTransform.BeginAnimation(ScaleTransform.ScaleYProperty, anim);
             element.RenderTransform = scTransform;
+        }
+
+        private void ZoomOutAnimation(UIElement element)
+        {            
+            ScaleTransform scTransform = new ScaleTransform();
+            DoubleAnimation anim = new DoubleAnimation(1, 0.9, TimeSpan.FromMilliseconds(100));
+            scTransform.BeginAnimation(ScaleTransform.ScaleXProperty, anim);
+            scTransform.BeginAnimation(ScaleTransform.ScaleYProperty, anim);
+            element.RenderTransform = scTransform;
+        }
+
+        private void Mouse_EnterLineCard(object sender, RoutedEventArgs args)
+        {
+            UIElement element = sender as UIElement;
+            Battlegrnd.AffectedCardID = GetGridChildrenIndex(element);
+            ZoomInAnimation(element);
+        }
+
+        private void Mouse_LeaveLineCard(object sender, RoutedEventArgs args)
+        {
+            UIElement element = sender as UIElement;
+            Battlegrnd.AffectedCardID = -1;
+            ZoomOutAnimation(element);
+        }
+
+
+        private void Mouse_EnterInHandCard(object sender, RoutedEventArgs args)
+        {
+            UIElement element = sender as UIElement;
+            
+            ZoomInAnimation(element);
             element.Effect = new DropShadowEffect()
             {
                 Color = Colors.Yellow,
@@ -306,15 +348,11 @@ namespace Gwent
             };
         }
 
-        private void Mouse_Leave(object sender, RoutedEventArgs args)
+        private void Mouse_LeaveInHandCard(object sender, RoutedEventArgs args)
         {
             UIElement element = sender as UIElement;
-            Battlegrnd.AffectedCardID = -1;
-            ScaleTransform scTransform = new ScaleTransform();
-            DoubleAnimation anim = new DoubleAnimation(1, 0.9, TimeSpan.FromMilliseconds(100));
-            scTransform.BeginAnimation(ScaleTransform.ScaleXProperty, anim);
-            scTransform.BeginAnimation(ScaleTransform.ScaleYProperty, anim);
-            element.RenderTransform = scTransform;
+           
+            ZoomOutAnimation(element);
             if (Battlegrnd.SelectedCardID != grdInHandCards.Children.IndexOf(element)) element.Effect = null;
         }      
 
@@ -322,6 +360,26 @@ namespace Gwent
         {
             UIElement element = obj as UIElement;
             Battlegrnd.SelectedCardID = grdInHandCards.Children.IndexOf(element);
+            foreach (UIElement CurrElem in grdInHandCards.Children)
+            {
+                if (CurrElem != element)
+                {
+                    CurrElem.Effect = null;
+                }
+            }
+        }
+
+        private void OponentPassed()
+        {
+            lblOponentPassed.Visibility = Visibility.Visible;
+        }
+
+        public void StratNewRound()
+        {
+            foreach (Grid Grid in LinesGrids)
+            {
+                Grid.Children.Clear();
+            }
         }
 
         private void AddToGrid(Grid grid, UIElement Element)
@@ -334,7 +392,6 @@ namespace Gwent
             }
             Grid.SetColumn(Element, grid.Children.Count);
             grid.Children.Add(Element);
-
         }
 
         private void EndBattle()
@@ -352,6 +409,25 @@ namespace Gwent
             }
             grdInHandCards.Children.Clear();
           
+        }
+
+        public void Sync(string OpScope,
+            string OpInStackCardCount, string OpInHandCardCount)
+        {
+            lblOponentCardsPower.Content = OpScope;
+            lblOponentInDeckCards.Content = OpInStackCardCount;
+            lblOponentInHandCardCount.Content = OpInHandCardCount;
+        }
+        private void btnPassGame_Click(object sender, RoutedEventArgs e)
+        {
+            Battlegrnd.Net.SendPassedCommand();
+            Battlegrnd.EndTurn();
+        }
+
+        private void btnLeaveGame_Click(object sender, RoutedEventArgs e)
+        {
+            Battlegrnd.Net.SendLeaveCommand();
+            Battlegrnd.EndBattle();
         }
     }
 }

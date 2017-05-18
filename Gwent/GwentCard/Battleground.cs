@@ -36,7 +36,14 @@ namespace nGwentCard
 
         public delegate void MessageStateHandler(string Message);
         public event MessageStateHandler ShowNotificationMessage;
-            
+
+        public delegate void SyncCommandHandler(string OpScope, 
+            string OpInStackCardCount, string OpInHandCardCount);
+        public event SyncCommandHandler SyncCommandArived;
+
+        public delegate void PassHandler();
+        public event PassHandler OponentPassed;    
+
         public int OponentStackCardCount { get; set; }
         public int OponentInHandCardCount { get; set; }
         public int OponentCardPower { get; set; }
@@ -60,9 +67,21 @@ namespace nGwentCard
             AffectedCardID = -1;
         }
 
+        public void Passed()
+        {
+            OponentPassed();
+        }
+
+
         public void ShowNotMessage(string Message)
         {
             ShowNotificationMessage(Message);
+        }
+
+        public void Sync(string OpScope,
+            string OpInStackCardCount, string OpInHandCardCount)
+        {
+            SyncCommandArived(OpScope, OpInStackCardCount, OpInHandCardCount);
         }
 
         public void GetInHandCards()
@@ -131,40 +150,44 @@ namespace nGwentCard
         public void AddToLine(int Line, GwentCard Card)
         {
             Lines[Line-1].Add(Card);
+            Net.SendSimpleCommand(this.AffectedCardID, Card.CardID, Card.IsSpecialAbilitiPerformed, false);
             LineCardsChanged(Line);
         }
 
         public void InsertToLine(int Line, int Ind, GwentCard Card)
         {
             Lines[Line - 1].Insert(Ind, Card);
+            Net.SendSimpleCommand(this.AffectedCardID, Card.CardID, Card.IsSpecialAbilitiPerformed, false);
             LineCardsChanged(Line);
         }
 
         public void RemoveFromLine(int Line, GwentCard Card)
         {
             Lines[Line - 1].Remove(Card);
+            Net.SendSimpleCommand(this.AffectedCardID, Card.CardID, Card.IsSpecialAbilitiPerformed, true);
             LineCardsChanged(Line);
         }
 
-        public void PerformSpecialAbility(int CardID)
+        public void EndTurn()
         {
-            foreach (GwentCard Card in AllCards)
-            {
-                if (Card.CardID == CardID)
-                {
-                    Card.PerformSpecialAbility(this);
-                }
-            }
+            Net.SendSyncCommand();
+            Net.SendEndTurnCommand();
+        }
+
+        public void RightEndBattle()
+        {
+            Net.SendLeaveCommand();
+            EndBattle();
         }
 
         public void EndBattle()
         {
-            this.Net.CloseConnection();
+            if (Net != null) this.Net.CloseConnection();
             this.InHandCards.Clear();
             this.InStackCards.Clear();
             this.UsedCards.Clear();          
             this.Lines.Clear();
-            BattleEnd();
+            if (Control != null) BattleEnd();
         }
     }
 }

@@ -51,25 +51,29 @@ namespace nGwentCard
         {
            try
            {
+            
                 IsConnectionAlive = true;        
                 while(IsConnectionAlive)
                 {
                     Package pkg = new Package();            
                     StringBuilder builder = new StringBuilder();
-                    do
-                    {
-                        byte[] bytes = new byte[64];
-                        stream.Read(bytes, 0, bytes.Length);
-                        builder.Append(Encoding.Default.GetString(bytes));
-
-                    } while (stream.DataAvailable);
+                    short Size = 0;
+                    byte[] SizeBytes = new byte[2];
+                    stream.Read(SizeBytes, 0, 2);                    
+                    Size = BitConverter.ToInt16(SizeBytes,0);
+                    byte[] bytes = new byte[Size];
+                    stream.Read(bytes, 0, bytes.Length);
+                    builder.Append(Encoding.Default.GetString(bytes));
                     string str = builder.ToString().TrimEnd('\0');
-
                     pkg = XamlReader.Parse(str) as Package;
                     ProcessPackage(pkg, battlegnd);
                 }
                 stream.Close();
                 client.Close();
+                
+            }
+            catch (ThreadAbortException ex)
+            {
             }
             catch (Exception ex)
             {         
@@ -83,9 +87,9 @@ namespace nGwentCard
 
         public void CloseConnection()
         {
-            if (stream != null) stream.Close();
-            if (client != null) client.Close();
             if (receiveThread != null) receiveThread.Abort();
+            if (stream != null) stream.Close();
+            if (client != null) client.Close();         
         }
 
         private void ProcessPackage(Package pkg,Battleground battlegnd)
@@ -105,16 +109,15 @@ namespace nGwentCard
 
         private void ProcessSimple(Package pkg, ISimple Simple)
         {
-            battlegnd.SelectedCardID = Simple.SelectedCardID;
-            battlegnd.AffectedCardID = Simple.EffectedCardID;
-            battlegnd.PerformSpecialAbility(Simple.SelectedCardID);
+            
+            
             SendGoodCommand();
         }
 
         private void SendGoodCommand()
         {
             NetCommandPackage GoodPkg = new NetCommandPackage();
-            GoodPkg.Command = ConfigurationManager.AppSettings["StartGameCommand"];
+            GoodPkg.Command = ConfigurationManager.AppSettings["IsGood"];
             SendMessage(GoodPkg);
         }
 
@@ -128,15 +131,18 @@ namespace nGwentCard
                 SyncPackage.InDeckCardCount = battlegnd.InHandCards.Count;
                 SyncPackage.InHandCardCount = battlegnd.InStackCards.Count;
                 SyncPackage.Scope = battlegnd.UserCardsPower;
-
-
                 SendMessage(SyncPackage);
             }
             else if (Command.Command == ConfigurationManager.AppSettings["SyncGameCommand"])
             {
-                battlegnd.OponentInHandCardCount = pkg.InHandCardCount;
-                battlegnd.OponentStackCardCount = pkg.InDeckCardCount;
-                battlegnd.OponentCardPower = pkg.Scope;
+                battlegnd.Control.Dispatcher.Invoke(() =>
+                {
+                    battlegnd.OponentInHandCardCount = pkg.InHandCardCount;
+                    battlegnd.OponentStackCardCount = pkg.InDeckCardCount;
+                    battlegnd.OponentCardPower = pkg.Scope;
+                    battlegnd.Sync(Convert.ToString(pkg.Scope),
+                        Convert.ToString(pkg.InDeckCardCount), Convert.ToString(pkg.InHandCardCount));
+                });
                 SendGoodCommand();
             }
             else if (Command.Command == ConfigurationManager.AppSettings["TurnWaitGameCommand"])
@@ -156,14 +162,80 @@ namespace nGwentCard
                     battlegnd.PlayGroundGrid.IsEnabled = true;
                 });
                 SendGoodCommand();
-            }                    
+            }
+            else if (Command.Command == ConfigurationManager.AppSettings["ConnectionLost"])
+            {
+                battlegnd.Control.Dispatcher.Invoke(() =>
+                {
+                    MessageBox.Show("Потеряно соединение с другим пользователем, перенаправление в меню...");
+                    battlegnd.EndBattle();
+                });
+            }
+            else if (Command.Command == ConfigurationManager.AppSettings["LeaveGameCommand"])
+            {
+                battlegnd.Control.Dispatcher.Invoke(() =>
+                {
+                    MessageBox.Show("Ваш противник вышел из игры, перенаправление в меню...");
+                    battlegnd.EndBattle();
+                });
+            }
+            else if (Command.Command == ConfigurationManager.AppSettings["LeaveGameCommand"])
+            {
+                battlegnd.Control.Dispatcher.Invoke(() =>
+                {
+                    battlegnd.Passed();
+                });
+            }               
+        }
+
+        public void SendPassedCommand()
+        {
+            NetCommandPackage Passed = new NetCommandPackage();
+            Passed.Command = ConfigurationManager.AppSettings["SyncGameCommand"];
+            SendMessage(Passed);
+        }
+
+        public void SendSyncCommand()
+        {
+            NetCommandPackage Sync = new NetCommandPackage();
+            Sync.Command = ConfigurationManager.AppSettings["SyncGameCommand"];
+            Sync.InDeckCardCount = battlegnd.InStackCards.Count;
+            Sync.Scope = battlegnd.UserCardsPower;
+            Sync.InHandCardCount = battlegnd.InHandCards.Count;
+            SendMessage(Sync);
+        }
+
+        public void SendEndTurnCommand()
+        {
+            NetCommandPackage TurnEnd = new NetCommandPackage();
+            TurnEnd.Command = ConfigurationManager.AppSettings["TurnEndGameCommand"];
+            SendMessage(TurnEnd);
+        }
+
+        public void SendSimpleCommand(int AffectedCardPos, int CardID, bool IsSpAbilitiPerformed, bool IsRemoved)
+        {
+            NetSimplePackage Simple = new NetSimplePackage();
+            Simple.IsRemoved = IsRemoved;
+            Simple.AffectedCardPos = AffectedCardPos;
+            Simple.CardID = CardID;
+            Simple.IsSpecialAbilitiPerformed = IsSpAbilitiPerformed;
+            SendMessage(Simple);
+        }
+
+        public void SendLeaveCommand()
+        {
+            NetCommandPackage Leave = new NetCommandPackage();
+            Leave.Command = ConfigurationManager.AppSettings["LeaveGameCommand"];
+            SendMessage(Leave);
         }
 
         private void SendMessage(Package Message)
         {
-
             string Str = XamlWriter.Save(Message);
             byte[] buff = Encoding.Default.GetBytes(Str);
+            short Size = (short)buff.Length;
+            byte[] BSize = BitConverter.GetBytes(Size);
+            stream.Write(BSize, 0, BSize.Length);
             stream.Write(buff, 0, buff.Length);
 
         }

@@ -260,11 +260,12 @@ namespace Gwent
             net.battlegnd = Battlegrnd;
             net.InitConnection();
             lblPassed.Visibility = Visibility.Hidden;
-            lblPassed.Visibility = Visibility.Hidden;
+            lblOponentPassed.Visibility = Visibility.Hidden;
             InitLables();
             lblOponentCardsPower.Content = 0;
             lblOponentInDeckCards.Content = 0;
             lblOponentInHandCardCount.Content = 0;
+            Battlegrnd.UserCardsPower = 0;
             ShowNotificationMessage("Ожидание подключения соперника");                            
         }
 

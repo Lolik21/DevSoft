@@ -122,7 +122,8 @@ namespace nGwentCard
 
         public void EndRound()
         {
-            foreach(List<GwentCard> Cards in Lines)
+            this.UserCardsPower = 0;
+            foreach (List<GwentCard> Cards in Lines)
             {
                 foreach (GwentCard Card in Cards)
                 {

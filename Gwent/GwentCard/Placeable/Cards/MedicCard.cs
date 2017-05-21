@@ -16,7 +16,7 @@ namespace nGwentCard
 
                 List<PlaceableCard> PlaceableCards = new List<PlaceableCard>();
 
-                foreach (GwentCard Card in Battleground.InStackCards)
+                foreach (GwentCard Card in Battleground.UsedCards)
                 {
                     if (Card is IPlaceable && !(Card.Invinsible))
                     {
@@ -27,7 +27,7 @@ namespace nGwentCard
                 if (PlaceableCards.Count != 0)
                 {
                     int RandomNumber = rnd.Next(PlaceableCards.Count);
-                    Battleground.InStackCards.Remove(PlaceableCards[RandomNumber]);
+                    Battleground.UsedCards.Remove(PlaceableCards[RandomNumber]);
                     PlaceableCards[RandomNumber].PlaceCard(Battleground);                
                 }
                 PlaceableCards.Clear();

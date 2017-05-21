@@ -1,21 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Effects;
-using System.IO;
 using System.Windows.Markup;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using nGwentCard;
 
 namespace Gwent
@@ -42,7 +33,7 @@ namespace Gwent
         {
             AllCards = Cards;
             List<Image> LeftImages = InitFractionCards(AllCards);
-            lblFraction.Content = Fractions[CurrFractionID - 1];                    
+            lblFraction.Content = Fractions[CurrFractionID - 1].Name;                    
             foreach (Image img in LeftImages)
             {
                 AddToGrid(grdAllCards, img);
@@ -53,12 +44,13 @@ namespace Gwent
         {
             if (UserCardsCount < 22 || UserCardsCount > 32)
             {
-                MessageBox.Show("Вы выбрали недопустимое количество карт\n"+
-                    "Карт должно быть не менее 22 и не более 32\n"+
-                    "Вы не сможете играть с неверны м колиеством карт",
+                MessageBox.Show("Вы выбрали недопустимое количество карт: \n"+
+                    "Карт должно быть не менее 22 и не более 32.\n"+
+                    "Вы не сможете играть с неверным количеством карт!",
                     "Предупреждение",MessageBoxButton.OK,MessageBoxImage.Exclamation);
             }
             battlegnd.UserCards = UserCards;
+            battlegnd.UserCardsCount = UserCardsCount;
             MainWindow.MainGrid.Children[MainWindow.MainGrid.Children.IndexOf(MainWindow.Chouse)].Visibility = Visibility.Collapsed;
             MainWindow.MainGrid.Children[MainWindow.MainGrid.Children.IndexOf(MainWindow.Menu)].Visibility = Visibility.Visible;
         }
@@ -320,7 +312,7 @@ namespace Gwent
             }           
             else
             {
-                lblCardsCount.Foreground = Brushes.White;
+                lblCardsCount.Foreground = Brushes.Green;
             }
             lblCardsCount.Content = Value;
         }

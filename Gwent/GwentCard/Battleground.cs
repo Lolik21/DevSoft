@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls;
-using System.IO;
 using System.Windows.Markup;
 
 
@@ -24,6 +20,9 @@ namespace nGwentCard
         public Connection Net { get; set; }
         public UserControl Control { get; set; }
         public int UserCardsPower { get; set; }
+        public int UserCardsCount { get; set; }
+        public List<GwentCard> OponentUsedCards { get; set; }
+
 
         public delegate void BattleEndHandler();
         public event BattleEndHandler BattleEnd;
@@ -40,6 +39,11 @@ namespace nGwentCard
         public delegate void WeatherCardHandler();
         public event WeatherCardHandler WeatherChanged;
 
+        public delegate void UsedCardChangedHandler();
+        public event UsedCardChangedHandler UsedCardsChanged;
+        public event UsedCardChangedHandler OponentUsedCardsChanged;
+
+
         public delegate void MessageStateHandler(string Message);
         public event MessageStateHandler ShowNotificationMessage;
 
@@ -49,10 +53,6 @@ namespace nGwentCard
 
         public delegate void PassHandler();
         public event PassHandler OponentPassed;    
-
-        public int OponentStackCardCount { get; set; }
-        public int OponentInHandCardCount { get; set; }
-        public int OponentCardPower { get; set; }
 
         public bool IsUserTurn { get; set; }
 
@@ -66,6 +66,7 @@ namespace nGwentCard
             InHandCards = new List<GwentCard>();
             InStackCards = new List<GwentCard>();
             CurrWeatherCard = new List<GwentCard>();
+            OponentUsedCards = new List<GwentCard>();
             Lines = new List<List<GwentCard>>();
             for (int i = 0; i < 6; i++)
             {
@@ -75,9 +76,26 @@ namespace nGwentCard
             AffectedCardID = -1;
         }
 
+        public void UserUsedCardsChanged()
+        {
+            UsedCardsChanged();
+        }
+
+        public void OponentUsedCardsChangedTrigger()
+        {
+            OponentUsedCardsChanged();
+        }
+
         public void AddWeatherCard(GwentCard AddingCard)
         {
             bool IsAlreadyIn = false;
+
+            if (this.IsUserTurn)
+            {
+                Net.SendSimpleCommand(this.AffectedCardID, AddingCard.CardLine, 
+                    AddingCard.CardID, AddingCard.IsSpecialAbilitiPerformed, false, false);
+            }
+
             foreach (GwentCard Card in CurrWeatherCard)
             {
                 if (AddingCard.CardID == Card.CardID)
@@ -106,8 +124,22 @@ namespace nGwentCard
         {
             foreach(List<GwentCard> Cards in Lines)
             {
+                foreach (GwentCard Card in Cards)
+                {
+                    if (Card.CardLine > 3)
+                    {
+                        OponentUsedCards.Add(Card);
+                    }
+                    else
+                    {
+                        UsedCards.Add(Card);
+                    }
+                }
                 Cards.Clear();
             }
+            OponentUsedCardsChanged();
+            UsedCardsChanged();
+            this.UserCardsPower = 0;
             RoundEnded();
         }
 
@@ -197,7 +229,7 @@ namespace nGwentCard
         {
             Lines[Line-1].Add(Card);
             if (IsUserTurn)
-                Net.SendSimpleCommand(this.AffectedCardID, Card.CardID, Card.IsSpecialAbilitiPerformed, false);
+                Net.SendSimpleCommand(this.AffectedCardID,Line ,Card.CardID, Card.IsSpecialAbilitiPerformed, false, false);
             LineCardsChanged(Line);
         }
 
@@ -205,15 +237,42 @@ namespace nGwentCard
         {
             Lines[Line - 1].Insert(Ind, Card);
             if (IsUserTurn)
-                Net.SendSimpleCommand(this.AffectedCardID, Card.CardID, Card.IsSpecialAbilitiPerformed, false);
+                Net.SendSimpleCommand(this.AffectedCardID, Line, Card.CardID, Card.IsSpecialAbilitiPerformed, false, false);
             LineCardsChanged(Line);
         }
 
-        public void RemoveFromLine(int Line, GwentCard Card)
+        private int GetInd(GwentCard Card, List<GwentCard> Cards)
         {
-            Lines[Line - 1].Remove(Card);
+            foreach (GwentCard CurrCard in Cards)
+            {
+                if (CurrCard.CardID == Card.CardID) return Cards.IndexOf(CurrCard);
+            }
+            return -1;
+        }
+
+        public void RemoveFromLine(int Line, GwentCard Card, bool IsToUsed)
+        {
+            int Ind = GetInd(Card, Lines[Line - 1]);
+            Lines[Line - 1].RemoveAt(Ind);
             if (IsUserTurn)
-                Net.SendSimpleCommand(this.AffectedCardID, Card.CardID, Card.IsSpecialAbilitiPerformed, true);
+                Net.SendSimpleCommand(this.AffectedCardID, Line, Card.CardID, 
+                    Card.IsSpecialAbilitiPerformed, true, IsToUsed);
+            if (this.IsUserTurn)
+            {
+                if (IsToUsed)
+                {
+                    UsedCards.Add(Card);
+                    UsedCardsChanged();
+                }       
+            }
+            else
+            {
+                if (IsToUsed)
+                {
+                    OponentUsedCards.Add(Card);
+                    OponentUsedCardsChanged();
+                }               
+            }
             LineCardsChanged(Line);
         }
 
@@ -244,31 +303,36 @@ namespace nGwentCard
         public void CardArived(ISimple SimpleCard)
         {
             this.AffectedCardID = SimpleCard.AffectedCardPos;
-            GwentCard Card = GetCardByID(SimpleCard.CardID);
-            int Line = Card.CardLine;
-            Card.CardLine = (Card.CardLine + 3);
-            if (Card.CardLine > 6)
-            {
-                Card.CardLine = Card.CardLine % 6;
-            }
-
+            GwentCard FindedCard = GetCardByID(SimpleCard.CardID);
+            GwentCard Card = CopyGwentCard(FindedCard);       
             Card.IsSpecialAbilitiPerformed = Card.WhenSendIsPerformed;
+            PlaceFindedCard(Card, SimpleCard);
+        }
+
+        public void PlaceFindedCard(GwentCard Card, ISimple SimpleCard)
+        {
             if (Card is IPlaceable)
             {
+                Card.CardLine = (SimpleCard.CardLine + 3);
+                if (Card.CardLine > 6)
+                {
+                    Card.CardLine = Card.CardLine % 6;
+                }
                 if (!SimpleCard.IsRemoved)
                 {
                     (Card as IPlaceable).PlaceCard(this);
                 }
                 else
                 {
-                    RemoveFromLine(Card.CardLine, Card);
-                }               
+                    RemoveFromLine(Card.CardLine, Card, SimpleCard.IsToUsed);
+                }
             }
             else
             {
                 AddWeatherCard(Card);
             }
-            Card.CardLine = Line;
+            this.SelectedCardID = -1;
+            this.AffectedCardID = -1;
         }
 
         public void EndBattle()
@@ -276,8 +340,13 @@ namespace nGwentCard
             if (Net != null) this.Net.CloseConnection();
             this.InHandCards.Clear();
             this.InStackCards.Clear();
-            this.UsedCards.Clear();          
-            this.Lines.Clear();
+            this.UsedCards.Clear();
+            this.OponentUsedCards.Clear();
+            this.CurrWeatherCard.Clear();                    
+            foreach (List<GwentCard> List in Lines)
+            {
+                List.Clear();
+            }
             if (Control != null) BattleEnd();
         }
     }

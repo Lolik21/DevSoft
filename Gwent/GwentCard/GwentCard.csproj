@@ -51,6 +51,7 @@
     <Compile Include="Connection.cs" />
     <Compile Include="FractionInfo.cs" />
     <Compile Include="ImpactCards\Iimpact.cs" />
+    <Compile Include="MediaDirector.cs" />
     <Compile Include="NonPlaceable\ClearSkyCard.cs" />
     <Compile Include="NonPlaceable\WeatherCard.cs" />
     <Compile Include="Packages\ICommandable.cs" />

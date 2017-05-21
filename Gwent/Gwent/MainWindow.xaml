@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:Gwent"
         mc:Ignorable="d" Background="#202020"
              RenderOptions.BitmapScalingMode="HighQuality" WindowStartupLocation="CenterScreen"
-        Title="Gwent" Height="720" Width="1280" Loaded="Window_Loaded" Closed="Window_Closed">
+        Title="Gwent" Height="720" Width="1280" Loaded="Window_Loaded" Closed="Window_Closed" Icon="Resources/dice.ico">
+
     <Grid x:Name="MainGrid">
-        
     </Grid>
 </Window>

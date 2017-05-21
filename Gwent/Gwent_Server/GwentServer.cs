@@ -119,6 +119,7 @@ namespace Gwent_Server
                     {
                         SendToClient(Clients[WhoIsTerm], TurnStart);
                         SendToClient(Clients[NextIsTerm], TurnWait);
+                        Clients[WhoIsTerm].IsTurnEnd = false;
                         ClientTurn(Clients, WhoIsTerm, NextIsTerm);
                     }                                 
                     WhoIsTerm = NextIsTerm;
@@ -129,6 +130,8 @@ namespace Gwent_Server
                         int WhoLost = (WhoWin + 1) % 2;                       
                         Clients[WhoLost].Health--;
                         ProccesRoundRezults(Clients, WhoWin, WhoLost);
+                        WhoIsTerm = WhoWin;
+                        NextIsTerm = WhoLost;
                         Clients[WhoLost].IsPassed = false;
                         Clients[WhoWin].IsPassed = false;
                     }                    
@@ -168,7 +171,8 @@ namespace Gwent_Server
             Console.WriteLine("Клиентам отправлено уведосление о начале игры");
             GetSyncResponse(Clients);
             Console.WriteLine("Клиенты Синхронизировались");
-           
+            Clients[WhoIsTerm].Scope = 0;
+            Clients[NextIsTerm].Scope = 0;
         }
 
 
@@ -178,10 +182,10 @@ namespace Gwent_Server
             {
                 NetCommandPackage LostGameCommand = new NetCommandPackage();
                 LostGameCommand.Command = ConfigurationManager.AppSettings["LostGameCommand"];
-                SendToClient(Clients[WhoLost], LostGameCommand);
+                Clients[WhoLost].SendMessage(LostGameCommand);
                 NetCommandPackage WinGameCommand = new NetCommandPackage();
                 WinGameCommand.Command = ConfigurationManager.AppSettings["WinGameCommand"];
-                SendToClient(Clients[WhoWin], WinGameCommand);
+                Clients[WhoWin].SendMessage(WinGameCommand);
                 Clients[WhoWin].IsConnectionLost = true;
                 Clients[WhoLost].IsConnectionLost = true;
 
@@ -205,6 +209,7 @@ namespace Gwent_Server
             {
                 WhoWin = rnd.Next(2);
             }
+            else
             if (Clients[WhoIsTerm].Scope > Clients[NextIsTerm].Scope)
             {
                 WhoWin = WhoIsTerm;

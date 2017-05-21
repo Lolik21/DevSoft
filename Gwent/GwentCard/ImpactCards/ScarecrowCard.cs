@@ -14,9 +14,16 @@ namespace nGwentCard
             if (CardPos != -1)
             {
                 GwentCard Card = Battlegrnd.Lines[CardLine][CardPos];
-                Battlegrnd.RemoveFromLine(CardLine, Card);
-                Battlegrnd.AddToInHandCards(Card);
-                return true;               
+                if (Card.CardLine > 3 || Card.Invinsible)
+                {
+                    return false;
+                }
+                else
+                {
+                    Battlegrnd.RemoveFromLine(Card.CardLine, Card, false);
+                    Battlegrnd.AddToInHandCards(Card);
+                    return true;
+                }                         
             }
             else
             {

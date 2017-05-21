@@ -15,14 +15,16 @@ namespace nGwentCard
                 int LineCardStrength = 0;
                 foreach (PlaceableCard Card in Battleground.Lines[this.CardLine - 1])
                 {
-                    LineCardStrength += Card.CardDefaultStrength;
+                    if (Card.CardID != this.CardID)
+                        LineCardStrength += Card.CardCurrStrength;
                 }
 
                 if (LineCardStrength >= 10)
                 {
                     int Max = 0;
                     List<GwentCard> MaxCards = new List<GwentCard>();
-                    foreach (PlaceableCard OponentCard in Battleground.Lines[(this.CardLine - 1) + 3])
+                    int CurrCardLine = ((this.CardLine - 1) + 3);
+                    foreach (PlaceableCard OponentCard in Battleground.Lines[CurrCardLine])
                     {
                         if (!(OponentCard.Invinsible))
                         {
@@ -30,7 +32,8 @@ namespace nGwentCard
                             {
                                 MaxCards.Clear();
                                 MaxCards.Add(OponentCard);
-                            }
+                                Max = OponentCard.CardCurrStrength;
+                            }else
                             if (OponentCard.CardCurrStrength == Max)
                             {
                                 MaxCards.Add(OponentCard);
@@ -40,7 +43,7 @@ namespace nGwentCard
 
                     foreach (PlaceableCard Card in MaxCards)
                     {
-                        Battleground.RemoveFromLine((this.CardLine - 1) + 3, Card);
+                        Battleground.RemoveFromLine(CurrCardLine + 1, Card, true);
                     }
                     IsSpecialAbilitiPerformed = true;
                 }           

@@ -40,12 +40,11 @@ namespace Gwent_Server
             short Size = 0;
             byte[] SizeBytes = new byte[2];
             ClientStream.Read(SizeBytes, 0, 2);
-            Size = BitConverter.ToInt16(SizeBytes,0);
-            Console.WriteLine("Пришёл пакет размером :" + SizeBytes.Length);
-
-            byte[] bytes = new byte[Size];
-            ClientStream.Read(bytes, 0, bytes.Length);
-            builder.Append(Encoding.Default.GetString(bytes));
+            Size = BitConverter.ToInt16(SizeBytes,0);          
+            byte[] buff = new byte[Size];
+            ClientStream.Read(buff, 0, buff.Length);
+            Console.WriteLine("Пришёл пакет размером :" + buff.Length);
+            builder.Append(Encoding.Default.GetString(buff));
             string str = builder.ToString().TrimEnd('\0');        
             pkg = XamlReader.Parse(str) as Package;
             return pkg;                            
@@ -59,7 +58,7 @@ namespace Gwent_Server
             byte[] BSize = BitConverter.GetBytes(Size);
             ClientStream.Write(BSize, 0, BSize.Length);
             ClientStream.Write(buff, 0, buff.Length);
-            Console.WriteLine("Отправлен пакет размером :" + Size);
+            Console.WriteLine("Отправлен пакет размером :" + buff.Length);
         }
 
         public void Dispose()

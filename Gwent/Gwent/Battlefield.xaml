@@ -58,7 +58,7 @@
                     <RowDefinition Height="124*"/>
                 </Grid.RowDefinitions>
                 <Border Grid.Row="2" Background="#101010" BorderBrush="Black" BorderThickness="1" Margin="30,3,30,3">
-                    <Grid x:Name="grdWeather" HorizontalAlignment="Center" Margin="3">
+                    <Grid x:Name="grdWeather" HorizontalAlignment="Center" Margin="1">
 
                     </Grid>
                 </Border>
@@ -78,18 +78,22 @@
                     <RowDefinition />
                     <RowDefinition />
                 </Grid.RowDefinitions>
-                <Border Grid.Row="4" Background="#101010" BorderBrush="Black" BorderThickness="1" Margin="25,10,25,10">
+
+                <Grid Grid.Row="4" Margin="25,10,25,10">
+                    <Image x:Name="imgUserStack" Stretch="Fill" Source="bin/Debug/Cards/North.png"/>
                     <Label x:Name="lblInDeckCards" VerticalAlignment="Bottom"  HorizontalAlignment="Center" Content="0" FontSize="24" Foreground="White"/>
-                </Border>
+                </Grid>
                 <Border Grid.Row="3" Background="#101010" BorderBrush="Black" BorderThickness="1" Margin="25,10,25,10">
                     <Grid x:Name="grdUserUsedCards"/>
                 </Border>
                 <Border Grid.Row="1" Background="#101010" BorderBrush="Black" BorderThickness="1" Margin="25,10,25,10">
                     <Grid x:Name="grdOponentUsedCards"/>
                 </Border>
-                <Border Grid.Row="0" Background="#101010" BorderBrush="Black" BorderThickness="1" Margin="25,10,25,10">
+
+                <Grid Margin="25,10,25,10" Grid.Row="0">
+                    <Image x:Name="imgOponentStack" Stretch="Fill" Source="bin/Debug/Cards/North.png"/>
                     <Label x:Name="lblOponentInDeckCards" VerticalAlignment="Bottom"  HorizontalAlignment="Center" Content="0" FontSize="24" Foreground="White"/>
-                </Border>
+                </Grid>
                 <Grid Grid.Row="2">
                     <Grid.RowDefinitions>
                         <RowDefinition/>
@@ -101,7 +105,7 @@
             </Grid>
         </Grid>
         <Grid x:Name="grdNotification">
-            <TextBlock x:Name="tbNotification" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="60" Foreground="White" Text="" MaxWidth="900" TextWrapping="Wrap"/>
+            <TextBlock x:Name="tbNotification" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="60" Foreground="White" Text="" MaxWidth="900" TextWrapping="Wrap" TextAlignment="Center"/>
         </Grid>
     </Grid>
 

@@ -19,7 +19,7 @@
                 <RowDefinition Height="48*"/>
                 <RowDefinition Height="245*"/>
             </Grid.RowDefinitions>
-            <Ellipse Fill="White" Grid.Column="1" Grid.Row="1"/>
+            <Ellipse x:Name="Ellipse" Fill="White" Grid.Column="1" Grid.Row="1"/>
             <TextBlock x:Name="tbCardPower" Grid.Column="1" Grid.Row="1" Text="5" FontSize="18" FontFamily="Times New Roman" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         </Grid>
 

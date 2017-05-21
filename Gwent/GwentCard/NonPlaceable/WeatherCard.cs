@@ -12,11 +12,13 @@ namespace nGwentCard
         {
             foreach (PlaceableCard Card in Battleground.Lines[this.CardLine-1])
             {
-                Card.CardCurrStrength = 1;
+                if (!Card.Invinsible)
+                    Card.CardCurrStrength = 1;
             }
             foreach (PlaceableCard Card in Battleground.Lines[(this.CardLine - 1) + 3])
             {
-                Card.CardCurrStrength = 1;
+                if (!Card.Invinsible)
+                    Card.CardCurrStrength = 1;
             }
         }
     }

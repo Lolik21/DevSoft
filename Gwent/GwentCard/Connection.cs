@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Configuration;
-using System.Net;
 using System.Net.Sockets;
 using System.Windows.Markup;
 using System.Threading;
 using System.Windows;
-using System.IO;
 
 namespace nGwentCard
 {
@@ -50,8 +45,7 @@ namespace nGwentCard
         private void GetMessages()
         {
            try
-           {
-            
+           {          
                 IsConnectionAlive = true;        
                 while(IsConnectionAlive)
                 {
@@ -139,9 +133,6 @@ namespace nGwentCard
             {
                 battlegnd.Control.Dispatcher.Invoke(() =>
                 {
-                    battlegnd.OponentInHandCardCount = pkg.InHandCardCount;
-                    battlegnd.OponentStackCardCount = pkg.InDeckCardCount;
-                    battlegnd.OponentCardPower = pkg.Scope;
                     battlegnd.Sync(Convert.ToString(pkg.Scope),
                         Convert.ToString(pkg.InDeckCardCount), Convert.ToString(pkg.InHandCardCount));
                 });
@@ -153,7 +144,6 @@ namespace nGwentCard
                 {
                     battlegnd.ShowNotMessage("Ходит ваш опонент, подождите");
                     battlegnd.IsUserTurn = false;
-                    battlegnd.PlayGroundGrid.IsEnabled = false;
                 });
                 SendGoodCommand();
             }
@@ -163,7 +153,6 @@ namespace nGwentCard
                 {
                     battlegnd.ShowNotMessage("Ваш ход");
                     battlegnd.IsUserTurn = true;
-                    battlegnd.PlayGroundGrid.IsEnabled = true;
                 });
                 SendGoodCommand();
             }
@@ -216,7 +205,6 @@ namespace nGwentCard
                     MessageBox.Show("Вы проиграли игру, перенаправление в меню...");
                     battlegnd.EndBattle();
                 });
-                SendGoodCommand();
             }
             else if (Command.Command == ConfigurationManager.AppSettings["WinGameCommand"])
             {
@@ -225,7 +213,6 @@ namespace nGwentCard
                     MessageBox.Show("Вы выиграли игру, перенаправление в меню...");
                     battlegnd.EndBattle();
                 });
-                SendGoodCommand();
             }
         }
 
@@ -253,12 +240,14 @@ namespace nGwentCard
             SendMessage(TurnEnd);
         }
 
-        public void SendSimpleCommand(int AffectedCardPos, int CardID, bool IsSpAbilitiPerformed, bool IsRemoved)
+        public void SendSimpleCommand(int AffectedCardPos,int Line,int CardID, bool IsSpAbilitiPerformed, bool IsRemoved, bool IsToUsed)
         {
             NetSimplePackage Simple = new NetSimplePackage();
             Simple.IsRemoved = IsRemoved;
             Simple.AffectedCardPos = AffectedCardPos;
             Simple.CardID = CardID;
+            Simple.CardLine = Line;
+            Simple.IsToUsed = IsToUsed;
             SendMessage(Simple);
         }
 

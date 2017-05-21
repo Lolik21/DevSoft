@@ -11,6 +11,7 @@ namespace nGwentCard
         public override void PerformSpecialAbility(Battleground Battleground)
         {
             Battleground.CurrWeatherCard.Clear();
+            Battleground.ChangedWeatherTrigger();
         }
     }
 }

@@ -21,22 +21,23 @@ namespace Gwent
     public partial class MainWindow : Window
     {
         private DBLoader Loader = new DBLoader();
-        public Battleground battlegrd;
-        public MainMenu Menu;
-        public ChouseCard Chouse;
-        public Battlefield Battlefield;
+        public Battleground battlegrd { get; set; }
+        public MainMenu Menu { get; set; }
+        public ChouseCard Chouse { get; set; }
+        public Battlefield Battlefield { get; set; }
+        private MediaDirector Media { get; set; }
 
         public MainWindow()
         {
             InitializeComponent();
             battlegrd = new Battleground();
+            Media = new MediaDirector();
             GetMenuControls();
             ChouseCardInit();
-            GetBattleFieldCountrols();
+            GetBattleFieldCountrols();         
             MainGrid.Children[MainGrid.Children.IndexOf(Menu)].Visibility = Visibility.Collapsed;
             MainGrid.Children[MainGrid.Children.IndexOf(Chouse)].Visibility = Visibility.Collapsed;
-            MainGrid.Children[MainGrid.Children.IndexOf(Battlefield)].Visibility = Visibility.Collapsed;
-
+            MainGrid.Children[MainGrid.Children.IndexOf(Battlefield)].Visibility = Visibility.Collapsed;          
         }
         private void GetMenuControls()
         {
@@ -60,11 +61,6 @@ namespace Gwent
             MainGrid.Children.Add(Battlefield);
         }
 
-        private void StartGameInit()
-        {
-            
-        }
-
         private void ChouseCardInit()
         {
             Loader = new DBLoader();
@@ -82,6 +78,7 @@ namespace Gwent
         private void Window_Closed(object sender, EventArgs e)
         {
             battlegrd.EndBattle();
+            Media.Dispose();
         }
     }
 

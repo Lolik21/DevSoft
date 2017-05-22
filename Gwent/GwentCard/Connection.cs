@@ -160,7 +160,7 @@ namespace nGwentCard
             {
                 battlegnd.Control.Dispatcher.Invoke(() =>
                 {
-                    MessageBox.Show("Потеряно соединение с другим пользователем, перенаправление в меню...");
+                    MessageBox.Show("Потеряно соединение с другим пользователем, перенаправление в меню...", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                     battlegnd.EndBattle();
                 });
             }
@@ -168,7 +168,7 @@ namespace nGwentCard
             {
                 battlegnd.Control.Dispatcher.Invoke(() =>
                 {
-                    MessageBox.Show("Ваш противник вышел из игры, перенаправление в меню...");
+                    MessageBox.Show("Ваш противник вышел из игры, перенаправление в меню...", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                     battlegnd.EndBattle();
                 });
             }
@@ -202,7 +202,7 @@ namespace nGwentCard
             {
                 battlegnd.Control.Dispatcher.Invoke(() =>
                 {
-                    MessageBox.Show("Вы проиграли игру, перенаправление в меню...");
+                    MessageBox.Show("Вы проиграли игру, перенаправление в меню...","Сообщение", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                     battlegnd.EndBattle();
                 });
             }
@@ -210,7 +210,7 @@ namespace nGwentCard
             {
                 battlegnd.Control.Dispatcher.Invoke(() =>
                 {
-                    MessageBox.Show("Вы выиграли игру, перенаправление в меню...");
+                    MessageBox.Show("Вы выиграли игру, перенаправление в меню...", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                     battlegnd.EndBattle();
                 });
             }

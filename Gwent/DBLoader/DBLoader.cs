@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using nGwentCard;
+using System.Configuration;
 using MySql.Data.MySqlClient;
 
 namespace nDBLoader
@@ -8,10 +9,10 @@ namespace nDBLoader
     public class DBLoader : IDisposable
     {
         MySqlConnection MySqlDB;
-        const string SERVER_IP = "127.0.0.1";
-        const string DB_NAME = "gwent";
-        const string USER_ID = "root";
-        const string PASSWD = "HelliMomJasdo41631";
+        string SERVER_IP = ConfigurationManager.AppSettings["DBServerIP"];
+        string DB_NAME = ConfigurationManager.AppSettings["DBName"];
+        string USER_ID = ConfigurationManager.AppSettings["DBUser"];
+        string PASSWD = ConfigurationManager.AppSettings["DBUserPasswd"];
         Fabric fab = new Fabric();
         public List<FractionInfo> Fractions = new List<FractionInfo>();       
 

@@ -27,7 +27,6 @@ namespace nGwentCard
                 if (PlaceableCards.Count != 0)
                 {
                     int RandomNumber = rnd.Next(PlaceableCards.Count);
-                    Battleground.UsedCards.Remove(PlaceableCards[RandomNumber]);
                     PlaceableCards[RandomNumber].PlaceCard(Battleground);                
                 }
                 PlaceableCards.Clear();

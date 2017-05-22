@@ -1,0 +1,5 @@
+C:\Users\Ilya\Documents\GitHub\DevSoft\Gwent\GwentCard\bin\Release\GwentCard.dll
+C:\Users\Ilya\Documents\GitHub\DevSoft\Gwent\GwentCard\bin\Release\GwentCard.pdb
+C:\Users\Ilya\Documents\GitHub\DevSoft\Gwent\GwentCard\obj\Release\GwentCard.dll
+C:\Users\Ilya\Documents\GitHub\DevSoft\Gwent\GwentCard\obj\Release\GwentCard.pdb
+C:\Users\Ilya\Documents\GitHub\DevSoft\Gwent\GwentCard\obj\Release\GwentCard.csprojResolveAssemblyReference.cache

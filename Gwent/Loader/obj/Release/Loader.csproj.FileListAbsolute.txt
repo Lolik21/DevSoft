@@ -1,0 +1,6 @@
+C:\Users\Ilya\Documents\GitHub\DevSoft\Gwent\Loader\bin\Release\Loader.exe.config
+C:\Users\Ilya\Documents\GitHub\DevSoft\Gwent\Loader\bin\Release\Loader.exe
+C:\Users\Ilya\Documents\GitHub\DevSoft\Gwent\Loader\bin\Release\Loader.pdb
+C:\Users\Ilya\Documents\GitHub\DevSoft\Gwent\Loader\obj\Release\Loader.csprojResolveAssemblyReference.cache
+C:\Users\Ilya\Documents\GitHub\DevSoft\Gwent\Loader\obj\Release\Loader.exe
+C:\Users\Ilya\Documents\GitHub\DevSoft\Gwent\Loader\obj\Release\Loader.pdb

@@ -1,0 +1,6 @@
+C:\Users\Ilya\Documents\GitHub\DevSoft\ExamTest\ExamTest\bin\Debug\ExamTest.exe.config
+C:\Users\Ilya\Documents\GitHub\DevSoft\ExamTest\ExamTest\bin\Debug\ExamTest.exe
+C:\Users\Ilya\Documents\GitHub\DevSoft\ExamTest\ExamTest\bin\Debug\ExamTest.pdb
+C:\Users\Ilya\Documents\GitHub\DevSoft\ExamTest\ExamTest\obj\Debug\ExamTest.csprojResolveAssemblyReference.cache
+C:\Users\Ilya\Documents\GitHub\DevSoft\ExamTest\ExamTest\obj\Debug\ExamTest.exe
+C:\Users\Ilya\Documents\GitHub\DevSoft\ExamTest\ExamTest\obj\Debug\ExamTest.pdb
